@@ -1,4 +1,4 @@
-work <- function(df) {
+work_integration <- function(df) {
   
   M <- as.matrix(df)
   n <- dim(M)[1] - 1 # Gets the number of intervals in the matrix
