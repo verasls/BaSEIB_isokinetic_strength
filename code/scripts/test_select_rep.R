@@ -36,6 +36,7 @@ for (i in 2:nrow(M)) {
       }
     }
   }
+  idx <- unique(idx)
 }
 
 # Find time points of velocity zero crossings
