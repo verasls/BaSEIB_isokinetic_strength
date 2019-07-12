@@ -5,7 +5,7 @@ source("code/functions/read_strength_data.R")
 
 # Read data ---------------------------------------------------------------
 
-test <- read_strength_data("data/raw/knee/60gs/1st_eval/1st_strength_knee_raw_60g_006.txt")
+test <- read_strength_data("data/raw/knee/60gs/1st_eval/1st_strength_knee_raw_60g_003.txt")
 
 M   <- as.matrix(test)
 
@@ -17,14 +17,15 @@ if (M[1, 5] <= 0) {
 }
 
 # Find zero crossings in velocity signal
-idx <- vector()
-j   <- 1
+idx <- vector() # Indexes of points of division
+j   <- 1        # Index counter
 for (i in 2:nrow(M)) {
-  if (M[i - 1, 5] * M[i, 5] < 0) {
+  if (M[i - 1, 5] * M[i, 5] < 0) { # If product < 0, it means different signs
     idx[j] <- i
     j <- j + 1
   } else {
-    if (M[i - 1, 5] * M[i, 5] == 0) {
+    if (M[i - 1, 5] * M[i, 5] == 0) { # If product is 0, at least one of the velocity values is 0
+      # Mark where velocity is 0 as index
       if (which(M[(i - 1):i, 5] == 0) == 1) {
         idx[j] <- i - 1
         j <- j + 1
@@ -36,7 +37,7 @@ for (i in 2:nrow(M)) {
       }
     }
   }
-  idx <- unique(idx)
+  idx <- na.omit(unique(idx))
 }
 
 # Find time points of velocity zero crossings
