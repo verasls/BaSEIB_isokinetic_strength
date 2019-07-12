@@ -23,6 +23,18 @@ for (i in 2:nrow(M)) {
   if (M[i - 1, 5] * M[i, 5] < 0) {
     idx[j] <- i
     j <- j + 1
+  } else {
+    if (M[i - 1, 5] * M[i, 5] == 0) {
+      if (which(M[(i - 1):i, 5] == 0) == 1) {
+        idx[j] <- i - 1
+        j <- j + 1
+      } else {
+        if (which(M[(i - 1):i, 5] == 0) == 2) {
+          idx[j] <- i
+          j <- j + 1
+        }
+      }
+    }
   }
 }
 
