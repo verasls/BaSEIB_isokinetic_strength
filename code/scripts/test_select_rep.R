@@ -42,15 +42,18 @@ for (i in 2:nrow(M)) {
 }
 
 # Keep only first index value where indices are consecutive
-r <- vector()
-k <- 1
+c <- vector() # Vector indicating where idx values are consecutive
+k <- 1        # Index counter
 for (i in 2:length(idx)) {
   if (idx[i] - idx[i - 1] == 1) {
-    r[k] <- i
+    c[k] <- i
     k <- k + 1
   }
 }
-idx <- idx[- r]
+if (length(c) != 0) {
+  idx <- idx[- c]
+}
+
 
 # ISSUE WHERE VELOCITY VALUES DROP TO 0 BUT THERE IS NO CHANGE IN SIGNAL
 # M[340:360, ]
