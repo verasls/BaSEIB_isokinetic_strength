@@ -7,7 +7,7 @@ source("code/functions/read_strength_data.R")
 
 test <- read_strength_data("data/raw/knee/60gs/1st_eval/1st_strength_knee_raw_60g_003.txt")
 
-M   <- as.matrix(test)
+M <- as.matrix(test)
 
 # Ensure 1st velocity value to be positive
 if (M[1, 5] <= 0) {
@@ -17,7 +17,7 @@ if (M[1, 5] <= 0) {
 }
 
 # Find zero crossings in velocity signal
-idx <- vector() # Indexes of points of division
+idx <- vector() # Division points indices
 j   <- 1        # Index counter
 for (i in 2:nrow(M)) {
   if (M[i - 1, 5] * M[i, 5] < 0) { # If product < 0, it means different signs
@@ -30,6 +30,7 @@ for (i in 2:nrow(M)) {
         idx[j] <- i - 1
         j <- j + 1
       } else {
+        # If more than one value is 0, mark the first as index
         if (which(M[(i - 1):i, 5] == 0) == 2) {
           idx[j] <- i
           j <- j + 1
@@ -39,6 +40,20 @@ for (i in 2:nrow(M)) {
   }
   idx <- na.omit(unique(idx))
 }
+
+# Keep only first index value where indices are consecutive
+r <- vector()
+k <- 1
+for (i in 2:length(idx)) {
+  if (idx[i] - idx[i - 1] == 1) {
+    r[k] <- i
+    k <- k + 1
+  }
+}
+idx <- idx[- r]
+
+# ISSUE WHERE VELOCITY VALUES DROP TO 0 BUT THERE IS NO CHANGE IN SIGNAL
+# M[340:360, ]
 
 # Find time points of velocity zero crossings
 t <- vector()
