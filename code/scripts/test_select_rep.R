@@ -25,15 +25,19 @@ for (i in 2:nrow(M)) {
     j <- j + 1
   } else {
     if (M[i - 1, 5] * M[i, 5] == 0) { # If product is 0, at least one of the velocity values is 0
-      # Mark where velocity is 0 as index
-      if (which(M[(i - 1):i, 5] == 0) == 1) {
+                                      # Mark where velocity is 0 as index
+      if (M[(i - 1), 5] == 0 & M[i, 5] == 0) { # If both values are 0, mark the first
         idx[j] <- i - 1
         j <- j + 1
-      } else {
-        # If more than one value is 0, mark the first as index
-        if (which(M[(i - 1):i, 5] == 0) == 2) {
-          idx[j] <- i
+      } else { # If only one value is 0, mark it
+        if (which(M[(i - 1):i, 5] == 0) == 1) {
+          idx[j] <- i - 1
           j <- j + 1
+        } else {
+          if (which(M[(i - 1):i, 5] == 0) == 2) {
+            idx[j] <- i
+            j <- j + 1
+          }
         }
       }
     }
@@ -54,9 +58,23 @@ if (length(c) != 0) {
   idx <- idx[- c]
 }
 
+# Ensure that idx where velocity is 0 are followed by a sign change
+p <- vector()
+l <- 1
+for (i in 1:length(idx)) { # identify where idx points to velocity 0
+  if (M[idx[i], 5] == 0) {
+    p[l] <- i
+    l <- l + 1
+  }
+}
+for (i in 1:length(p)) {
+  n <- min(which(M[idx[p[i]]:nrow(M), 5] != 0)) + idx[p[i]] - 1 # Find first value after 0
+  if (M[idx[p[i]] - 1, 5] * M[n, 5] > 0) { # If product > 0, it means no sign change
+    idx[i] <- NA 
+  } 
+}
+idx <- idx[!is.na(idx)]
 
-# ISSUE WHERE VELOCITY VALUES DROP TO 0 BUT THERE IS NO CHANGE IN SIGNAL
-# M[340:360, ]
 
 # Find time points of velocity zero crossings
 t <- vector()
@@ -71,4 +89,4 @@ ggplot(data = as_tibble(M)) +
   labs(
     x = "Time (ms)",
     y = expression(Torque~(N*"\U00B7"*m))
-  )
+  ) # put ID and eval as plot title
