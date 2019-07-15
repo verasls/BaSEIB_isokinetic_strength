@@ -5,8 +5,8 @@ source("code/functions/read_strength_data.R")
 
 # Read data ---------------------------------------------------------------
 
-test <- read_strength_data("data/raw/knee/60gs/1st_eval/1st_strength_knee_raw_60g_003.txt")
-
+test <- read_strength_data("data/raw/knee/60gs/1st_eval/1st_strength_knee_raw_60g_005.txt")
+view(M)
 M <- as.matrix(test)
 
 # Ensure 1st velocity value to be positive
@@ -42,8 +42,9 @@ for (i in 2:nrow(M)) {
       }
     }
   }
-  idx <- na.omit(unique(idx))
+  idx <- unique(idx[!is.na(idx)])
 }
+
 
 # Keep only first index value where indices are consecutive
 c <- vector() # Vector indicating where idx values are consecutive
@@ -70,8 +71,8 @@ for (i in 1:length(idx)) { # identify where idx points to velocity 0
 for (i in 1:length(p)) {
   n <- min(which(M[idx[p[i]]:nrow(M), 5] != 0)) + idx[p[i]] - 1 # Find first value after 0
   if (M[idx[p[i]] - 1, 5] * M[n, 5] > 0) { # If product > 0, it means no sign change
-    idx[i] <- NA 
-  } 
+    idx[i] <- NA
+  }
 }
 idx <- idx[!is.na(idx)]
 
