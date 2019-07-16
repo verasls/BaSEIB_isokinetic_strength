@@ -72,7 +72,6 @@ if (length(p) > 0) {
   idx <- idx[!is.na(idx)]
 }
 
-
 # Find time points of velocity zero crossings
 t <- vector()
 for (i in 1:length(idx)) {
