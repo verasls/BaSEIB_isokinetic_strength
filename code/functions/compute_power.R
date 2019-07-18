@@ -1,5 +1,12 @@
 compute_power <- function(df) {
-	
+  # Compute peak and average power (in Watt)
+  #
+  # Args:
+  #   df: a data frame containing isokinetic strength test data
+  #
+  # Returns:
+  #   A vector containing the peak and average power values, respectively
+  
   M <- as.matrix(df)
 	n <- dim(M)[1] - 1 
 	

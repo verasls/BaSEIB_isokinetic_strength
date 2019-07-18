@@ -1,4 +1,12 @@
 find_divisions <- function(file) {
+  # Find division points between half repetitions by zero crossings on the
+  # velocity signal
+  #
+  # Args:
+  #   file: name of the file containing isokinetic strength test data
+  #
+  # Returns:
+  #   A vector containing the row numbers of the division points
   
   source("code/functions/read_strength_data.R")
   
