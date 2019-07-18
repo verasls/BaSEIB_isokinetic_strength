@@ -1,4 +1,4 @@
-plot_divisions <- function(file) {
+plot_divisions <- function(file, show = TRUE) {
  
   require(readr)
   require(stringr)
@@ -82,5 +82,7 @@ plot_divisions <- function(file) {
 
   ggsave(path, plot, width = 9, height = 4)
   
-  return(plot)
+  if (show == TRUE) {
+    return(plot)
+  }
 }
