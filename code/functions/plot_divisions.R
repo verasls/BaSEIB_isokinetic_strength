@@ -91,6 +91,14 @@ plot_divisions <- function(file, show = TRUE) {
 
   ggsave(path, plot, width = 9, height = 4)
   
+  print(
+    str_c(
+      "Saving file: ", 
+      str_sub(file, 30, str_length(file) - 4),
+      "_plot.pdf"
+    )
+  )
+  
   if (show == TRUE) {
     return(plot)
   }
