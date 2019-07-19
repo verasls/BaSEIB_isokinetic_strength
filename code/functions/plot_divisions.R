@@ -41,14 +41,13 @@ plot_divisions <- function(file, show = TRUE) {
     str_sub(file, str_length(file) - 6, str_length(file) - 4),
     " - knee ", 
     if (str_detect(file, "60g")) {
-      "60 g"
+      "60 º"
     } else {
       if (str_detect(file, "180g")) {
-        "180 g"
+        "180 º"
       }
     },
-    "\U00B7",
-    "s" 
+    "/s" 
   )
   
   plot <- ggplot(data = as_tibble(M)) +
@@ -86,7 +85,7 @@ plot_divisions <- function(file, show = TRUE) {
       }
     },
     "plots/",
-    str_sub(file, 29, str_length(file) - 4),
+    str_sub(file, 30, str_length(file) - 4),
     "_plot.pdf"
   )
 
