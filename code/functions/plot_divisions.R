@@ -1,10 +1,11 @@
-plot_divisions <- function(file, show = TRUE) {
+plot_divisions <- function(file, show = TRUE, save = TRUE) {
   # Make a torque x time plot with vertical lines representing the half
   # repetitions division points found by find_divisions() function
   #
   # Args:
   #   file: name of the file containing isokinetic strength test data
   #   show: whether or not to return the ggplot object (default is TRUE)
+  #   save: whether or not to save the plot
   #
   # Returns:
   #   Saves the plot as a pdf file
@@ -89,15 +90,17 @@ plot_divisions <- function(file, show = TRUE) {
     "_plot.pdf"
   )
 
-  ggsave(path, plot, width = 9, height = 4)
-  
-  print(
-    str_c(
-      "Saving file: ", 
-      str_sub(file, 29, str_length(file) - 4),
-      "_plot.pdf"
-    )
-  )
+  if (save == TRUE) {
+    ggsave(path, plot, width = 9, height = 4)
+    
+    print(
+      str_c(
+        "Saving file: ", 
+        str_sub(file, 29, str_length(file) - 4),
+        "_plot.pdf"
+      )
+    ) 
+  }
   
   if (show == TRUE) {
     return(plot)
