@@ -59,25 +59,52 @@ find_divisions <- function(file) {
   }
   
   # Ensure that idx where velocity is 0 are followed by a sign change
-  p <- vector()
+  s <- vector()
   l <- 1
   for (i in 1:length(idx)) { 
     # Identify where idx points to velocity 0
     if (M[idx[i], 5] == 0) {
-      p[l] <- i
+      s[l] <- i
       l <- l + 1
     }
   }
-  if (length(p) > 0) {
-    for (i in 1:length(p)) {
+  if (length(s) > 0) {
+    for (i in 1:length(s)) {
       # Find first value after 0
-      n <- min(which(M[idx[p[i]]:nrow(M), 5] != 0)) + idx[p[i]] - 1 
+      n <- min(which(M[idx[s[i]]:nrow(M), 5] != 0)) + idx[s[i]] - 1 
       # If product > 0, it means no sign change
-      if (M[idx[p[i]] - 1, 5] * M[n, 5] > 0) {
+      if (M[idx[s[i]] - 1, 5] * M[n, 5] > 0) {
         idx[i] <- NA
       }
     }
     idx <- idx[!is.na(idx)]
+  }
+  
+  # Only keep idx value where distance between divisions is at least half a
+  # repetition
+  dist <- round(nrow(M) / (length(idx) * 2))
+  x <- vector()
+  y <- 1
+  for (i in 2:length(idx)) {
+    if (idx[i] - idx[i - 1] < dist) {
+      x[y] <- i
+      y <- y + 1
+    }
+  }
+  if (length(x) == 1) {
+    idx[x] <- NA
+    idx <- idx[!is.na(idx)]
+  } else {
+    if (length(x) > 1) {
+      for (i in 2:length(x)) {
+        if (x[i] - x[i - 1] == 1) {
+          x[i - 1] == NA
+          x <- x[!is.na(x)]
+        }
+      }
+      idx[x] <- NA
+      idx <- idx[!is.na(idx)]
+    }
   }
   
   return(idx)
