@@ -29,6 +29,9 @@ plot_divisions <- function(file, show = TRUE, save = TRUE) {
   
   idx <- find_divisions(file)
   
+  # Exclude region after the last idx
+  M <- M[1:idx[length(idx)], ]
+  
   # Find time points of velocity zero crossings
   t <- vector()
   for (i in 1:length(idx)) {
