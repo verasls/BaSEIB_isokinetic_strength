@@ -85,7 +85,7 @@ plot_divisions <- function(file, show = TRUE) {
       }
     },
     "plots/",
-    str_sub(file, 30, str_length(file) - 4),
+    str_sub(file, 29, str_length(file) - 4),
     "_plot.pdf"
   )
 
@@ -94,7 +94,7 @@ plot_divisions <- function(file, show = TRUE) {
   print(
     str_c(
       "Saving file: ", 
-      str_sub(file, 30, str_length(file) - 4),
+      str_sub(file, 29, str_length(file) - 4),
       "_plot.pdf"
     )
   )
