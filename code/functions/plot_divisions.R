@@ -17,8 +17,7 @@ plot_divisions <- function(file, show = TRUE, save = TRUE) {
   source("code/functions/read_strength_data.R")
   source("code/functions/find_divisions.R")
   
-  d <- read_strength_data(file)
-  M <- as.matrix(d)
+  M <- as.matrix(read_strength_data(file))
   
   # Ensure 1st velocity value to be positive
   if (M[1, 5] <= 0) {
