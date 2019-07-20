@@ -6,7 +6,7 @@ source("code/functions/plot_divisions.R")
 
 # Plot divisions for all evals --------------------------------------------
 
-evals <- c("1st_eval/", "2nd_eval/", "3rd_eval/", "4th_eval/")
+evals <- c("1st_eval", "2nd_eval", "3rd_eval", "4th_eval")
 for (e in evals) {
   files_60gs <- list.files(str_c("data/raw/knee/60gs/", e), full.names = TRUE)
   for (i in 1:length(files_60gs)) {
