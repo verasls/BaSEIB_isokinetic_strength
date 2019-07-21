@@ -74,7 +74,7 @@ find_divisions <- function(file) {
       n <- min(which(M[idx[s[i]]:nrow(M), 5] != 0)) + idx[s[i]] - 1 
       # If product > 0, it means no sign change
       if (M[idx[s[i]] - 1, 5] * M[n, 5] > 0) {
-        idx[i] <- NA
+        idx[s[i]] <- NA
       }
     }
     idx <- idx[!is.na(idx)]
