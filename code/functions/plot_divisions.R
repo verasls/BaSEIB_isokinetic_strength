@@ -88,7 +88,13 @@ plot_divisions <- function(file, show = TRUE, save = TRUE) {
       }
     },
     "plots/",
-    str_sub(file, 29, str_length(file) - 4),
+    if (str_detect(file, "60g")) {
+      str_sub(file, 29, str_length(file) - 4)
+    } else {
+      if (str_detect(file, "180g")) {
+        str_sub(file, 30, str_length(file) - 4)
+      }
+    },
     "_plot.pdf"
   )
 
@@ -97,8 +103,14 @@ plot_divisions <- function(file, show = TRUE, save = TRUE) {
     
     print(
       str_c(
-        "Saving file: ", 
-        str_sub(file, 29, str_length(file) - 4),
+        "Saving file: ",
+        if (str_detect(file, "60g")) {
+          str_sub(file, 29, str_length(file) - 4)
+        } else {
+          if (str_detect(file, "180g")) {
+            str_sub(file, 30, str_length(file) - 4)
+          }
+        },
         "_plot.pdf"
       )
     ) 
