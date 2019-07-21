@@ -40,7 +40,22 @@ plot_divisions <- function(file, show = TRUE, save = TRUE) {
   # Torque x time plot with half-repetition divisions
   
   title <- str_c(
-    "ID ",
+    if (str_detect(file, "1st")) {
+      "1st eval"
+    } else {
+      if (str_detect(file, "2nd")) {
+        "2nd eval"
+      } else {
+        if (str_detect(file, "3rd")) {
+          "3rd eval"
+        } else {
+          if (str_detect(file, "4th")) {
+            "4th eval"
+          }
+        }
+      }
+    },
+    " ID ",
     str_sub(file, str_length(file) - 6, str_length(file) - 4),
     " - knee ", 
     if (str_detect(file, "60g")) {
