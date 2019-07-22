@@ -12,6 +12,19 @@ separate_file <- function(file) {
   source("code/functions/read_strength_data.R")
   source("code/functions/find_divisions.R")
   
+  print(
+    str_c(
+      "File: ",
+      if (str_detect(file, "60g")) {
+        str_sub(file, 29, str_length(file))
+      } else {
+        if (str_detect(file, "180g")) {
+          str_sub(file, 30, str_length(file))
+        }
+      }
+    )
+  ) 
+  
   M <- as.matrix(read_strength_data(file))
   
   # Ensure 1st velocity value to be positive
