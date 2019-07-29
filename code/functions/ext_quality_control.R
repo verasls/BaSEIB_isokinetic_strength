@@ -11,6 +11,8 @@ ext_quality_control <- function(file) {
   #   A txt file containing the information of in which rows the quality control
   #   fails
   
+  source("code/functions/write_log.R")
+  
   M <- as.matrix(read.delim(file, sep = " "))
   
   # Detect negative torque and velocity values during knee extension
