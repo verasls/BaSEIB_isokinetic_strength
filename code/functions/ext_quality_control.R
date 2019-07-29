@@ -13,6 +13,20 @@ ext_quality_control <- function(file) {
   
   source("code/functions/write_log.R")
   
+  print(
+    str_c(
+      "Reading file: ",
+      if (str_detect(file, "60g")) {
+        str_sub(file, 49, str_length(file))
+      } else {
+        if (str_detect(file, "180g")) {
+          str_sub(file, 50, str_length(file) - 4)
+        }
+      },
+      "_plot.pdf"
+    )
+  ) 
+  
   M <- as.matrix(read.delim(file, sep = " "))
   
   # Detect negative torque and velocity values during knee extension
