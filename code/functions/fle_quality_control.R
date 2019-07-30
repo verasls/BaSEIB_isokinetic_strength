@@ -1,4 +1,4 @@
-fle_quality_control <- function(file) {
+fle_quality_control <- function(file, ROM = FALSE) {
   # Run a quality control test on flexion repetition files to assess whether
   # torque signs, velocity signs and anatomic position angles are correct and
   # apply write_log() function to write this information on a txt file
@@ -12,6 +12,7 @@ fle_quality_control <- function(file) {
   #   fails
   
   source("code/functions/write_log.R")
+  source("code/functions/select_ROM.R")
   
   print(
     str_c(
@@ -28,6 +29,10 @@ fle_quality_control <- function(file) {
   ) 
   
   M <- as.matrix(read.delim(file, sep = " "))
+  
+  if (is.integer(ROM)) {
+    M <- select_ROM(file, ROM)
+  }
   
   # Detect positive torque and velocity values during knee flexion
   t <- vector()

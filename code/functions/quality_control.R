@@ -1,4 +1,4 @@
-quality_control <- function(file) {
+quality_control <- function(file, ROM = FALSE) {
   # Detect whether a file is for extension or flextion and apply the correct
   # quality control function to it
   #
@@ -14,10 +14,10 @@ quality_control <- function(file) {
   source("code/functions/fle_quality_control.R")
   
   if (str_detect(file, "ext")) {
-    ext_quality_control(file)
+    ext_quality_control(file, ROM)
   } else {
     if (str_detect(file, "fle")) {
-      fle_quality_control(file)
+      fle_quality_control(file, ROM)
     }
   }
 }
