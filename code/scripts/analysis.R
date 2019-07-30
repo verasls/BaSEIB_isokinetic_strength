@@ -53,7 +53,7 @@ files_sep_reps_60gs <- c(
   list.files("data/processed/knee/60gs/4th_eval/separate_reps", full.names = TRUE)
 )
 for (i in 1:length(files_sep_reps_60gs)) {
-  quality_control(files_sep_reps_60gs[i])
+  quality_control(files_sep_reps_60gs[i], ROM = 10:80)
 }
 
 # 180º/s
@@ -64,5 +64,5 @@ files_sep_reps_180gs <- c(
   list.files("data/processed/knee/180gs/4th_eval/separate_reps", full.names = TRUE)
 )
 for (i in 1:length(files_sep_reps_180gs)) {
-  quality_control(files_sep_reps_180gs[i])
+  quality_control(files_sep_reps_180gs[i], ROM = 10:80)
 }
