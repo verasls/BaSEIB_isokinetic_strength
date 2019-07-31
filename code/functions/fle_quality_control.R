@@ -23,8 +23,7 @@ fle_quality_control <- function(file, ROM = FALSE) {
         if (str_detect(file, "180g")) {
           str_sub(file, 50, str_length(file) - 4)
         }
-      },
-      "_plot.pdf"
+      }
     )
   ) 
   
