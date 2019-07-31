@@ -32,6 +32,11 @@ fle_quality_control <- function(file, ROM = FALSE) {
   
   if (is.integer(ROM)) {
     M <- select_ROM(file, ROM)
+    
+    if (nrow(M) == 0) {
+      write_log(file, t = vector(), v = vector(), p = vector(), M, ROM)
+      return("Shit happened")
+    }
   }
   
   # Detect positive torque and velocity values during knee flexion
@@ -62,5 +67,5 @@ fle_quality_control <- function(file, ROM = FALSE) {
     }
   }
   
-  write_log(file, t, v, p)
+  write_log(file, t, v, p, M)
 }

@@ -1,4 +1,4 @@
-write_log <- function(file, t, v, p) {
+write_log <- function(file, t, v, p, M = FALSE, ROM = FALSE) {
   # Function to run inside ext_quality_control() and fle_quality_control()
   # functions
   #
@@ -42,7 +42,7 @@ write_log <- function(file, t, v, p) {
   }
   
   # Write quality_control_log.txt file header
-  if (length(t) > 0 | length(v) > 0 | length(p) > 0) {
+  if (length(t) > 0 | length(v) > 0 | length(p) > 0 | nrow(M) == 0) {
     cat(
       "****************************************", 
       file = qc_file, sep =  "\n", append = TRUE
@@ -52,6 +52,22 @@ write_log <- function(file, t, v, p) {
     cat(as.character(Sys.Date()), file = qc_file, sep = "\n", append = TRUE)
   }
   
+  if (nrow(M) == 0) {
+    cat(" ", file = qc_file, sep = "\n", append = TRUE)
+    cat(
+      "Selected ROM does not correspond to the anat_position values on the file",
+      file = qc_file, sep = "\n", append = TRUE
+    )
+    cat(
+      str_c("Selected ROM: ", range(ROM)[1], "-", range(ROM)[2]),
+      file = qc_file, sep = "\n", append = TRUE
+    )
+    M <- as.matrix(read.delim(file, sep = " "))
+    cat(
+      str_c("anat_position range:", range(M[, 4])[1], "-", range(M[, 4])[2]),
+      file = qc_file, sep = "\n", append = TRUE
+    )
+  }
   if (length(t) > 0) {
     cat(" ", file = qc_file, sep = "\n", append = TRUE)
     cat(
