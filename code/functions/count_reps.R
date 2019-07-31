@@ -1,13 +1,16 @@
-count_reps <- function(path) {
+count_reps <- function(path, threshold = FALSE) {
   # Counts the number of isokinetic strength test repetitions of each ID from a
   # file list
   #
   # Args:
   #   path: path containing the files to be analysed
+  #   threshold: a numeric value representing the maximum number of repetitions
+  #   allowed
   #
   # Returns:
   #   A data frame containing the number of isokinetic strength test repetitions
-  #   for each ID
+  #   for each ID. If the argument threshold is utilized, the function prints
+  #   which IDs have more repetitions than the selected threshold.
   
   library(stringr)
   
@@ -34,5 +37,14 @@ count_reps <- function(path) {
   
   d <- data.frame(IDs, reps) 
   
-  return(d)
+  if (is.numeric(threshold)) {
+    x <- d[which(d[, 2] > threshold), ]
+    
+    if (nrow(x) == 0) {
+      print("None of the IDs have more reps than the selected threshold")
+    } else {
+      print("The following IDs have more reps than the selected threshold")
+      print(x) 
+    }
+  }
 }
