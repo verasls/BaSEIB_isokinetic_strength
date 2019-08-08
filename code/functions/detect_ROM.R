@@ -1,4 +1,4 @@
-detect_ROM <- function(speed, eval, ID) {
+detect_ROM <- function(speed, eval, ID, select_rep = FALSE) {
   
   
   require(stringr)
@@ -12,8 +12,22 @@ detect_ROM <- function(speed, eval, ID) {
   )
   
   l <- list.files(path, full.names = TRUE)
-  s <- l[which(str_detect(l, ID))]
-  
+  if (select_rep != FALSE) {
+    s <- str_c(
+      path,
+      "/",
+      eval,
+      "_strength_knee_",
+      speed,
+      "g_",
+      ID,
+      "_",
+      select_rep,
+      ".txt"
+    ) 
+  } else {
+    s <- l[which(str_detect(l, ID))] 
+  }
   
   rep   <- rep(NA, length(s))
   from  <- rep(NA, length(s))
