@@ -81,3 +81,31 @@ count_reps("data/processed/knee/180gs/1st_eval/separate_reps/", 16)
 count_reps("data/processed/knee/180gs/2nd_eval/separate_reps/", 16)
 count_reps("data/processed/knee/180gs/3rd_eval/separate_reps/", 16)
 count_reps("data/processed/knee/180gs/4th_eval/separate_reps/", 16)
+
+# Problematic IDs ---------------------------------------------------------
+
+# KNEE 60º/s
+# 1st
+# - anat_position: 003, 004, 008, 045 (only ext_5), 070, 072
+# - count_reps: 012, 037, 045
+# 2nd
+# - anat_position: 004 (only ext_1 and fle_1), 021
+# - count_reps: 044, 052, 073
+# 3rd
+# - anat_position: 002, 039
+# 4th
+# - anat_position: 007
+# - count_reps: 007
+# 
+# KNEE 180º/s
+# 1st
+# - anat_position: 003, 004, 008, 070, 072
+# - count_reps: 012, 064
+# 2nd
+# - anat_position: 021
+# 3rd
+# - anat_position: 002, 039, 044 (only ext_5)
+# - count_reps: 044
+# obs: due to the wrong number of reps, after ext_5 the nomenclature (ext or fle) of all files  is wrong
+# 4th
+# - anat_position: 007
