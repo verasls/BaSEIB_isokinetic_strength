@@ -1,5 +1,17 @@
 detect_ROM <- function(speed, eval, ID, select_rep = FALSE) {
-  
+  # Detects the range of motion (ROM) of all repetitions or a selected
+  # repetition of an ID
+  #
+  # Args:
+  #   speed: a character string with the isokinetic strength test speed
+  #   eval: a character string with the isokinetic strength test evaluation number
+  #   ID: a character string with the ID number (3 digits format)
+  #   select_rep: if not FALSE, a character string with the isokinetic strength
+  #   test repetition (either ext or fle, and the number. e.g.: ext_1)
+  #
+  # Returns:
+  #   A data frame with the selected isokinetic strength test repetitions and
+  #   the ROM
   
   require(stringr)
   
