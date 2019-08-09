@@ -114,7 +114,7 @@ count_reps("data/processed/knee/180gs/4th_eval/separate_reps/", 16)
 # 4th
 # - anat_position: 007
 
-# Correct anat_position ---------------------------------------------------
+# Correct errors ----------------------------------------------------------
 
 # 60º/s
 # 1st
@@ -183,6 +183,18 @@ correct_ROM("180", "3rd", "002", + 89)
 
 detect_ROM("180", "3rd", "039")
 correct_ROM("180", "3rd", "039", - 82)
+
+detect_ROM("180", "3rd", "044")
+path_44 <- "data/processed/knee/180gs/3rd_eval/separate_reps/3rd_strength_knee_180g_044_"
+file.remove(str_c(path_44, "ext_5.txt"))
+file.rename(str_c(path_44, "fle_5.txt"), str_c(path_44, "ext_5.txt"))
+file.rename(str_c(path_44, "ext_6.txt"), str_c(path_44, "fle_5.txt"))
+file.rename(str_c(path_44, "fle_6.txt"), str_c(path_44, "ext_6.txt"))
+file.rename(str_c(path_44, "ext_7.txt"), str_c(path_44, "fle_6.txt"))
+file.rename(str_c(path_44, "fle_7.txt"), str_c(path_44, "ext_7.txt"))
+file.rename(str_c(path_44, "ext_8.txt"), str_c(path_44, "fle_7.txt"))
+file.rename(str_c(path_44, "fle_8.txt"), str_c(path_44, "ext_8.txt"))
+file.rename(str_c(path_44, "ext_9.txt"), str_c(path_44, "fle_8.txt"))
 
 # 4th
 detect_ROM("180", "4th", "007")
