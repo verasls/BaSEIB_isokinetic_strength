@@ -5,6 +5,8 @@ source("code/functions/plot_divisions.R")
 source("code/functions/separate_file.R")
 source("code/functions/quality_control.R")
 source("code/functions/count_reps.R")
+source("code/functions/detect_ROM.R")
+source("code/functions/correct_ROM.R")
 
 # Plot divisions for all evals --------------------------------------------
 
@@ -27,6 +29,8 @@ for (i in evals) {
 }
 
 # Write files for all half reps -------------------------------------------
+
+evals <- c("1st_eval", "2nd_eval", "3rd_eval", "4th_eval")
 
 # 60º/s
 for (i in evals) {
@@ -109,3 +113,77 @@ count_reps("data/processed/knee/180gs/4th_eval/separate_reps/", 16)
 # obs: due to the wrong number of reps, after ext_5 the nomenclature (ext or fle) of all files  is wrong
 # 4th
 # - anat_position: 007
+
+# Correct anat_position ---------------------------------------------------
+
+# 60º/s
+# 1st
+detect_ROM("60", "1st", "003")
+correct_ROM("60", "1st", "003", - 83)
+
+detect_ROM("60", "1st", "004")
+correct_ROM("60", "1st", "004", - 90)
+
+detect_ROM("60", "1st", "008")
+correct_ROM("60", "1st", "008", - 89)
+
+detect_ROM("60", "1st", "045")
+file.remove(
+  "data/processed/knee/60gs/1st_eval/separate_reps/1st_strength_knee_60g_045_ext_5.txt"
+)
+
+detect_ROM("60", "1st", "070")
+correct_ROM("60", "1st", "070", - 86)
+
+detect_ROM("60", "1st", "072")
+correct_ROM("60", "1st", "072", - 90)
+
+# 2nd
+detect_ROM("60", "2nd", "004")
+correct_ROM("60", "2nd", "004", - 79)
+
+detect_ROM("60", "2nd", "021")
+correct_ROM("60", "2nd", "021", - 81)
+
+# 3rd
+detect_ROM("60", "3rd", "002")
+correct_ROM("60", "3rd", "002", + 86)
+
+detect_ROM("60", "3rd", "039")
+correct_ROM("60", "3rd", "039", - 82)
+
+# 4th
+detect_ROM("60", "4th", "007")
+correct_ROM("60", "4th", "007", - 90)
+
+# 180º/s
+# 1st
+detect_ROM("180", "1st", "003")
+correct_ROM("180", "1st", "003", - 83)
+
+detect_ROM("180", "1st", "004")
+correct_ROM("180", "1st", "004", - 90)
+
+detect_ROM("180", "1st", "008")
+correct_ROM("180", "1st", "008", - 88)
+
+detect_ROM("180", "1st", "070")
+correct_ROM("180", "1st", "070", - 83)
+
+detect_ROM("180", "1st", "072")
+correct_ROM("180", "1st", "072", - 90)
+
+# 2nd
+detect_ROM("180", "2nd", "021")
+correct_ROM("180", "2nd", "021", - 81)
+
+# 3rd
+detect_ROM("180", "3rd", "002")
+correct_ROM("180", "3rd", "002", + 89)
+
+detect_ROM("180", "3rd", "039")
+correct_ROM("180", "3rd", "039", - 82)
+
+# 4th
+detect_ROM("180", "4th", "007")
+correct_ROM("180", "4th", "007", - 90)
