@@ -14,7 +14,7 @@ compute_variables <- function(file, ROM = FALSE) {
   source("code/functions/work_integration.R")
   source("code/functions/compute_power.R")
   
-  M <- select_ROM(file, ROM)
+  D <- select_ROM(file, ROM)
   B <- read.csv("data/raw/body_composition.csv")
   
   # Detect parameters
@@ -24,21 +24,23 @@ compute_variables <- function(file, ROM = FALSE) {
   LW  <- B[which(B[, 1] == as.numeric(ID)), 4] # lower limb weight
   
   # Compute variables
-  peak_torque       <- max(abs(M[, 2]))
+  peak_torque       <- max(abs(D[, 2]))
   peak_torque_BW    <- peak_torque / BW
   peak_torque_LW    <- peak_torque / LW
-  peak_torque_angle <- unname(M[which(M[, 2] == peak_torque), 4])
-  total_work        <- work_integration(M)
-  average_power     <- compute_power(M)[2]
-  peak_power        <- compute_power(M)[1]
+  peak_torque_angle <- unname(D[which(D[, 2] == peak_torque), 4])
+  total_work        <- work_integration(D)
+  average_power     <- compute_power(D)[2]
+  peak_power        <- compute_power(D)[1]
   
   # Assemble data frame
-  df <- data.frame(
-    ID, rep, peak_torque, peak_torque_BW,
-    peak_torque_LW, peak_torque_angle,
-    total_work, average_power, peak_power
+  M <- as.matrix(
+    data.frame(
+      ID, rep, peak_torque, peak_torque_BW,
+      peak_torque_LW, peak_torque_angle,
+      total_work, average_power, peak_power
+    )
   )
-  df[, 1] <- as.numeric(df[, 1])
+  M[, 1] <- as.numeric(M[, 1])
   
-  return(df)
+  return(M)
 }
