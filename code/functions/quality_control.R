@@ -4,6 +4,7 @@ quality_control <- function(file, ROM = FALSE) {
   #
   # Args:
   #   file: name of the file containing isokinetic strength test data
+  #   ROM: a numeric sequence corresponding the desired range of motion
   #
   # Returns:
   #   A txt file containing the information of in which rows the quality control
