@@ -1,5 +1,6 @@
-compute_variables <- function(file, ROM = FALSE) {
-  # Computes some variables based on isokinetic strenght test data
+compute_variables_file <- function(file, ROM = FALSE) {
+  # Computes some variables based on isokinetic strenght test data from a single
+  # file
   #
   # Args:
   #   file: name of the file containing isokinetic strength test data
