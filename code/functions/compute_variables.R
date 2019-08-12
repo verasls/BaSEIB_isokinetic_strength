@@ -27,7 +27,7 @@ compute_variables <- function(file, ROM = FALSE) {
   peak_torque       <- max(abs(D[, 2]))
   peak_torque_BW    <- peak_torque / BW
   peak_torque_LW    <- peak_torque / LW
-  peak_torque_angle <- unname(D[which(D[, 2] == peak_torque), 4])
+  peak_torque_angle <- unname(D[which(abs(D[, 2]) == peak_torque), 4])
   total_work        <- work_integration(D)
   average_power     <- compute_power(D)[2]
   peak_power        <- compute_power(D)[1]
