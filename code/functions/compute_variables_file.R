@@ -7,7 +7,7 @@ compute_variables_file <- function(file, ROM = FALSE) {
   #   ROM: a numeric sequence corresponding the desired range of motion
   #
   # Returns:
-  #   A data frame with the computed variables and identifying the subject ID
+  #   A matrix with the computed variables and identifying the subject ID
   #   number and repetition
   
   require(stringr)
