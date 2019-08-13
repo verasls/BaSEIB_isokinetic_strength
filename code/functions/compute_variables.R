@@ -23,7 +23,11 @@ compute_variables <- function(path, ID, ROM = FALSE) {
   for (i in 1:length(m)) {
     M[i, ] <- compute_variables_file(l[m[i]], ROM)
   }
-  colnames(M) <- colnames(compute_variables_file(l[m[1]]))
+  colnames(M) <- c(
+    "ID", "rep", "peak_torque", "peak_torque_BW",
+    "peak_torque_LW", "peak_torque_angle",
+    "total_work", "average_power", "peak_power"
+  )
   
   return(M)
 }
