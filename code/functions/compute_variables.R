@@ -1,4 +1,4 @@
-compute_variables <- function(path, ID, ROM = FALSE) {
+compute_variables_ID <- function(path, ID, ROM = FALSE) {
   # Applies compute_variables_file() function to all the files related to an ID
   # in the selected path
   #
