@@ -15,6 +15,42 @@ compute_variables_file <- function(file, ROM = FALSE) {
   source("code/functions/work_integration.R")
   source("code/functions/compute_power.R")
   
+  if (str_detect(file, "60gs")) {
+    if (str_length(file) == 84) {
+      print(
+        str_c(
+          "Reading file: ",
+          str_sub(file, str_length(file) - 35, str_length(file))
+        )
+      )
+    } else {
+      print(
+        str_c(
+          "Reading file: ",
+          str_sub(file, str_length(file) - 34, str_length(file))
+        )
+      )
+    }
+  } else {
+    if (str_detect(file, "180gs")) {
+      if (str_length(file) == 86) {
+        print(
+          str_c(
+            "Reading file: ",
+            str_sub(file, str_length(file) - 36, str_length(file))
+          )
+        )
+      } else {
+        print(
+          str_c(
+            "Reading file: ",
+            str_sub(file, str_length(file) - 35, str_length(file))
+          )
+        )
+      }
+    }
+  }
+  
   D <- select_ROM(file, ROM)
   B <- read.csv("data/raw/body_composition.csv")
   
