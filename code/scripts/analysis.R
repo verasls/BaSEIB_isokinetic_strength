@@ -7,6 +7,7 @@ source("code/functions/quality_control.R")
 source("code/functions/count_reps.R")
 source("code/functions/detect_ROM.R")
 source("code/functions/correct_ROM.R")
+source("code/functions/compute_variables.R")
 
 # Plot divisions for all evals --------------------------------------------
 
@@ -127,6 +128,9 @@ correct_ROM("60", "1st", "004", - 90)
 detect_ROM("60", "1st", "008")
 correct_ROM("60", "1st", "008", - 89)
 
+detect_ROM("60", "1st", "010")
+correct_ROM("60", "1st", "010", - 75)
+
 detect_ROM("60", "1st", "045")
 file.remove(
   "data/processed/knee/60gs/1st_eval/separate_reps/1st_strength_knee_60g_045_ext_5.txt"
@@ -199,3 +203,87 @@ file.rename(str_c(path_44, "ext_9.txt"), str_c(path_44, "fle_8.txt"))
 # 4th
 detect_ROM("180", "4th", "007")
 correct_ROM("180", "4th", "007", - 90)
+
+# Build data bases --------------------------------------------------------
+
+# 60º/s
+# 1st
+data_60gs_1st <- compute_variables(
+  "data/processed/knee/60gs/1st_eval/separate_reps",
+  1:91, 10:80
+)
+write_csv(
+  as.data.frame(data_60gs_1st), 
+  "data/data_bases/BaSEIB_isokinetic_strength_knee_60gs_1st.csv"
+)
+
+# 2nd
+data_60gs_2nd <- compute_variables(
+  "data/processed/knee/60gs/2nd_eval/separate_reps",
+  1:91, 10:80
+)
+write_csv(
+  as.data.frame(data_60gs_2nd), 
+  "data/data_bases/BaSEIB_isokinetic_strength_knee_60gs_2nd.csv"
+)
+
+# 3rd
+data_60gs_3rd <- compute_variables(
+  "data/processed/knee/60gs/3rd_eval/separate_reps",
+  1:91, 10:80
+)
+write_csv(
+  as.data.frame(data_60gs_3rd), 
+  "data/data_bases/BaSEIB_isokinetic_strength_knee_60gs_3rd.csv"
+)
+
+# 4th
+data_60gs_4th <- compute_variables(
+  "data/processed/knee/60gs/4th_eval/separate_reps",
+  1:91, 10:80
+)
+write_csv(
+  as.data.frame(data_60gs_4th), 
+  "data/data_bases/BaSEIB_isokinetic_strength_knee_60gs_4th.csv"
+)
+
+# 180º/s
+# 1st
+data_180gs_1st <- compute_variables(
+  "data/processed/knee/180gs/1st_eval/separate_reps",
+  1:91, 10:80
+)
+write_csv(
+  as.data.frame(data_180gs_1st), 
+  "data/data_bases/BaSEIB_isokinetic_strength_knee_180gs_1st.csv"
+)
+
+# 2nd
+data_180gs_2nd <- compute_variables(
+  "data/processed/knee/180gs/2nd_eval/separate_reps",
+  1:91, 10:80
+)
+write_csv(
+  as.data.frame(data_180gs_2nd), 
+  "data/data_bases/BaSEIB_isokinetic_strength_knee_180gs_2nd.csv"
+)
+
+# 3rd
+data_180gs_3rd <- compute_variables(
+  "data/processed/knee/180gs/3rd_eval/separate_reps",
+  1:91, 10:80
+)
+write_csv(
+  as.data.frame(data_180gs_3rd), 
+  "data/data_bases/BaSEIB_isokinetic_strength_knee_180gs_3rd.csv"
+)
+
+# 4th
+data_180gs_4th <- compute_variables(
+  "data/processed/knee/180gs/4th_eval/separate_reps",
+  1:91, 10:80
+)
+write_csv(
+  as.data.frame(data_180gs_4th), 
+  "data/data_bases/BaSEIB_isokinetic_strength_knee_180gs_4th.csv"
+)
