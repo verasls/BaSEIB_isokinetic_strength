@@ -24,8 +24,8 @@ compute_variables_ID <- function(path, ID, ROM = FALSE) {
     M[i, ] <- compute_variables_file(l[m[i]], ROM)
   }
   colnames(M) <- c(
-    "ID", "rep", "peak_torque", "peak_torque_BW",
-    "peak_torque_LW", "peak_torque_angle",
+    "ID", "rep", "peak_torque", "peak_torque_BM",
+    "peak_torque_LM", "peak_torque_angle",
     "total_work", "average_power", "peak_power"
   )
   
