@@ -15,14 +15,30 @@ separate_file <- function(file) {
   print(
     str_c(
       "File: ",
-      if (str_detect(file, "60g")) {
-        str_sub(file, 29, str_length(file))
+      if (str_detect(file, "knee")) {
+        str_c(
+          if (str_detect(file, "60g")) {
+            str_sub(file, 29, str_length(file))
+          } else {
+            if (str_detect(file, "180g")) {
+              str_sub(file, 30, str_length(file))
+            }
+          }
+        ) 
       } else {
-        if (str_detect(file, "180g")) {
-          str_sub(file, 30, str_length(file))
+        if (str_detect(file, "trunk")) {
+          str_c(
+            if (str_detect(file, "60g")) {
+              str_sub(file, 30, str_length(file))
+            } else {
+              if (str_detect(file, "120g")) {
+                str_sub(file, 31, str_length(file))
+              }
+            }
+          )
         }
       }
-    )
+    ) 
   ) 
   
   M <- as.matrix(read_strength_data(file))
@@ -40,12 +56,23 @@ separate_file <- function(file) {
     
     path <- str_c(
       str_c(
-        "data/processed/knee/",
-        if (str_detect(file, "60g")) {
+        "data/processed/",
+        if (str_detect(file, "knee")) {
+          "knee/"
+        } else {
+          if (str_detect(file, "trunk")) {
+            "trunk/"
+          }
+        },
+        if (str_detect(file, "60gs")) {
           "60gs/"
         } else {
-          if (str_detect(file, "180g")) {
-            "180gs/"
+          if (str_detect(file, "120gs")) {
+            "120gs/"
+          } else {
+            if (str_detect(file, "180gs")) {
+              "180gs/"
+            }
           }
         },
         if (str_detect(file, "1st")) {
@@ -65,21 +92,48 @@ separate_file <- function(file) {
         },
         "separate_reps/"
       ),
-      str_replace(
-        if (str_detect(file, "60g")) {
-          str_sub(file, 29, str_length(file) - 4)
-        } else {
-          if (str_detect(file, "180g")) {
-            str_sub(file, 30, str_length(file) - 4)
-          }
-        },
-        "raw_", ""
-      ),
-      if (i %% 2 != 0) {
-        str_c("_ext_", (i + 1) / 2, ".txt")
+      if (str_detect(file, "knee")) {
+        str_replace(
+          if (str_detect(file, "60g")) {
+            str_sub(file, 29, str_length(file) - 4)
+          } else {
+            if (str_detect(file, "180g")) {
+              str_sub(file, 30, str_length(file) - 4)
+            }
+          },
+          "raw_", ""
+        )
       } else {
-        if (i %% 2 == 0) {
-          str_c("_fle_", i / 2, ".txt")
+        if (str_detect(file, "trunk")) {
+          str_replace(
+            if (str_detect(file, "60g")) {
+              str_sub(file, 30, str_length(file) - 4)
+            } else {
+              if (str_detect(file, "120g")) {
+                str_sub(file, 31, str_length(file) - 4)
+              }
+            },
+            "raw_", ""
+          )  
+        }
+      },
+      if (str_detect(file, "knee")) {
+        if (i %% 2 != 0) {
+          str_c("_ext_", (i + 1) / 2, ".txt")
+        } else {
+          if (i %% 2 == 0) {
+            str_c("_fle_", i / 2, ".txt")
+          }
+        }
+      } else {
+        if (str_detect(file, "trunk")) {
+          if (i %% 2 != 0) {
+            str_c("_fle_", (i + 1) / 2, ".txt")
+          } else {
+            if (i %% 2 == 0) {
+              str_c("_ext_", i / 2, ".txt")
+            }
+          }
         }
       }
     )
