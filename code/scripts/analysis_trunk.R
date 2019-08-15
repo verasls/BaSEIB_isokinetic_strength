@@ -5,6 +5,17 @@ source("code/functions/plot_divisions.R")
 
 # Plot divisions for all evals --------------------------------------------
 
+# Delete files due to error during eval
+d <- c(
+  "data/raw/trunk/60gs/3rd_eval/3rd_strength_trunk_raw_60g_036.txt",
+  "data/raw/trunk/120gs/1st_eval/1st_strength_trunk_raw_120g_069.txt"
+)
+for (i in 1:length(d)) {
+  if (file.exists(d[i])) {
+    file.remove(d[i])
+  }
+}
+
 evals <- c("1st_eval", "2nd_eval", "3rd_eval", "4th_eval")
 
 # 60º/s
