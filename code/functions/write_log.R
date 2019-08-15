@@ -16,16 +16,32 @@ write_log <- function(file, t, v, p, M = FALSE, ROM = FALSE) {
   
   require(stringr)
   
-  qc_file <- str_c(
-    if (str_detect(file, "60g")) {
-      str_sub(file, 1, 34)
+  qc_file <-
+    if (str_detect(file, "knee")) {
+      str_c(
+        if (str_detect(file, "60g")) {
+          str_sub(file, 1, 34)
+        } else {
+          if (str_detect(file, "180g")) {
+            str_sub(file, 1, 35)
+          }
+        },
+        "quality_control_log.txt"
+      )
     } else {
-      if (str_detect(file, "180g")) {
-        str_sub(file, 1, 35)
+      if (str_detect(file, "trunk")) {
+        str_c(
+          if (str_detect(file, "60g")) {
+            str_sub(file, 1, 35)
+          } else {
+            if (str_detect(file, "120g")) {
+              str_sub(file, 1, 36)
+            }
+          },
+          "quality_control_log.txt"
+        )
       }
-    },
-    "quality_control_log.txt"
-  )
+    }
   
   # Create quality_control_log.txt file if it does not exist
   if (file.exists(qc_file) == FALSE) {
@@ -33,11 +49,23 @@ write_log <- function(file, t, v, p, M = FALSE, ROM = FALSE) {
   }
   
   # Name the file being read
-  if (str_detect(file, "60g")) {
-    file_name <- str_sub(file, str_length(file) - 34, str_length(file))
+  if (str_detect(file, "knee")) {
+    if (str_detect(file, "60g")) {
+      file_name <- str_sub(file, str_length(file) - 34, str_length(file))
+    } else {
+      if (str_detect(file, "180g")) {
+        file_name <- str_sub(file, str_length(file) - 35, str_length(file))
+      }
+    } 
   } else {
-    if (str_detect(file, "180g")) {
-      file_name <- str_sub(file, str_length(file) - 35, str_length(file))
+    if (str_detect(file, "trunk")) {
+      if (str_detect(file, "60g")) {
+        file_name <- str_sub(file, str_length(file) - 35, str_length(file))
+      } else {
+        if (str_detect(file, "120g")) {
+          file_name <- str_sub(file, str_length(file) - 36, str_length(file))
+        }
+      }
     }
   }
   
