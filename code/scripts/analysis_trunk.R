@@ -2,6 +2,7 @@
 
 library(tidyverse)
 source("code/functions/plot_divisions.R")
+source("code/functions/separate_file.R")
 
 # Plot divisions for all evals --------------------------------------------
 
@@ -31,5 +32,25 @@ for (i in evals) {
   files_120gs <- list.files(str_c("data/raw/trunk/120gs/", i), full.names = TRUE)
   for (i in 1:length(files_120gs)) {
     plot_divisions(files_120gs[i], show = FALSE)
+  }
+}
+
+# Write files for all half reps -------------------------------------------
+
+evals <- c("1st_eval", "2nd_eval", "3rd_eval", "4th_eval")
+
+# 60º/s
+for (i in evals) {
+  files_60gs <- list.files(str_c("data/raw/trunk/60gs/", i), full.names = TRUE)
+  for (i in 1:length(files_60gs)) {
+    separate_file(files_60gs[i])
+  }
+}
+
+# 120º/s
+for (i in evals) {
+  files_120gs <- list.files(str_c("data/raw/trunk/120gs/", i), full.names = TRUE)
+  for (i in 1:length(files_120gs)) {
+    separate_file(files_120gs[i])
   }
 }
