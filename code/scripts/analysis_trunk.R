@@ -4,6 +4,7 @@ library(tidyverse)
 source("code/functions/plot_divisions.R")
 source("code/functions/separate_file.R")
 source("code/functions/quality_control.R")
+source("code/functions/count_reps.R")
 
 # Plot divisions for all evals --------------------------------------------
 
@@ -79,3 +80,17 @@ files_sep_reps_120gs <- c(
 for (i in 1:length(files_sep_reps_120gs)) {
   quality_control(files_sep_reps_120gs[i], ROM = 10:50)
 }
+
+# Count reps --------------------------------------------------------------
+
+# 60º/s
+count_reps("data/processed/trunk/60gs/1st_eval/separate_reps/", 8)
+count_reps("data/processed/trunk/60gs/2nd_eval/separate_reps/", 8)
+count_reps("data/processed/trunk/60gs/3rd_eval/separate_reps/", 8)
+count_reps("data/processed/trunk/60gs/4th_eval/separate_reps/", 8)
+
+# 120º/s
+count_reps("data/processed/trunk/120gs/1st_eval/separate_reps/", 12)
+count_reps("data/processed/trunk/120gs/2nd_eval/separate_reps/", 12)
+count_reps("data/processed/trunk/120gs/3rd_eval/separate_reps/", 12)
+count_reps("data/processed/trunk/120gs/4th_eval/separate_reps/", 12)
