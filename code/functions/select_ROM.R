@@ -11,7 +11,7 @@ select_ROM <- function(file, ROM) {
   
   M <- as.matrix(read.delim(file, sep = " "))
   
-  M <- M[which(M[, 4] %in% ROM), ]
+  M <- M[which(abs(M[, 4]) %in% ROM), ]
   
   return(M)
 }
