@@ -55,8 +55,21 @@ compute_variables_file <- function(file, ROM = FALSE) {
   B <- read.csv("data/raw/body_composition.csv")
   
   # Detect parameters
-  ID  <- str_sub(file, str_length(file) - 12, str_length(file) - 10)
-  rep <- str_sub(file, str_length(file) - 8, str_length(file) - 4)
+    # For ID and rep, the chunk of the string to be subset depends on the length
+    # of the string
+  if (str_detect(file, "180gs")) {
+    if (str_length(file) == 86) {
+      ID  <- str_sub(file, str_length(file) - 13, str_length(file) - 11)  
+      rep <- str_sub(file, str_length(file) - 9, str_length(file) - 4)
+    } else {
+      ID  <- str_sub(file, str_length(file) - 12, str_length(file) - 10) 
+      rep <- str_sub(file, str_length(file) - 8, str_length(file) - 4)
+    }
+  } else {
+    ID  <- str_sub(file, str_length(file) - 12, str_length(file) - 10)
+    rep <- str_sub(file, str_length(file) - 8, str_length(file) - 4)
+    
+  }
   BM  <- B[which(B[, 1] == as.numeric(ID)), 2] # body mass
   LM  <- B[which(B[, 1] == as.numeric(ID)), 4] # lower limb mass
   
