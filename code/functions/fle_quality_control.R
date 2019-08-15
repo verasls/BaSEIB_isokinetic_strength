@@ -18,13 +18,25 @@ fle_quality_control <- function(file, ROM = FALSE) {
   print(
     str_c(
       "Reading file: ",
-      if (str_detect(file, "60g")) {
-        str_sub(file, 49, str_length(file))
-      } else {
-        if (str_detect(file, "180g")) {
-          str_sub(file, 50, str_length(file) - 4)
+      if (str_detect(file, "knee")) {
+        if (str_detect(file, "60g")) {
+          str_sub(file, 49, str_length(file))
+        } else {
+          if (str_detect(file, "180g")) {
+            str_sub(file, 50, str_length(file))
+          }
         }
-      }
+      } else {
+        if (str_detect(file, "trunk")) {
+          if (str_detect(file, "60g")) {
+            str_sub(file, 50, str_length(file))
+          } else {
+            if (str_detect(file, "120g")) {
+              str_sub(file, 51, str_length(file))
+            }
+          }
+        }
+      } 
     )
   ) 
   
@@ -39,29 +51,42 @@ fle_quality_control <- function(file, ROM = FALSE) {
     }
   }
   
-  # Detect positive torque and velocity values during knee flexion
+  # For KNEE evaluations, torque and velocity should be NEGATIVE during flexion
+  # For TRUNK evaluations, torque and velocity should be POSITIVE during flexion
   t <- vector()
   a <- 1
   v <- vector()
   b <- 1
   for (i in 1:nrow(M)) {
-    # Torque
-    if (M[i, 2] > 0) {
-      t[a] <- i
-      a <- a + 1
-    }
-    # Velocity
-    if (M[i, 5] > 0) {
-      v[b] <- i
-      b <- b + 1
+    if (str_detect(file, "knee")) {
+      if (M[i, 2] > 0) { # Torque
+        t[a] <- i
+        a <- a + 1
+      }
+      if (M[i, 5] > 0) { # Velocity
+        v[b] <- i
+        b <- b + 1
+      }
+    } else {
+      if (str_detect(file, "trunk")) {
+        if (M[i, 2] < 0) { # Torque
+          t[a] <- i
+          a <- a + 1
+        }
+        if (M[i, 5] < 0) { # Velocity
+          v[b] <- i
+          b <- b + 1
+        }
+      }
     }
   }
   
-  # Check wheter anatomic position angles decrease
+  # For BOTH knee and trunk evaluations, the absolute values of the anatomic
+  # position angles should INCREASE during flexion
   p <- vector()
   c <- 1
   for (i in 2:nrow(M)) {
-    if (M[i, 4] < M[i - 1, 4]) {
+    if (abs(M[i, 4]) < abs(M[i - 1, 4])) {
       p[c] <- i
       c <- c + 1
     }
