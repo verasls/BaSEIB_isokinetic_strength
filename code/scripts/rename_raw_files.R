@@ -1,3 +1,6 @@
+# This script renames the isokinetic strength raw files from they original name
+# to a name more suitable for the analysis
+
 library(stringr)
 
 # Knee --------------------------------------------------------------------
