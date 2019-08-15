@@ -57,12 +57,22 @@ plot_divisions <- function(file, show = TRUE, save = TRUE) {
     },
     " ID ",
     str_sub(file, str_length(file) - 6, str_length(file) - 4),
-    " - knee ", 
-    if (str_detect(file, "60g")) {
-      "60 º"
+    if (str_detect(file, "knee")) {
+      " - knee "
     } else {
-      if (str_detect(file, "180g")) {
-        "180 º"
+      if (str_detect(file, "trunk")) {
+        " - trunk "
+      }
+    }, 
+    if (str_detect(file, "60gs")) {
+      "60º" 
+    } else {
+      if (str_detect(file, "120gs")) {
+        "120º"
+      } else {
+        if (str_detect(file, "180g")) {
+          "180º"
+        }
       }
     },
     "/s" 
@@ -78,57 +88,97 @@ plot_divisions <- function(file, show = TRUE, save = TRUE) {
     ) + 
     theme(plot.title = element_text(hjust = 0.5))
   
-  path <- str_c(
-    "data/processed/knee/",
-    if (str_detect(file, "60g")) {
-      "60gs/"
-    } else {
-      if (str_detect(file, "180g")) {
-        "180gs/"
-      }
-    },
-    if (str_detect(file, "1st")) {
-      "1st_eval/"
-    } else {
-      if (str_detect(file, "2nd")) {
-        "2nd_eval/"
-      } else {
-        if (str_detect(file, "3rd")) {
-          "3rd_eval/"
-        } else {
-          if (str_detect(file, "4th")) {
-            "4th_eval/"
-          }
-        }
-      }
-    },
-    "plots/",
-    if (str_detect(file, "60g")) {
-      str_sub(file, 29, str_length(file) - 4)
-    } else {
-      if (str_detect(file, "180g")) {
-        str_sub(file, 30, str_length(file) - 4)
-      }
-    },
-    "_plot.pdf"
-  )
+  
 
   if (save == TRUE) {
-    ggsave(path, plot, width = 9, height = 4)
-    
-    print(
-      str_c(
-        "Saving file: ",
+    path <- str_c(
+      if (str_detect(file, "knee")) {
+        "data/processed/knee/"
+      } else {
+        if (str_detect(file, "trunk")) {
+          "data/processed/trunk/"
+        }
+      },
+      if (str_detect(file, "60gs")) {
+        "60gs/"
+      } else {
+        if (str_detect(file, "120gs")) {
+          "120gs/"
+        } else {
+          if (str_detect(file, "180gs")) {
+            "180gs/"
+          }
+        }
+      },
+      if (str_detect(file, "1st")) {
+        "1st_eval/"
+      } else {
+        if (str_detect(file, "2nd")) {
+          "2nd_eval/"
+        } else {
+          if (str_detect(file, "3rd")) {
+            "3rd_eval/"
+          } else {
+            if (str_detect(file, "4th")) {
+              "4th_eval/"
+            }
+          }
+        }
+      },
+      "plots/",
+      if (str_detect(file, "knee")) {
         if (str_detect(file, "60g")) {
           str_sub(file, 29, str_length(file) - 4)
         } else {
           if (str_detect(file, "180g")) {
             str_sub(file, 30, str_length(file) - 4)
           }
-        },
-        "_plot.pdf"
-      )
-    ) 
+        }
+      } else {
+        if (str_detect(file, "trunk")) {
+          if (str_detect(file, "60g")) {
+            str_sub(file, 30, str_length(file) - 4)
+          } else {
+            if (str_detect(file, "120g")) {
+              str_sub(file, 31, str_length(file) - 4)
+            }
+          }
+        }
+      },
+      "_plot.pdf"
+    )
+    
+    ggsave(path, plot, width = 9, height = 4)
+    
+    print(
+      if (str_detect(file, "knee")) {
+        str_c(
+          "Saving file: ",
+          if (str_detect(file, "60g")) {
+            str_sub(file, 29, str_length(file) - 4)
+          } else {
+            if (str_detect(file, "180g")) {
+              str_sub(file, 30, str_length(file) - 4)
+            }
+          },
+          "_plot.pdf"
+        )
+      } else {
+        if (str_detect(file, "trunk")) {
+          str_c(
+            "Saving file: ",
+            if (str_detect(file, "60g")) {
+              str_sub(file, 30, str_length(file) - 4)
+            } else {
+              if (str_detect(file, "120g")) {
+                str_sub(file, 31, str_length(file) - 4)
+              }
+            },
+            "_plot.pdf"
+          )
+        }
+      }
+    )
   }
   
   if (show == TRUE) {
