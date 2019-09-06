@@ -1,0 +1,36 @@
+---
+title: "Isokinetic strength data processing report"
+author: "Lucas Veras"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+# Background 
+
+The present report shows the processing of isokinetic strength raw data test from the BaSEIB Clinical Trial. The tests were performed using an isokinetic dynamometer (Biodex System 4 Pro), with a dynamic concentric muscle strength test for knee and trunk muscles. The protocols were:
+
+**A) Knee muscle strength test**
+
+The range of motion was 90º. Two isokinetic speeds were used:
+
+  - 4 repetitions at 60º/s
+  - 8 repetitions at 180º/s
+  
+**B) Trunk muscle strength test**
+
+The range of motion was 60º. Two isokinetic speeds were used:
+
+  - 4 repetitions at 60º/s
+  - 6 repetitions at 120º/s
+  
+There was a 2 minutes rest period between the 2 velocities tests.
+
+The manufacturer-supplied software (Biodex Advantage Software, V.4X) was used to download the raw data. Knee muscle strength test was also corrected for gravity by the software.
+
+Throughout the rest of this document, the examples of code and plots used will be referred to the knee muscle strength tests. The Github repository with the code for these analysis can be found [here](https://github.com/verasls/BaSEIB_isokinetic_strength).
