@@ -11,7 +11,22 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Background 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r prepare, include=FALSE}
+library(tidyverse)
+source("code/functions/plot_divisions.R")
+source("code/functions/separate_file.R")
+source("code/functions/quality_control.R")
+source("code/functions/count_reps.R")
+source("code/functions/detect_ROM.R")
+source("code/functions/correct_ROM.R")
+source("code/functions/compute_variables.R")
+```
+
+# Introduction 
 
 The present report shows the processing of isokinetic strength raw data test from the BaSEIB Clinical Trial. The tests were performed using an isokinetic dynamometer (Biodex System 4 Pro), with a dynamic concentric muscle strength test for knee and trunk muscles. The protocols were:
 
