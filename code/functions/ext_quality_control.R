@@ -82,7 +82,7 @@ ext_quality_control <- function(file, ROM = FALSE) {
   }
   
   # For BOTH knee and trunk evaluations, the absolute values of the anatomic
-  # position angles should DECREASE during flexion
+  # position angles should DECREASE during extension
   p <- vector()
   c <- 1
   for (i in 2:nrow(M)) {
