@@ -7,7 +7,7 @@ output:
     toc: true
     number_sections: true
     highlight: tango
-    code_folding: "hide"
+    code_folding: "show"
 editor_options: 
   chunk_output_type: console
 ---
@@ -104,3 +104,153 @@ The `quality_control()` function have also an argument that allows the user to s
 The quality control process continues with the utilization of the `count_reps()` function, which, as the name states, counts the number of repetitions in a given test, and then returns which subjects present a number of repetitions different than the expected for the test.
 
 The final step is to correct the anatomic position values of some subjects that were shown to present errors in the ROM. In all of the cases analyzed, even though the subjects presented anatomic position values different than expected for the test, the equipment postition presented the correct ROM. Therefore, the wrong anatomic position is due to an error in the equipment configuration before the test. In this cases, the `correct_ROM()` function was used to reset the anatomic position to their actual value.
+
+# Compute variables
+
+After the raw data was correctly processed, a few variables were computed. The description of these variables, as well as the code used to compute them, is shown below.
+
+**Variables**
+
+- **Peak torque:** highest muscular force output at any moment during a half repetition
+- **Peak torque / body mass:** the peak torque value normalized by the total body mass
+- **Peak torque / limb mass:** the peak torque value normalized by the lower limb lean mass
+- **Peak torque angle:** the point in the ROM where the peak torque is produced
+- **Total work:** total muscular force output during a half repetition
+- **Average power:** the average rate at which work is done
+- **Peak power:** the maximum rate at which work is done
+
+```{r prepare_variables, include=FALSE}
+source("code/functions/select_ROM.R")
+source("code/functions/work_integration.R")
+source("code/functions/compute_power.R")
+
+file <- "data/processed/knee/60gs/1st_eval/separate_reps/1st_strength_knee_60g_001_ext_1.txt"
+
+D <- select_ROM(file, 10:80)
+B <- read.csv("data/raw/body_composition.csv")
+  
+  # Detect parameters
+    # For ID and rep, the chunk of the string to be subset depends on the length
+    # of the string
+  if (str_detect(file, "180gs")) {
+    if (str_length(file) == 86) {
+      ID  <- str_sub(file, str_length(file) - 13, str_length(file) - 11)  
+      rep <- str_sub(file, str_length(file) - 9, str_length(file) - 4)
+    } else {
+      ID  <- str_sub(file, str_length(file) - 12, str_length(file) - 10) 
+      rep <- str_sub(file, str_length(file) - 8, str_length(file) - 4)
+    }
+  } else {
+    ID  <- str_sub(file, str_length(file) - 12, str_length(file) - 10)
+    rep <- str_sub(file, str_length(file) - 8, str_length(file) - 4)
+    
+  }
+  BM  <- B[which(B[, 1] == as.numeric(ID)), 2] # body mass
+  LM  <- B[which(B[, 1] == as.numeric(ID)), 4] # lower limb mass
+  
+```
+
+```{r compute_variables}
+# Code used to compute the variables, where:
+#   - D is a data frame containing the half repetition data;
+#   - D[, 2] specifies the colunm with the torque values;
+#   - BM represents the body mass;
+#   - LM represents the lower limb lean mass.
+
+peak_torque       <- max(abs(D[, 2]))
+peak_torque_BM    <- peak_torque / BM
+peak_torque_LM    <- peak_torque / LM
+peak_torque_angle <- min(unname(D[which(abs(D[, 2]) == peak_torque), 4]))
+total_work        <- work_integration(D)
+average_power     <- compute_power(D)[2]
+peak_power        <- compute_power(D)[1]
+```
+
+For the computation of some variables, new functions have been defined. As the muscle force output varies throughout the test, the total work done during one half repetition must be computed as an integral, where the work (W) performed from the start point (a) to the end point (b), by a force (f(x)), is obtained as follows:
+
+W = $\int_{a}^{b} f(x) \; dx$
+
+The code implementation of this integral is done by the function `work_integration()` and is shown below:
+
+```{r work_integration}
+work_integration <- function(df) {
+  # Computes total work (in Nm) from a isokinetic strength test data
+  #
+  # Args:
+  #   df: a data frame containing isokinetic strength test data
+  #
+  # Returns:
+  #   The absolute value of total work done
+  
+  M <- as.matrix(df)
+  n <- dim(M)[1] - 1 # Gets the number of intervals in the matrix
+  
+  # Numerical integration
+  # M[, 2]: torque column
+  # M[, 3]: position column
+  sum <- 0.0
+  for (i in 1:n) {				
+    sum <- sum - M[i, 2] * M[i, 3] - M[i + 1, 2] * M[i, 3] + M[i, 2] * M[i + 1, 3] + M[i + 1, 2] * M[i + 1, 3]
+  }
+  sum <- pi * sum / 360.0 # Correcting value
+
+  return(unname(abs(sum)))
+}
+```
+
+The `compute_power()` function (code below) computes both average and peak power. The power value is obtained by the multiplication of torque and velocity.
+
+```{r compute_power}
+compute_power <- function(df) {
+  # Compute peak and average power (in Watt)
+  #
+  # Args:
+  #   df: a data frame containing isokinetic strength test data
+  #
+  # Returns:
+  #   A vector containing the peak and average power values, respectively
+  
+  M <- as.matrix(df)
+  n <- dim(M)[1] - 1 
+  
+  # Maximum value gets initialized with first power value
+  # M[, 2]: torque column
+  # M[, 5]: velocity column
+  max <- abs(M[1, 2] * M[1, 5]) 
+  # Avarage starts as a summation of all values
+  avg <- max
+  # For each of the n integration intervals minus the first, which was already computed	  
+  for (i in 2:n) {	
+  	value <- abs(M[i, 2] * M[i, 5])		
+  	avg   <- avg + value
+  	if (value > max) {
+  		max <- value
+  	}
+  }
+  
+  # Averaging and changing from degrees to radians
+  avg <- pi * (avg / n) / 180 
+  # Changing from degrees to radians
+  max <- pi * max / 180
+  
+  # Returning max and avarega
+  vec <- c(max, avg)
+  
+  return(unname(vec))	
+}
+```
+
+# Final data frame
+
+After these variables were computed for all subjects, a data frame was built. A fragment of a final data frame is shown below as example.
+
+```{r compute_all, results="hide"}
+data_60gs_1st <- compute_variables(
+  "data/processed/knee/60gs/1st_eval/separate_reps",
+  1:91, 10:80
+)
+```
+
+```{r db_example}
+knitr::kable(data_60gs_1st[1:8, ])
+```
