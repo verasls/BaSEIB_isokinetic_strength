@@ -254,3 +254,10 @@ data_60gs_1st <- compute_variables(
 ```{r db_example}
 knitr::kable(data_60gs_1st[1:8, ])
 ```
+
+# R session info
+
+```{r session_info}
+devtools::session_info()
+```
+
