@@ -11,11 +11,12 @@ work_integration <- function(df) {
   n <- dim(M)[1] - 1 # Gets the number of intervals in the matrix
   
   # Numerical integration
-  sum <- 0.0
+  work <- 0
   for (i in 1:n) {				
-    sum <- sum - M[i, 2] * M[i, 3] - M[i + 1, 2] * M[i, 3] + M[i, 2] * M[i + 1, 3] + M[i + 1, 2] * M[i + 1, 3]
+    work <- work + (M[i, 2] * M[i + 1, 3]) + (M[i + 1, 2] * M[i + 1, 3]) - (M[i, 2] * M[i, 3]) - (M[i + 1, 2] * M[i, 3])
   }
-  sum <- pi * sum / 360.0 # Correcting value
+  # Change from degrees to radians
+  work <- (pi * work) / (180 * 2)
 
-  return(unname(abs(sum)))
+  return(unname(abs(work)))
 }
