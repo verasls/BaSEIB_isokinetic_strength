@@ -61,7 +61,7 @@ The figure below shows a raw torque X time plot for the isokinetic testing of kn
 ```{r strength_plot, fig.height=4, fig.width=9, dev='svg'}
 
 D <- read_strength_data(
-  "data/raw/knee/60gs/1st_eval/1st_strength_knee_raw_60g_001.txt"
+  "data/raw/knee/60gs/1st_eval/1st_strength_knee_raw_60g_003.txt"
   )
 
 ggplot(data = D) +
@@ -69,16 +69,72 @@ ggplot(data = D) +
     labs(
       x = "Time (ms)",
       y = expression(Torque~(N*"\U00B7"*m)),
-      title = "1st eval ID 001 - knee 60º/s"
+      title = "1st eval ID 003 - knee 60º/s"
     ) + 
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-The figure below show the same plot as above, but with the vertical black lines representing the start and end points of each half repetition, as determined by the `find_divisions()` function.
+The figure below shows the same plot as above, but with the vertical black lines representing all the 32 identified zero crossing points, without removing noise.
+
+```{r raw_divisions_plot, fig.height=4, fig.width=9, dev='svg'}
+file <- "data/raw/knee/60gs/1st_eval/1st_strength_knee_raw_60g_003.txt"
+M <- as.matrix(read_strength_data(file))
+
+# Ensure 1st velocity value to be positive
+if (M[1, 5] <= 0) {
+  # Find first positive velocity value
+  p <- min(which(M[, 5] > 0))
+  M <- M[p:nrow(M), ]
+}
+
+# Find zero crossings in velocity signal
+idx <- vector() # Division points indices
+j   <- 1        # Index counter
+for (i in 2:nrow(M)) {
+  # If product < 0, it means different signs
+  if (M[i - 1, 5] * M[i, 5] < 0) {
+    idx[j] <- i
+    j <- j + 1
+  } else {
+    # If product is 0, at least one of the velocity values is 0
+    # Mark where velocity is 0 as index
+    if (M[i - 1, 5] * M[i, 5] == 0) {
+      if (min(which(M[(i - 1):i, 5] == 0)) == 1) {
+        idx[j] <- i - 1
+        j <- j + 1
+      } else {
+        if (min(which(M[(i - 1):i, 5] == 0)) == 2) {
+          idx[j] <- i
+          j <- j + 1
+        }
+      }
+    }
+  }
+  idx <- unique(idx[!is.na(idx)])
+}
+
+# Find time points of velocity zero crossings
+t <- vector()
+for (i in 1:length(idx)) {
+  t[i] <- M[idx[i], 1]
+}
+
+ggplot(data = as_tibble(M)) +
+  geom_line(mapping = aes(x = time, y = torque), colour = "blue") +
+  geom_vline(xintercept = t) +
+  labs(
+    x = "Time (ms)",
+    y = expression(Torque~(N*"\U00B7"*m)),
+    title = "1st eval ID 003 - knee 60º/s"
+  ) + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+The next figure shows the divisions without the noise, as determined by the `find_divisions()` function. It removed 24 false disivions points, keeping only the 8 points that correctly identify the half repetitions.
 
 ```{r divisions_plot, fig.height=4, fig.width=9, dev='svg'}
 plot_divisions(
-  file = "data/raw/knee/60gs/1st_eval/1st_strength_knee_raw_60g_001.txt", 
+  file = "data/raw/knee/60gs/1st_eval/1st_strength_knee_raw_60g_003.txt", 
   save = FALSE
   )
 ```
