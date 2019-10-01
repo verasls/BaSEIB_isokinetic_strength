@@ -240,6 +240,10 @@ compute_power <- function(df) {
 }
 ```
 
+# Selected range of motion
+
+For the whole quality control and variables computation processes, an option to select a ROM within the half repetition data was activated. For the knee muscle strength test the selected ROM was from 10º to 80º, excluding the first and last 10º. This was done to ensure that the non-isokinetic portions of the test (acceleration and deceleration) are excluded from the analyses.
+
 # Final data frame
 
 After these variables were computed for all subjects, a data frame was built. A fragment of a final data frame is shown below as example.
