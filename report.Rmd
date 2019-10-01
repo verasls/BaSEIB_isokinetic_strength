@@ -166,7 +166,7 @@ average_power     <- compute_power(D)[2]
 peak_power        <- compute_power(D)[1]
 ```
 
-For the computation of some variables, new functions have been defined. As the muscle force output varies throughout the test, the total work done during one half repetition must be computed as an integral, where the work (W) performed from the start point (a) to the end point (b), by a force (f(x)), is obtained as follows:
+For the computation of some variables, new functions have been defined. As the muscle force output varies throughout the test, the total work done during one half repetition must be computed as a numerical integration, where the work (W) performed from the start point (a) to the end point (b), by a force (f(x)), is obtained as follows:
 
 W = $\int_{a}^{b} f(x) \; dx$
 
