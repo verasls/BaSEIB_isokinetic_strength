@@ -8,7 +8,7 @@ find_divisions <- function(file) {
   # Returns:
   #   A vector containing the row numbers of the division points
   
-  source("code/functions/read_strength_data.R")
+  source("R/functions/read_strength_data.R")
   
   M <- as.matrix(read_strength_data(file))
   

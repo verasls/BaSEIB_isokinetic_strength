@@ -9,8 +9,8 @@ separate_file <- function(file) {
   #   Writes the half repetitions into separate files
 
   require(stringr)
-  source("code/functions/read_strength_data.R")
-  source("code/functions/find_divisions.R")
+  source("R/functions/read_strength_data.R")
+  source("R/functions/find_divisions.R")
   
   print(
     str_c(

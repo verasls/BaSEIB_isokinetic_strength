@@ -14,8 +14,8 @@ plot_divisions <- function(file, show = TRUE, save = TRUE) {
   require(readr)
   require(stringr)
   require(ggplot2)
-  source("code/functions/read_strength_data.R")
-  source("code/functions/find_divisions.R")
+  source("R/functions/read_strength_data.R")
+  source("R/functions/find_divisions.R")
   
   M <- as.matrix(read_strength_data(file))
   

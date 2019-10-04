@@ -11,9 +11,9 @@ compute_variables_file <- function(file, ROM = FALSE) {
   #   number and repetition
   
   require(stringr)
-  source("code/functions/select_ROM.R")
-  source("code/functions/work_integration.R")
-  source("code/functions/compute_power.R")
+  source("R/functions/select_ROM.R")
+  source("R/functions/work_integration.R")
+  source("R/functions/compute_power.R")
   
   if (str_detect(file, "60gs")) {
     if (str_length(file) == 84) {

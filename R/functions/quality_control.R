@@ -11,8 +11,8 @@ quality_control <- function(file, ROM = FALSE) {
   #   fails
   
   require(stringr)
-  source("code/functions/ext_quality_control.R")
-  source("code/functions/fle_quality_control.R")
+  source("R/functions/ext_quality_control.R")
+  source("R/functions/fle_quality_control.R")
   
   if (str_detect(file, "ext")) {
     ext_quality_control(file, ROM)

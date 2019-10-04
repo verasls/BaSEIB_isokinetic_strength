@@ -13,7 +13,7 @@ compute_variables <- function(path, ID, ROM) {
   #   and repetition for all the specified IDs in the selected path
   
   require(stringr)
-  source("code/functions/compute_variables_ID.R")
+  source("R/functions/compute_variables_ID.R")
   
   l <- list.files(path, full.names = TRUE)
   

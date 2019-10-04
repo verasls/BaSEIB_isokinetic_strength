@@ -12,8 +12,8 @@ ext_quality_control <- function(file, ROM = FALSE) {
   #   A txt file containing the information of in which rows the quality control
   #   fails
   
-  source("code/functions/write_log.R")
-  source("code/functions/select_ROM.R")
+  source("R/functions/write_log.R")
+  source("R/functions/select_ROM.R")
   
   print(
     str_c(
