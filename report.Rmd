@@ -18,19 +18,19 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ```{r prepare, include=FALSE}
 library(tidyverse)
-source("code/functions/read_strength_data.R")
-source("code/functions/plot_divisions.R")
-source("code/functions/separate_file.R")
-source("code/functions/quality_control.R")
-source("code/functions/count_reps.R")
-source("code/functions/detect_ROM.R")
-source("code/functions/correct_ROM.R")
-source("code/functions/compute_variables.R")
+source("R/functions/read_strength_data.R")
+source("R/functions/plot_divisions.R")
+source("R/functions/separate_file.R")
+source("R/functions/quality_control.R")
+source("R/functions/count_reps.R")
+source("R/functions/detect_ROM.R")
+source("R/functions/correct_ROM.R")
+source("R/functions/compute_variables.R")
 ```
 
 # Introduction 
 
-The present report shows the processing of isokinetic strength raw data test from the BaSEIB Clinical Trial. The tests were performed using an isokinetic dynamometer (Biodex System 4 Pro), with a dynamic concentric muscle strength test for knee and trunk muscles. The protocols were:
+The present report shows the processing of isokinetic strength raw data test from the BaSEIB Clinical Trial. The tests were performed using an isokinetic dynamometer (Biodex System 4 Pro), with a maximum dynamic concentric muscle strength test for knee and trunk muscles. The protocols were:
 
 **A) Knee muscle strength test**
 
@@ -176,9 +176,9 @@ After the raw data was correctly processed, a few variables were computed. The d
 - **Peak power:** the maximum rate at which work is done
 
 ```{r prepare_variables, include=FALSE}
-source("code/functions/select_ROM.R")
-source("code/functions/work_integration.R")
-source("code/functions/compute_power.R")
+source("R/functions/select_ROM.R")
+source("R/functions/work_integration.R")
+source("R/functions/compute_power.R")
 
 file <- "data/processed/knee/60gs/1st_eval/separate_reps/1st_strength_knee_60g_001_ext_1.txt"
 
