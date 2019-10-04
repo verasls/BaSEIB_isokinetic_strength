@@ -1,13 +1,13 @@
 # Load packages and functions ---------------------------------------------
 
 library(tidyverse)
-source("code/functions/plot_divisions.R")
-source("code/functions/separate_file.R")
-source("code/functions/quality_control.R")
-source("code/functions/count_reps.R")
-source("code/functions/detect_ROM.R")
-source("code/functions/correct_ROM.R")
-source("code/functions/compute_variables.R")
+source("R/functions/plot_divisions.R")
+source("R/functions/separate_file.R")
+source("R/functions/quality_control.R")
+source("R/functions/count_reps.R")
+source("R/functions/detect_ROM.R")
+source("R/functions/correct_ROM.R")
+source("R/functions/compute_variables.R")
 
 # Plot divisions for all evals --------------------------------------------
 
