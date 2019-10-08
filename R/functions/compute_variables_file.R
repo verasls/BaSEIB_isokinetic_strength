@@ -79,15 +79,23 @@ compute_variables_file <- function(file, ROM = FALSE) {
   peak_torque_LM    <- peak_torque / LM
   peak_torque_angle <- min(unname(D[which(abs(D[, 2]) == peak_torque), 4]))
   total_work        <- work_integration(D)
+  total_work_BM     <- total_work / BM
+  total_work_LM     <- total_work / LM
   average_power     <- compute_power(D)[2]
+  average_power_BM  <- average_power / BM
+  average_power_LM  <- average_power / LM
   peak_power        <- compute_power(D)[1]
+  peak_power_BM     <- peak_power / BM 
+  peak_power_LM     <- peak_power / LM
   
   # Assemble data frame
   M <- as.matrix(
     data.frame(
       ID, rep, peak_torque, peak_torque_BM,
       peak_torque_LM, peak_torque_angle,
-      total_work, average_power, peak_power
+      total_work, total_work_BM, total_work_LM,
+      average_power, average_power_BM, average_power_LM,
+      peak_power, peak_power_BM, peak_power_LM
     )
   )
   M[, 1] <- as.numeric(M[, 1])

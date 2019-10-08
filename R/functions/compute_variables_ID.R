@@ -19,14 +19,16 @@ compute_variables_ID <- function(path, ID, ROM = FALSE) {
   
   m <- which(str_detect(l, ID) == TRUE)
   
-  M <- matrix(NA, length(m), 9)
+  M <- matrix(NA, length(m), 15)
   for (i in 1:length(m)) {
     M[i, ] <- compute_variables_file(l[m[i]], ROM)
   }
   colnames(M) <- c(
     "ID", "rep", "peak_torque", "peak_torque_BM",
     "peak_torque_LM", "peak_torque_angle",
-    "total_work", "average_power", "peak_power"
+    "total_work", "total_work_BM", "total_work_LM",
+    "average_power", "average_power_BM", "average_power_LM",
+    "peak_power", "peak_power_BM", "peak_power_LM"
   )
   
   return(M)
