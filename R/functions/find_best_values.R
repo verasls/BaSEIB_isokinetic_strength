@@ -17,7 +17,7 @@ find_best_values <- function(file_path, output_path) {
   all_IDs <- unique(data$ID)
   
   final_df <- tibble(
-    ID = IDs,
+    ID = all_IDs,
     peak_torque_ext = NA,
     peak_torque_BM_ext = NA,
     peak_torque_LM_ext = NA,
@@ -41,7 +41,7 @@ find_best_values <- function(file_path, output_path) {
     fle_reps <- select_ID %>% 
       filter(str_detect(select_ID$rep, "fle") == TRUE)
     
-    ID <- which(final_df$ID == IDs[i])
+    ID <- which(final_df$ID == all_IDs[i])
     
     # Select the best values for the variables
     final_df[ID, 2] <- max(ext_reps$peak_torque)
