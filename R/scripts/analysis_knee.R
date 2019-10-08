@@ -215,7 +215,7 @@ data_60gs_1st <- compute_variables(
 )
 write_csv(
   as.data.frame(data_60gs_1st), 
-  "data/data_bases/BaSEIB_isokinetic_strength_knee_60gs_1st_raw.csv"
+  "data/dbs/BaSEIB_isokinetic_strength_knee_60gs_1st_raw.csv"
 )
 
 # 2nd
@@ -225,7 +225,7 @@ data_60gs_2nd <- compute_variables(
 )
 write_csv(
   as.data.frame(data_60gs_2nd), 
-  "data/data_bases/BaSEIB_isokinetic_strength_knee_60gs_2nd_raw.csv"
+  "data/dbs/BaSEIB_isokinetic_strength_knee_60gs_2nd_raw.csv"
 )
 
 # 3rd
@@ -235,7 +235,7 @@ data_60gs_3rd <- compute_variables(
 )
 write_csv(
   as.data.frame(data_60gs_3rd), 
-  "data/data_bases/BaSEIB_isokinetic_strength_knee_60gs_3rd_raw.csv"
+  "data/dbs/BaSEIB_isokinetic_strength_knee_60gs_3rd_raw.csv"
 )
 
 # 4th
@@ -245,7 +245,7 @@ data_60gs_4th <- compute_variables(
 )
 write_csv(
   as.data.frame(data_60gs_4th), 
-  "data/data_bases/BaSEIB_isokinetic_strength_knee_60gs_4th_raw.csv"
+  "data/dbs/BaSEIB_isokinetic_strength_knee_60gs_4th_raw.csv"
 )
 
 # 180º/s
@@ -256,7 +256,7 @@ data_180gs_1st <- compute_variables(
 )
 write_csv(
   as.data.frame(data_180gs_1st), 
-  "data/data_bases/BaSEIB_isokinetic_strength_knee_180gs_1st_raw.csv"
+  "data/dbs/BaSEIB_isokinetic_strength_knee_180gs_1st_raw.csv"
 )
 
 # 2nd
@@ -266,7 +266,7 @@ data_180gs_2nd <- compute_variables(
 )
 write_csv(
   as.data.frame(data_180gs_2nd), 
-  "data/data_bases/BaSEIB_isokinetic_strength_knee_180gs_2nd_raw.csv"
+  "data/dbs/BaSEIB_isokinetic_strength_knee_180gs_2nd_raw.csv"
 )
 
 # 3rd
@@ -276,7 +276,7 @@ data_180gs_3rd <- compute_variables(
 )
 write_csv(
   as.data.frame(data_180gs_3rd), 
-  "data/data_bases/BaSEIB_isokinetic_strength_knee_180gs_3rd_raw.csv"
+  "data/dbs/BaSEIB_isokinetic_strength_knee_180gs_3rd_raw.csv"
 )
 
 # 4th
@@ -286,5 +286,5 @@ data_180gs_4th <- compute_variables(
 )
 write_csv(
   as.data.frame(data_180gs_4th), 
-  "data/data_bases/BaSEIB_isokinetic_strength_knee_180gs_4th_raw.csv"
+  "data/dbs/BaSEIB_isokinetic_strength_knee_180gs_4th_raw.csv"
 )
