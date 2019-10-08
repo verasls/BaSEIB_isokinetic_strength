@@ -288,3 +288,47 @@ write_csv(
   as.data.frame(data_180gs_4th), 
   "data/dbs/BaSEIB_isokinetic_strength_knee_180gs_4th_raw.csv"
 )
+
+# Reshape data bases ------------------------------------------------------
+
+# 60º/s
+find_best_values(
+  "data/dbs/BaSEIB_isokinetic_strength_knee_60gs_1st_raw.csv",
+  "data/dbs/BaSEIB_isokinetic_strength_knee_60gs_1st.csv"
+)
+
+find_best_values(
+  "data/dbs/BaSEIB_isokinetic_strength_knee_60gs_2nd_raw.csv",
+  "data/dbs/BaSEIB_isokinetic_strength_knee_60gs_2nd.csv"
+)
+
+find_best_values(
+  "data/dbs/BaSEIB_isokinetic_strength_knee_60gs_3rd_raw.csv",
+  "data/dbs/BaSEIB_isokinetic_strength_knee_60gs_3rd.csv"
+)
+
+find_best_values(
+  "data/dbs/BaSEIB_isokinetic_strength_knee_60gs_4th_raw.csv",
+  "data/dbs/BaSEIB_isokinetic_strength_knee_60gs_4th.csv"
+)
+
+# 180º/s
+find_best_values(
+  "data/dbs/BaSEIB_isokinetic_strength_knee_180gs_1st_raw.csv",
+  "data/dbs/BaSEIB_isokinetic_strength_knee_180gs_1st.csv"
+)
+
+find_best_values(
+  "data/dbs/BaSEIB_isokinetic_strength_knee_180gs_2nd_raw.csv",
+  "data/dbs/BaSEIB_isokinetic_strength_knee_180gs_2nd.csv"
+)
+
+find_best_values(
+  "data/dbs/BaSEIB_isokinetic_strength_knee_180gs_3rd_raw.csv",
+  "data/dbs/BaSEIB_isokinetic_strength_knee_180gs_3rd.csv"
+)
+
+find_best_values(
+  "data/dbs/BaSEIB_isokinetic_strength_knee_180gs_4th_raw.csv",
+  "data/dbs/BaSEIB_isokinetic_strength_knee_180gs_4th.csv"
+)
