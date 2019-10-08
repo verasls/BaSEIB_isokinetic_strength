@@ -26,6 +26,7 @@ source("R/functions/count_reps.R")
 source("R/functions/detect_ROM.R")
 source("R/functions/correct_ROM.R")
 source("R/functions/compute_variables.R")
+source("R/functions/find_best_values.R")
 ```
 
 # Introduction 
@@ -213,13 +214,19 @@ B <- read.csv("data/raw/body_composition.csv")
 #   - BM represents the body mass;
 #   - LM represents the lower limb lean mass.
 
-peak_torque       <- max(abs(D[, 2]))
-peak_torque_BM    <- peak_torque / BM
-peak_torque_LM    <- peak_torque / LM
-peak_torque_angle <- min(unname(D[which(abs(D[, 2]) == peak_torque), 4]))
-total_work        <- work_integration(D)
-average_power     <- compute_power(D)[2]
-peak_power        <- compute_power(D)[1]
+  peak_torque       <- max(abs(D[, 2]))
+  peak_torque_BM    <- peak_torque / BM
+  peak_torque_LM    <- peak_torque / LM
+  peak_torque_angle <- min(unname(D[which(abs(D[, 2]) == peak_torque), 4]))
+  total_work        <- work_integration(D)
+  total_work_BM     <- total_work / BM
+  total_work_LM     <- total_work / LM
+  average_power     <- compute_power(D)[2]
+  average_power_BM  <- average_power / BM
+  average_power_LM  <- average_power / LM
+  peak_power        <- compute_power(D)[1]
+  peak_power_BM     <- peak_power / BM 
+  peak_power_LM     <- peak_power / LM
 ```
 
 For the computation of some variables, new functions have been defined. As the muscle force output varies throughout the test, the total work done during one half repetition must be computed as a numerical integration, where the work (W) performed from the start point (a) to the end point (b), by a force (f(x)), is obtained as follows:
@@ -302,7 +309,7 @@ For the whole quality control and variables computation processes, an option to 
 
 # Final data frame
 
-After these variables were computed for all subjects, a data frame was built. A fragment of a final data frame is shown below as example.
+After these variables were computed for all subjects, a data frame was built. A fragment of this data frame is shown below as example.
 
 ```{r compute_all, results="hide"}
 data_60gs_1st <- compute_variables(
@@ -313,6 +320,13 @@ data_60gs_1st <- compute_variables(
 
 ```{r db_example}
 knitr::kable(data_60gs_1st[1:8, ])
+```
+
+After that, the data frames were processed to select only the best value of each variable among all the repetitions and to display all data from an ID in a single row. A fragment of the final data frame is shown below.
+
+```{r db_example_final}
+db <- read_csv("data/dbs/BaSEIB_isokinetic_strength_knee_180gs_1st.csv")
+knitr::kable(head(db))
 ```
 
 # R session info
