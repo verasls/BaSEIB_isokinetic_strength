@@ -2,6 +2,7 @@
 .RData
 .Ruserdata
 .Rproj.user
+__pycache__/
 *.pdf
 *.html
 *.tiff
