@@ -15,12 +15,27 @@ def find_divisions(file):
 
     # Find zero crossings in velocity signal
     idx = []  # Division points indices
-    j = 1.    # Index counter
     for i in range(1, data.shape[0] - 1):
         # If product < 0, it means different signs
         if data[i - 1, 4] * data[i, 4] < 0:
-            idx[j] = i
-            j = j + 1
-        elif data[i - 1, 4] * data[i, 4] == 0:
-            idx[j] = i
-            j = j + 1
+            idx.append(i)
+
+    return(idx)
+
+
+def plot_divisions(file):
+    data = np.loadtxt(file, skiprows=6)
+
+    # Ensure 1st velocity value to be positive
+    if data[0, 4] <= 0:
+        first_positive = np.min(np.where(data[:, 4] > 0))
+        data = data[first_positive:, :]
+
+    idx = find_divisions(file)
+
+    # Find time points of velocity zero crossings
+    idx_time = []
+    for i in range(0, len(idx)):
+        idx_time.append(data[idx[i], 0])
+
+    return(idx_time)
