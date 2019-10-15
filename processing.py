@@ -1,5 +1,6 @@
 import numpy as np
 import glob
+import matplotlib.pyplot as plt
 
 files_raw_60gs_1st = sorted(glob.glob("data/raw/knee/60gs/1st_eval/*.txt"))
 data = np.loadtxt(files_raw_60gs_1st[0], skiprows=6)
@@ -33,9 +34,19 @@ def plot_divisions(file):
 
     idx = find_divisions(file)
 
+    # Exclude region after the last idx
+    data = data[0:idx[len(idx) - 1] + 1, :]
+
     # Find time points of velocity zero crossings
     idx_time = []
     for i in range(0, len(idx)):
         idx_time.append(data[idx[i], 0])
 
-    return(idx_time)
+    # Plot
+    plt.plot(data[:, 0], data[:, 1])
+    plt.xlabel("Time (ms)")
+    plt.ylabel("Torque (Nm)")
+    # Add vertical black lines in the division points
+    for i in range(0, len(idx_time)):
+        plt.axvline(x=idx_time[i], color="k")
+    plt.show()
