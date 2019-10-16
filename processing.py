@@ -41,10 +41,18 @@ def plot_divisions(file):
     # Plot
     time = data[:, 0]
     torque = data[:, 1]
-    plt.plot(time, torque)
-    plt.xlabel("Time (ms)")
-    plt.ylabel("Torque (Nm)")
+    velocity = data[:, 4]
+
+    fig, ax1 = plt.subplots()
+    ax2 = ax1.twinx()
+
+    ax1.plot(time, torque, "b-")
+    ax2.plot(time, velocity, "r-")
+
+    ax1.set_xlabel("Time (ms)")
+    ax1.set_ylabel("Torque (Nm)", color="b")
+    ax2.set_ylabel("Velocity (m/s)", color="r")
     # Add vertical black lines in the division points
     for i in range(0, len(idx_time)):
-        plt.axvline(x=idx_time[i], color="k")
+        ax1.axvline(x=idx_time[i], color="k")
     plt.show()
