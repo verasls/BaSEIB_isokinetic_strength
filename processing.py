@@ -1,9 +1,5 @@
 import numpy as np
-import glob
 import matplotlib.pyplot as plt
-
-files_raw_60gs_1st = sorted(glob.glob("data/raw/knee/60gs/1st_eval/*.txt"))
-data = np.loadtxt(files_raw_60gs_1st[0], skiprows=6)
 
 
 def find_divisions(file):
@@ -43,7 +39,9 @@ def plot_divisions(file):
         idx_time.append(data[idx[i], 0])
 
     # Plot
-    plt.plot(data[:, 0], data[:, 1])
+    time = data[:, 0]
+    torque = data[:, 1]
+    plt.plot(time, torque)
     plt.xlabel("Time (ms)")
     plt.ylabel("Torque (Nm)")
     # Add vertical black lines in the division points
