@@ -20,7 +20,7 @@ def find_divisions(file):
     return(idx)
 
 
-def plot_divisions(file):
+def plot_divisions(file, hline):
     data = np.loadtxt(file, skiprows=6)
 
     # Ensure 1st velocity value to be positive
@@ -55,6 +55,7 @@ def plot_divisions(file):
     # Add vertical black lines in the division points
     for i in range(0, len(idx_time)):
         ax1.axvline(x=idx_time[i], color="k")
-    # Add a horizontal line in velocity = 0
-    ax2.axhline(y=0, color="r")
+    if hline is True:
+        # Add a horizontal line in velocity = 0
+        ax2.axhline(y=0, color="r")
     plt.show()
