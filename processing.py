@@ -20,7 +20,7 @@ def find_divisions(file):
     return(idx)
 
 
-def plot_divisions(file, hline):
+def plot_divisions(file, hline=None):
     data = np.loadtxt(file, skiprows=6)
 
     # Ensure 1st velocity value to be positive
