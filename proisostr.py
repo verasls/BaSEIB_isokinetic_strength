@@ -15,15 +15,12 @@ def read_strength_data(file):
         Col 3: anatomic position (°)
         Col 4: velocity (°s-1)
     """
-    
+
     data = np.loadtxt(file, skiprows=6)
     return(data)
 
 
-
-def find_divisions(file):
-    data = np.loadtxt(file, skiprows=6)
-
+def find_divisions(data):
     # Ensure 1st velocity value to be positive
     if data[0, 4] <= 0:
         first_positive = np.min(np.where(data[:, 4] > 0))
@@ -39,15 +36,13 @@ def find_divisions(file):
     return(idx)
 
 
-def plot_divisions(file, hline=True):
-    data = np.loadtxt(file, skiprows=6)
-
+def plot_divisions(data, hline=True):
     # Ensure 1st velocity value to be positive
     if data[0, 4] <= 0:
         first_positive = np.min(np.where(data[:, 4] > 0))
         data = data[first_positive:, :]
 
-    idx = find_divisions(file)
+    idx = find_divisions(data)
 
     # Exclude region after the last idx
     data = data[0:idx[len(idx) - 1] + 1, :]
