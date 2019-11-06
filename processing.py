@@ -20,7 +20,7 @@ def find_divisions(file):
     return(idx)
 
 
-def plot_divisions(file, hline=None):
+def plot_divisions(file, hline=True):
     data = np.loadtxt(file, skiprows=6)
 
     # Ensure 1st velocity value to be positive
@@ -59,5 +59,9 @@ def plot_divisions(file, hline=None):
     if hline is True:
         # Add a horizontal line in velocity = 0
         ax2.axhline(y=0, color="k", linestyle="dotted")
+    elif hline is False:
+        pass
+    else:
+        raise ValueError("hline parameter can only be True or False")
 
     plt.show(block=False)
