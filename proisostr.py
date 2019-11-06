@@ -43,7 +43,7 @@ def plot_divisions(file, hline=True):
     torque = data[:, 1]
     velocity = data[:, 4]
 
-    fig = plt.figure()
+    fig = plt.figure(figsize=(15, 7))
     ax1 = fig.add_subplot(1, 1, 1)
     ax2 = ax1.twinx()
 
