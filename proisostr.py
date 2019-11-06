@@ -22,15 +22,16 @@ def read_strength_data(file):
 
 def find_divisions(data):
     # Ensure 1st velocity value to be positive
-    if data[0, 4] <= 0:
-        first_positive = np.min(np.where(data[:, 4] > 0))
-        data = data[first_positive:, :]
+    velocity = data[:, 4]
+    if velocity[0] <= 0:
+        first_positive = np.min(np.where(velocity > 0))
+        velocity = velocity[first_positive:]
 
     # Find zero crossings in velocity signal
     idx = []  # Division points indices
-    for i in range(1, data.shape[0] - 1):
+    for i in range(1, len(velocity) - 1):
         # If product < 0, it means different signs
-        if data[i - 1, 4] * data[i, 4] < 0:
+        if velocity[i - 1] * velocity[i] < 0:
             idx.append(i)
 
     return(idx)
