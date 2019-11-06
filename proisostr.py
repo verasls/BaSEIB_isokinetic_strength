@@ -39,9 +39,10 @@ def find_divisions(data):
 
 def plot_divisions(data, hline=True):
     # Ensure 1st velocity value to be positive
-    if data[0, 4] <= 0:
-        first_positive = np.min(np.where(data[:, 4] > 0))
-        data = data[first_positive:, :]
+    velocity = data[:, 4]
+    if velocity[0] <= 0:
+        first_positive = np.min(np.where(velocity > 0))
+        velocity = velocity[first_positive:]
 
     idx = find_divisions(data)
 
