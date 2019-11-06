@@ -43,19 +43,21 @@ def plot_divisions(file, hline=None):
     torque = data[:, 1]
     velocity = data[:, 4]
 
-    fig, ax1 = plt.subplots()
+    fig = plt.figure()
+    ax1 = fig.add_subplot(1, 1, 1)
     ax2 = ax1.twinx()
 
-    ax1.plot(time, torque, "b-")
-    ax2.plot(time, velocity, "r-")
+    ax1.plot(time, torque, "tab:blue")
+    ax2.plot(time, velocity, "tab:orange")
 
     ax1.set_xlabel("Time (ms)")
-    ax1.set_ylabel("Torque (Nm)", color="b")
-    ax2.set_ylabel("Velocity (m/s)", color="r")
+    ax1.set_ylabel("Torque (Nm)", color="tab:blue")
+    ax2.set_ylabel("Velocity (m/s)", color="tab:orange")
     # Add vertical black lines in the division points
     for i in range(0, len(idx_time)):
-        ax1.axvline(x=idx_time[i], color="k")
+        ax1.axvline(x=idx_time[i], color="k", linestyle="dotted")
     if hline is True:
         # Add a horizontal line in velocity = 0
-        ax2.axhline(y=0, color="r")
-    plt.show()
+        ax2.axhline(y=0, color="k", linestyle="dotted")
+
+    plt.show(block=False)
