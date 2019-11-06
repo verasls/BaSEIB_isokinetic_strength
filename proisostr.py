@@ -1,6 +1,25 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+def read_strength_data(file):
+    """Reads isokinetic strength test data
+
+    Args:
+        file: Path to isokinetic strength test file
+
+    Returns:
+        The isokinetic strength data as a numpy array.
+        Col 0: time (ms)
+        Col 1: torque (Nm)
+        Col 2: position (°)
+        Col 3: anatomic position (°)
+        Col 4: velocity (°s-1)
+    """
+    
+    data = np.loadtxt(file, skiprows=6)
+    return(data)
+
+
 
 def find_divisions(file):
     data = np.loadtxt(file, skiprows=6)
