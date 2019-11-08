@@ -17,3 +17,5 @@ The repository is organised as follows:
 ├── README.md 							
 ├── report.Rmd 					# R Markdown source code with the data analysis report
 ```
+
+OBS: currently, new functionalities are being implemented in python code.
