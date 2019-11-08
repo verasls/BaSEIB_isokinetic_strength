@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.widgets import Cursor
 
 def read_strength_data(file):
     """Reads isokinetic strength test data
@@ -69,6 +70,7 @@ def plot_divisions(data, hline=True):
     ax1.set_xlabel("Time (ms)")
     ax1.set_ylabel("Torque (Nm)", color="tab:blue")
     ax2.set_ylabel("Velocity (m/s)", color="tab:orange")
+    plt.title("Click on the plot to select the half-repetitions division poins")
     # Add vertical black lines in the division points
     for i in range(0, len(idx_time)):
         ax1.axvline(x=idx_time[i], color="k", linestyle="dotted")
@@ -79,5 +81,15 @@ def plot_divisions(data, hline=True):
         pass
     else:
         raise ValueError("hline parameter can only be True or False")
+
+    # Use the cursor to manually select the division points
+    cursor = Cursor(ax2, useblit=True, color="k", linewidth=1)
+
+    new_idx = []
+    for i in range(0, 7):
+        coords = plt.ginput(n=1, timeout=0, show_clicks=False)
+        x, y = coords[0]
+        ax2.axvline(x=x, color="r")
+        new_idx.append(x)
 
     plt.show(block=False)
