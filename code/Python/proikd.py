@@ -29,7 +29,7 @@ def find_divisions(data):
 
     # Find zero crossings in velocity signal
     idx = []  # Division points indices
-    for i in range(1, len(velocity) - 1):
+    for i in range(1, len(velocity)):
         # If product < 0, it means different signs
         if velocity[i - 1] * velocity[i] < 0:
             idx.append(i)
