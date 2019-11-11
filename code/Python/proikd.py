@@ -132,4 +132,11 @@ def plot_divisions(data, hline=True):
 
     plt.show(block=False)
 
+    # new_idx is an array with the time values of the division points, while
+    # idx is contains the array indices. Thus, new_idx needs to be transformed
+    # to contain the array indices as well.
+    time_list = time.tolist()
+    for i in range(0, len(new_idx)):
+        new_idx[i] = time_list.index(new_idx[i])
+
     return(new_idx)
