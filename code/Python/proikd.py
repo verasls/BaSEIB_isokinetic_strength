@@ -103,6 +103,7 @@ def plot_divisions(data, hline=True):
             new_idx[i] = new_idx[i] - last_digit
         elif last_digit >= 5:
             new_idx[i] = new_idx[i] + (10 - last_digit)
+    new_idx = new_idx.tolist()
 
     # Plot the manually selected division points
     fig2 = plt.figure(figsize=(15, 7))
