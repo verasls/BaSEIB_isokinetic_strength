@@ -94,6 +94,15 @@ def plot_divisions(data, hline=True):
         ax21.axvline(x=x, color="r")
         new_idx.append(x)
     new_idx = np.array(new_idx, dtype=int)
+    # new_idx is an array with the time values of the division points. The
+    # column in the data array is formated to have only multiples of 10.
+    # new_idx must, then, be formatted to attend this criterion.
+    for i in range(0, len(new_idx)):
+        last_digit = new_idx[i] % 10
+        if last_digit < 5:
+            new_idx[i] = new_idx[i] - last_digit
+        elif last_digit >= 5:
+            new_idx[i] = new_idx[i] + (10 - last_digit)
 
     # Plot the manually selected division points
     fig2 = plt.figure(figsize=(15, 7))
@@ -119,5 +128,7 @@ def plot_divisions(data, hline=True):
     ax12.set_ylabel("Torque (Nm)", color="tab:blue")
     ax22.set_ylabel("Velocity (m/s)", color="tab:orange")
     plt.title("User-defined division points")
-    
+
     plt.show(block=False)
+
+    return(new_idx)
