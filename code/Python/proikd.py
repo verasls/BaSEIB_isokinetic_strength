@@ -85,7 +85,7 @@ def plot_divisions(data, hline=True):
     cursor = Cursor(ax21, useblit=True, color="k", linewidth=1)
 
     new_idx = []
-    for i in range(0, 7):
+    for i in range(0, 8):
         coords = plt.ginput(n=1, timeout=0, show_clicks=False)
         x, y = coords[0]
         ax21.axvline(x=x, color="r")
