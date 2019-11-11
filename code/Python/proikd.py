@@ -60,36 +60,64 @@ def plot_divisions(data, hline=True):
     torque = data[:, 1]
     velocity = data[:, 4]
 
-    fig = plt.figure(figsize=(15, 7))
-    ax1 = fig.add_subplot(1, 1, 1)
-    ax2 = ax1.twinx()
+    fig1 = plt.figure(figsize=(15, 7))
+    ax11 = fig1.add_subplot(1, 1, 1)
+    ax21 = ax11.twinx()
 
-    ax1.plot(time, torque, "tab:blue")
-    ax2.plot(time, velocity, "tab:orange")
+    ax11.plot(time, torque, "tab:blue")
+    ax21.plot(time, velocity, "tab:orange")
 
-    ax1.set_xlabel("Time (ms)")
-    ax1.set_ylabel("Torque (Nm)", color="tab:blue")
-    ax2.set_ylabel("Velocity (m/s)", color="tab:orange")
-    plt.title("Click on the plot to select the half-repetitions division poins")
     # Add vertical black lines in the division points
     for i in range(0, len(idx_time)):
-        ax1.axvline(x=idx_time[i], color="k", linestyle="dotted")
+        ax11.axvline(x=idx_time[i], color="k", linestyle="dotted")
+    
+    # Add a horizontal line at velocity == 0
     if hline is True:
-        # Add a horizontal line in velocity = 0
-        ax2.axhline(y=0, color="k", linestyle="dotted")
+        ax21.axhline(y=0, color="k", linestyle="dotted")
     elif hline is False:
         pass
     else:
         raise ValueError("hline parameter can only be True or False")
 
+    ax11.set_xlabel("Time (ms)")
+    ax11.set_ylabel("Torque (Nm)", color="tab:blue")
+    ax21.set_ylabel("Velocity (m/s)", color="tab:orange")
+    plt.title("Click on the plot to select the half-repetitions division poins")
+    
     # Use the cursor to manually select the division points
-    cursor = Cursor(ax2, useblit=True, color="k", linewidth=1)
+    cursor = Cursor(ax21, useblit=True, color="k", linewidth=1)
 
     new_idx = []
     for i in range(0, 7):
         coords = plt.ginput(n=1, timeout=0, show_clicks=False)
         x, y = coords[0]
-        ax2.axvline(x=x, color="r")
+        ax21.axvline(x=x, color="r")
         new_idx.append(x)
+    new_idx = np.array(new_idx, dtype=int)
 
+    # Plot the manually selected division points
+    fig2 = plt.figure(figsize=(15, 7))
+    ax12 = fig2.add_subplot(1, 1, 1)
+    ax22 = ax12.twinx()
+
+    ax12.plot(time, torque, "tab:blue")
+    ax22.plot(time, velocity, "tab:orange")
+
+    # Add vertical black lines in the manually selected division points
+    for i in range(0, len(new_idx)):
+        ax12.axvline(x=new_idx[i], color="k", linestyle="dotted")
+
+    # Add a horizontal line at velocity == 0
+    if hline is True:
+        ax22.axhline(y=0, color="k", linestyle="dotted")
+    elif hline is False:
+        pass
+    else:
+        raise ValueError("hline parameter can only be True or False")
+
+    ax12.set_xlabel("Time (ms)")
+    ax12.set_ylabel("Torque (Nm)", color="tab:blue")
+    ax22.set_ylabel("Velocity (m/s)", color="tab:orange")
+    plt.title("User-defined division points")
+    
     plt.show(block=False)
