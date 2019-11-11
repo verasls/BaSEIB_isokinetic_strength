@@ -47,9 +47,6 @@ def plot_divisions(data, hline=True):
 
     idx = find_divisions(data)
 
-    # Exclude region after the last idx
-    data = data[0:idx[len(idx) - 1] + 1, :]
-
     # Find time points of velocity zero crossings
     idx_time = []
     for i in range(0, len(idx)):
