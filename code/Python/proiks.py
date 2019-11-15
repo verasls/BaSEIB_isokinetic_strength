@@ -77,7 +77,8 @@ def plot_divisions(data, hline=True):
     ax11.set_xlabel("Time (ms)")
     ax11.set_ylabel("Torque (Nm)", color="tab:blue")
     ax21.set_ylabel("Velocity (m/s)", color="tab:orange")
-    plt.title("Click on the plot to select the half-repetitions division poins")
+    plt.title("Close the plot when done inspecting \n"
+              "Division points are marked as vertical black dotted lines")
     plt.show()
 
     answer = plotgui.make_changes()
