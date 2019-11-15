@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib
-matplotlib.use('Qt5Agg')
+matplotlib.use('MacOSX')
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Cursor
 
@@ -129,7 +129,7 @@ def plot_divisions(data, hline=True):
     ax22.set_ylabel("Velocity (m/s)", color="tab:orange")
     plt.title("User-defined division points")
 
-    plt.show(block=False)
+    plt.show()
 
     # new_idx is an array with the time values of the division points, while
     # idx is contains the array indices. Thus, new_idx needs to be transformed
