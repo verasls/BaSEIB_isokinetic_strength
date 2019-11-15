@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib
-matplotlib.use('MacOSX')
+matplotlib.use('Tkagg')
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Cursor
 
