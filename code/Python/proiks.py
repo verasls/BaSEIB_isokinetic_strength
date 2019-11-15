@@ -12,11 +12,6 @@ def read_strength_data(file):
 
     Returns:
         The isokinetic strength data as a numpy array.
-        Col 0: time (ms)
-        Col 1: torque (Nm)
-        Col 2: position (°)
-        Col 3: anatomic position (°)
-        Col 4: velocity (°s-1)
     """
 
     data = np.loadtxt(file, skiprows=6)
@@ -39,8 +34,52 @@ def find_divisions(data):
 
     return(idx)
 
-
 def plot_divisions(data, hline=True):
+    # Ensure 1st velocity value to be positive
+    velocity = data[:, 4]
+    if velocity[0] <= 0:
+        first_positive = np.min(np.where(velocity > 0))
+        velocity = velocity[first_positive:]
+
+    idx = find_divisions(data)
+
+    # Find time points of velocity zero crossings
+    idx_time = []
+    for i in range(0, len(idx)):
+        idx_time.append(data[idx[i], 0])
+
+    # Plot
+    time = data[:, 0]
+    torque = data[:, 1]
+    velocity = data[:, 4]
+
+    fig1 = plt.figure(figsize=(15, 7))
+    ax11 = fig1.add_subplot(1, 1, 1)
+    ax21 = ax11.twinx()
+
+    ax11.plot(time, torque, "tab:blue")
+    ax21.plot(time, velocity, "tab:orange")
+
+    # Add vertical black lines in the division points
+    for i in range(0, len(idx_time)):
+        ax11.axvline(x=idx_time[i], color="k", linestyle="dotted")
+    
+    # Add a horizontal line at velocity == 0
+    if hline is True:
+        ax21.axhline(y=0, color="k", linestyle="dotted")
+    elif hline is False:
+        pass
+    else:
+        raise ValueError("hline parameter can only be True or False")
+
+    ax11.set_xlabel("Time (ms)")
+    ax11.set_ylabel("Torque (Nm)", color="tab:blue")
+    ax21.set_ylabel("Velocity (m/s)", color="tab:orange")
+    plt.title("Click on the plot to select the half-repetitions division poins")
+    plt.show()
+
+
+def select_divisions(data, hline=True):
     # Ensure 1st velocity value to be positive
     velocity = data[:, 4]
     if velocity[0] <= 0:
