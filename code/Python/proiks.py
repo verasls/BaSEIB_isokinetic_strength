@@ -3,6 +3,7 @@ import matplotlib
 matplotlib.use('Tkagg')
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Cursor
+import plotgui
 
 def read_strength_data(file):
     """Reads isokinetic strength test data
@@ -33,6 +34,7 @@ def find_divisions(data):
             idx.append(i)
 
     return(idx)
+
 
 def plot_divisions(data, hline=True):
     # Ensure 1st velocity value to be positive
@@ -77,6 +79,10 @@ def plot_divisions(data, hline=True):
     ax21.set_ylabel("Velocity (m/s)", color="tab:orange")
     plt.title("Click on the plot to select the half-repetitions division poins")
     plt.show()
+
+    answer = plotgui.make_changes()
+    if answer is True:
+        select_divisions(data)
 
 
 def select_divisions(data, hline=True):
