@@ -82,7 +82,9 @@ def plot_divisions(data, hline=True):
 
     answer = plotgui.make_changes()
     if answer is True:
-        select_divisions(data)
+        idx = select_divisions(data)
+
+    return(idx)
 
 
 def select_divisions(data, hline=True):
