@@ -84,14 +84,14 @@ def plot_divisions(data, hline=True):
     if add_divisions == "y":
         ndivisions = input("How many division points do you want to add?")
         ndivisions = int(ndivisions)
-        idx = select_divisions(data, ndivisions)
+        idx = add_divisions(data, ndivisions)
     elif add_divisions == "n":
         print("The division points will not be altered")
 
     return(idx)
 
 
-def select_divisions(data, ndivisions, hline=True):
+def add_divisions(data, ndivisions, hline=True):
     # Ensure 1st velocity value to be positive
     velocity = data[:, 4]
     if velocity[0] <= 0:
