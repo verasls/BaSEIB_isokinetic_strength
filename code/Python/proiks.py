@@ -6,10 +6,8 @@ from matplotlib.widgets import Cursor
 
 def read_strength_data(file):
     """Reads isokinetic strength test data
-
     Args:
         file: Path to isokinetic strength test file
-
     Returns:
         The isokinetic strength data as a numpy array.
     """
@@ -78,25 +76,23 @@ def plot_divisions(data, idx, hline=True):
               "Division points are marked as vertical black dotted lines")
     plt.show()
 
-    add_divisions = input("Do you want to manually select division points? (y/n)")
-    if add_divisions == "y":
+    answer = input("Do you want to manually select division points? (y/n)")
+    if answer == "y":
         ndivisions = input("How many division points do you want to add?")
         ndivisions = int(ndivisions)
-        idx = add_divisions(data, ndivisions)
-    elif add_divisions == "n":
+        idx = add_divisions(data, idx, ndivisions)
+    elif answer == "n":
         print("The division points will not be altered")
 
     return(idx)
 
 
-def add_divisions(data, ndivisions, hline=True):
+def add_divisions(data, idx, ndivisions, hline=True):
     # Ensure 1st velocity value to be positive
     velocity = data[:, 4]
     if velocity[0] <= 0:
         first_positive = np.min(np.where(velocity > 0))
         velocity = velocity[first_positive:]
-
-    idx = find_divisions(data)
 
     # Find time points of velocity zero crossings
     idx_time = []
