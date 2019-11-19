@@ -1,9 +1,8 @@
 import numpy as np
 import matplotlib
-matplotlib.use('Tkagg')
+matplotlib.use('MacOSX')
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Cursor
-import plotgui
 
 def read_strength_data(file):
     """Reads isokinetic strength test data
@@ -80,11 +79,6 @@ def plot_divisions(data, hline=True):
     plt.title("Close the plot when done inspecting \n"
               "Division points are marked as vertical black dotted lines")
     plt.show()
-
-    answer = plotgui.make_changes()
-    if answer is True:
-        plotgui.exclude_divisions()
-        idx = select_divisions(data)
 
     return(idx)
 
