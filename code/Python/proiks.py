@@ -81,9 +81,14 @@ def plot_divisions(data, idx, hline=True):
         print("Not a valid input! Please try again")
         answer = input("Do you want to manually select division points? (y/n)")
     if answer == "y":
-        ndivisions = input("How many division points do you want to add?")
-        ndivisions = int(ndivisions)
-        idx = add_divisions(data, idx, ndivisions)
+        while True:
+            try:
+                ndivisions = int(input("How many division points do you want to add?"))
+            except ValueError:
+                print("Input must be a number! Please try again")
+            else:
+                idx = add_divisions(data, idx, ndivisions)
+                break
     elif answer == "n":
         print("The division points will not be altered")
 
