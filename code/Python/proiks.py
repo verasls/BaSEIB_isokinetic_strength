@@ -80,10 +80,18 @@ def plot_divisions(data, hline=True):
               "Division points are marked as vertical black dotted lines")
     plt.show()
 
+    add_divisions = input("Do you want to manually select division points? (y/n)")
+    if add_divisions == "y":
+        ndivisions = input("How many division points do you want to add?")
+        ndivisions = int(ndivisions)
+        idx = select_divisions(data, ndivisions)
+    elif add_divisions == "n":
+        print("The division points will not be altered")
+
     return(idx)
 
 
-def select_divisions(data, hline=True):
+def select_divisions(data, ndivisions, hline=True):
     # Ensure 1st velocity value to be positive
     velocity = data[:, 4]
     if velocity[0] <= 0:
@@ -130,7 +138,7 @@ def select_divisions(data, hline=True):
     cursor = Cursor(ax21, useblit=True, color="k", linewidth=1)
 
     new_idx = []
-    for i in range(0, 8):
+    for i in range(0, ndivisions):
         coords = plt.ginput(n=1, timeout=0, show_clicks=False)
         x, y = coords[0]
         ax21.axvline(x=x, color="r")
