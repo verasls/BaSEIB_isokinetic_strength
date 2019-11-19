@@ -35,14 +35,12 @@ def find_divisions(data):
     return(idx)
 
 
-def plot_divisions(data, hline=True):
+def plot_divisions(data, idx, hline=True):
     # Ensure 1st velocity value to be positive
     velocity = data[:, 4]
     if velocity[0] <= 0:
         first_positive = np.min(np.where(velocity > 0))
         velocity = velocity[first_positive:]
-
-    idx = find_divisions(data)
 
     # Find time points of velocity zero crossings
     idx_time = []
