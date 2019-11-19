@@ -77,6 +77,9 @@ def plot_divisions(data, idx, hline=True):
     plt.show()
 
     answer = input("Do you want to manually select division points? (y/n)")
+    while answer not in ("y", "n"):
+        print("Not a valid input! Please try again")
+        answer = input("Do you want to manually select division points? (y/n)")
     if answer == "y":
         ndivisions = input("How many division points do you want to add?")
         ndivisions = int(ndivisions)
