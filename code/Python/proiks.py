@@ -50,7 +50,7 @@ def plot_divisions(data, idx, hline=True):
     torque = data[:, 1]
     velocity = data[:, 4]
 
-    fig1 = plt.figure(figsize=(15, 7))
+    fig1 = plt.figure(figsize=(12, 6))
     ax11 = fig1.add_subplot(1, 1, 1)
     ax21 = ax11.twinx()
 
@@ -112,7 +112,7 @@ def add_divisions(data, idx, ndivisions, hline=True):
     torque = data[:, 1]
     velocity = data[:, 4]
 
-    fig1 = plt.figure(figsize=(15, 7))
+    fig1 = plt.figure(figsize=(12, 6))
     ax11 = fig1.add_subplot(1, 1, 1)
     ax21 = ax11.twinx()
 
@@ -158,7 +158,7 @@ def add_divisions(data, idx, ndivisions, hline=True):
     new_idx = new_idx.tolist()
 
     # Plot the manually selected division points
-    fig2 = plt.figure(figsize=(15, 7))
+    fig2 = plt.figure(figsize=(12, 6))
     ax12 = fig2.add_subplot(1, 1, 1)
     ax22 = ax12.twinx()
 
