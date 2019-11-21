@@ -16,7 +16,10 @@ def read_strength_data(file):
     return(data)
 
 
-def find_divisions(data):
+def find_divisions(path):
+    # Read data
+    data = np.loadtxt(path, skiprows=6)
+    
     # Ensure 1st velocity value to be positive
     velocity = data[:, 4]
     if velocity[0] <= 0:
@@ -33,7 +36,10 @@ def find_divisions(data):
     return(idx)
 
 
-def plot_divisions(data, idx, saveplot=True):
+def plot_divisions(path, idx, saveplot=True):
+    # Read data
+    data = np.loadtxt(path, skiprows=6)
+
     # Ensure 1st velocity value to be positive
     velocity = data[:, 4]
     if velocity[0] <= 0:
@@ -82,7 +88,7 @@ def plot_divisions(data, idx, saveplot=True):
             except ValueError:
                 print("Input must be a number! Please try again")
             else:
-                idx = add_divisions(data, idx, ndivisions, saveplot)
+                idx = add_divisions(path, idx, ndivisions, saveplot)
                 break
     elif answer == "n":
         print("The division points will not be altered")
@@ -106,7 +112,10 @@ def plot_divisions(data, idx, saveplot=True):
     return(idx)
 
 
-def add_divisions(data, idx, ndivisions, saveplot=True):
+def add_divisions(path, idx, ndivisions, saveplot=True):
+    # Read data
+    data = np.loadtxt(path, skiprows=6)
+
     # Ensure 1st velocity value to be positive
     velocity = data[:, 4]
     if velocity[0] <= 0:
