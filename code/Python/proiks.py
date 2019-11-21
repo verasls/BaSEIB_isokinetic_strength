@@ -122,6 +122,39 @@ def plot_divisions(path, idx, saveplot=True):
         print("The division points will not be altered")
         
         if saveplot is True:
+            # Set path to save plot
+            if ("knee" in path) is True:
+                path_to_save = "data/python/knee/"
+            elif ("trunk" in path) is True:
+                path_to_save = "data/python/trunk/"
+            
+            if ("60gs" in path) is True:
+                path_to_save = path_to_save + "60gs/"
+            elif ("120gs" in path) is True:
+                path_to_save = path_to_save + "120gs/"
+            elif ("180gs" in path) is True:
+                path_to_save = path_to_save + "180gs/"
+            
+            if ("1st" in path) is True:
+                path_to_save = path_to_save + "1st_eval/plots/"
+            elif ("2nd" in path) is True:
+                path_to_save = path_to_save + "2nd_eval/plots/"
+            elif ("3rd" in path) is True:
+                path_to_save = path_to_save + "3rd_eval/plots/"
+            elif ("4th" in path) is True:
+                path_to_save = path_to_save + "4th_eval/plots/"
+            
+            if ("knee" in path) is True:
+                if ("60gs" in path) is True:
+                    path_to_save = path_to_save + path[28:-4] + "_plot.pdf"
+                elif ("180gs" in path) is True:
+                    path_to_save = path_to_save + path[29:-4] + "_plot.pdf"
+            elif ("trunk" in path) is True:
+                if ("60gs" in path) is True:
+                    path_to_save = path_to_save + path[29:-4] + "_plot.pdf"
+                elif ("120gs" in path) is True:
+                    path_to_save = path_to_save + path[30:-4] + "_plot.pdf"
+
             fig2 = plt.figure(figsize=(12, 6))
             ax21 = fig2.add_subplot(1, 1, 1)
             ax22 = ax21.twinx()
@@ -134,7 +167,7 @@ def plot_divisions(path, idx, saveplot=True):
             ax21.set_ylabel("Torque (Nm)", color="tab:blue")
             ax22.set_ylabel("Velocity (°/s)", color="tab:orange")
             plt.title(title + "\n" + "Code-defined division points")
-            plt.savefig("test.pdf")
+            plt.savefig(path_to_save)
             print("Plot saved")
 
     return(idx)
@@ -248,7 +281,41 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
     plt.title(title + "\n" + "User-defined division points")
     
     if saveplot is True:
-        plt.savefig("test.pdf")
+        if saveplot is True:
+            # Set path to save plot
+            if ("knee" in path) is True:
+                path_to_save = "data/python/knee/"
+            elif ("trunk" in path) is True:
+                path_to_save = "data/python/trunk/"
+            
+            if ("60gs" in path) is True:
+                path_to_save = path_to_save + "60gs/"
+            elif ("120gs" in path) is True:
+                path_to_save = path_to_save + "120gs/"
+            elif ("180gs" in path) is True:
+                path_to_save = path_to_save + "180gs/"
+            
+            if ("1st" in path) is True:
+                path_to_save = path_to_save + "1st_eval/plots/"
+            elif ("2nd" in path) is True:
+                path_to_save = path_to_save + "2nd_eval/plots/"
+            elif ("3rd" in path) is True:
+                path_to_save = path_to_save + "3rd_eval/plots/"
+            elif ("4th" in path) is True:
+                path_to_save = path_to_save + "4th_eval/plots/"
+            
+            if ("knee" in path) is True:
+                if ("60gs" in path) is True:
+                    path_to_save = path_to_save + path[28:-4] + "_plot.pdf"
+                elif ("180gs" in path) is True:
+                    path_to_save = path_to_save + path[29:-4] + "_plot.pdf"
+            elif ("trunk" in path) is True:
+                if ("60gs" in path) is True:
+                    path_to_save = path_to_save + path[29:-4] + "_plot.pdf"
+                elif ("120gs" in path) is True:
+                    path_to_save = path_to_save + path[30:-4] + "_plot.pdf"
+
+        plt.savefig(path_to_save)
         print("Plot saved")
     
     plt.show()
