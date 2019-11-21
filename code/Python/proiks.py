@@ -33,7 +33,7 @@ def find_divisions(data):
     return(idx)
 
 
-def plot_divisions(data, idx, hline=True):
+def plot_divisions(data, idx):
     # Ensure 1st velocity value to be positive
     velocity = data[:, 4]
     if velocity[0] <= 0:
@@ -62,13 +62,8 @@ def plot_divisions(data, idx, hline=True):
         ax11.axvline(x=idx_time[i], color="k", linestyle="dotted")
     
     # Add a horizontal line at velocity == 0
-    if hline is True:
-        ax21.axhline(y=0, color="k", linestyle="dotted")
-    elif hline is False:
-        pass
-    else:
-        raise ValueError("hline parameter can only be True or False")
-
+    ax21.axhline(y=0, color="k", linestyle="dotted")
+    
     ax11.set_xlabel("Time (ms)")
     ax11.set_ylabel("Torque (Nm)", color="tab:blue")
     ax21.set_ylabel("Velocity (m/s)", color="tab:orange")
@@ -95,7 +90,7 @@ def plot_divisions(data, idx, hline=True):
     return(idx)
 
 
-def add_divisions(data, idx, ndivisions, hline=True):
+def add_divisions(data, idx, ndivisions):
     # Ensure 1st velocity value to be positive
     velocity = data[:, 4]
     if velocity[0] <= 0:
@@ -124,13 +119,8 @@ def add_divisions(data, idx, ndivisions, hline=True):
         ax11.axvline(x=idx_time[i], color="k", linestyle="dotted")
     
     # Add a horizontal line at velocity == 0
-    if hline is True:
-        ax21.axhline(y=0, color="k", linestyle="dotted")
-    elif hline is False:
-        pass
-    else:
-        raise ValueError("hline parameter can only be True or False")
-
+    ax21.axhline(y=0, color="k", linestyle="dotted")
+    
     ax11.set_xlabel("Time (ms)")
     ax11.set_ylabel("Torque (Nm)", color="tab:blue")
     ax21.set_ylabel("Velocity (m/s)", color="tab:orange")
@@ -170,13 +160,8 @@ def add_divisions(data, idx, ndivisions, hline=True):
         ax12.axvline(x=new_idx[i], color="k", linestyle="dotted")
 
     # Add a horizontal line at velocity == 0
-    if hline is True:
-        ax22.axhline(y=0, color="k", linestyle="dotted")
-    elif hline is False:
-        pass
-    else:
-        raise ValueError("hline parameter can only be True or False")
-
+    ax22.axhline(y=0, color="k", linestyle="dotted")
+    
     ax12.set_xlabel("Time (ms)")
     ax12.set_ylabel("Torque (Nm)", color="tab:blue")
     ax22.set_ylabel("Velocity (m/s)", color="tab:orange")
