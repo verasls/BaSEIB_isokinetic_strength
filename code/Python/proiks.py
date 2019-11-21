@@ -82,7 +82,7 @@ def plot_divisions(data, idx, saveplot=True):
             except ValueError:
                 print("Input must be a number! Please try again")
             else:
-                idx = add_divisions(data, idx, ndivisions)
+                idx = add_divisions(data, idx, ndivisions, saveplot)
                 break
     elif answer == "n":
         print("The division points will not be altered")
@@ -106,7 +106,7 @@ def plot_divisions(data, idx, saveplot=True):
     return(idx)
 
 
-def add_divisions(data, idx, ndivisions):
+def add_divisions(data, idx, ndivisions, saveplot=True):
     # Ensure 1st velocity value to be positive
     velocity = data[:, 4]
     if velocity[0] <= 0:
@@ -183,8 +183,10 @@ def add_divisions(data, idx, ndivisions):
     ax22.set_ylabel("Velocity (degree/s)", color="tab:orange")
     plt.title("User-defined division points")
     
-    plt.savefig("test.pdf")
-    print("Plot saved")
+    if saveplot is True:
+        plt.savefig("test.pdf")
+        print("Plot saved")
+    
     plt.show()
 
 
