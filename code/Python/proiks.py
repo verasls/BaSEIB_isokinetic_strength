@@ -66,7 +66,7 @@ def plot_divisions(data, idx):
     
     ax11.set_xlabel("Time (ms)")
     ax11.set_ylabel("Torque (Nm)", color="tab:blue")
-    ax21.set_ylabel("Velocity (m/s)", color="tab:orange")
+    ax21.set_ylabel("Velocity (degree/s)", color="tab:orange")
     plt.title("Close the plot when done inspecting \n"
               "Division points are marked as vertical black dotted lines")
     plt.show()
@@ -97,7 +97,7 @@ def plot_divisions(data, idx):
         ax22.axhline(y=0, color="k", linestyle="dotted")
         ax21.set_xlabel("Time (ms)")
         ax21.set_ylabel("Torque (Nm)", color="tab:blue")
-        ax22.set_ylabel("Velocity (m/s)", color="tab:orange")
+        ax22.set_ylabel("Velocity (degree/s)", color="tab:orange")
         plt.title("Code-defined division points")
         plt.savefig("test.pdf")
         print("Plot saved")
@@ -138,7 +138,7 @@ def add_divisions(data, idx, ndivisions):
     
     ax11.set_xlabel("Time (ms)")
     ax11.set_ylabel("Torque (Nm)", color="tab:blue")
-    ax21.set_ylabel("Velocity (m/s)", color="tab:orange")
+    ax21.set_ylabel("Velocity (degree/s)", color="tab:orange")
     plt.title("Click on the plot to select the half-repetitions division poins")
     
     # Use the cursor to manually select the division points
@@ -179,7 +179,7 @@ def add_divisions(data, idx, ndivisions):
     
     ax12.set_xlabel("Time (ms)")
     ax12.set_ylabel("Torque (Nm)", color="tab:blue")
-    ax22.set_ylabel("Velocity (m/s)", color="tab:orange")
+    ax22.set_ylabel("Velocity (degree/s)", color="tab:orange")
     plt.title("User-defined division points")
     
     plt.savefig("test.pdf")
