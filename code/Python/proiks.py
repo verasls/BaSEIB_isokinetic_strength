@@ -181,8 +181,11 @@ def add_divisions(data, idx, ndivisions):
     ax12.set_ylabel("Torque (Nm)", color="tab:blue")
     ax22.set_ylabel("Velocity (m/s)", color="tab:orange")
     plt.title("User-defined division points")
-
+    
+    plt.savefig("test.pdf")
+    print("Plot saved")
     plt.show()
+
 
     # new_idx is an array with the time values of the division points, while
     # idx is contains the array indices. Thus, new_idx needs to be transformed
