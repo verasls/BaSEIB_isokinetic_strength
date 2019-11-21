@@ -72,8 +72,36 @@ def plot_divisions(path, idx, saveplot=True):
     
     ax11.set_xlabel("Time (ms)")
     ax11.set_ylabel("Torque (Nm)", color="tab:blue")
-    ax21.set_ylabel("Velocity (degree/s)", color="tab:orange")
-    plt.title("Close the plot when done inspecting \n"
+    ax21.set_ylabel("Velocity (°/s)", color="tab:orange")
+    
+    # Set plot title
+    if ("1st" in path) is True:
+        evaluation = "1st eval"
+    elif ("2nd" in path) is True:
+        evaluation = "2nd eval"
+    elif ("3rd" in path) is True:
+        evaluation = "3rd eval"
+    elif ("4th" in path) is True:
+        evaluation = "4th eval"
+    
+    subject = " ID " + path[-7:-4]
+    
+    if ("knee" in path) is True:
+        location = " - knee "
+    elif ("trunk" in path) is True:
+        location = " - trunk"
+    
+    if ("60gs" in path) is True:
+        speed = "60°/s"
+    elif ("120gs" in path) is True:
+        speed = "120°/s"
+    elif ("180gs" in path) is True:
+        speed = "180°/s"
+
+    title = evaluation + subject + location + speed
+
+    plt.title(title + "\n" +
+              "Close the plot when done inspecting \n"
               "Division points are marked as vertical black dotted lines")
     plt.show()
 
@@ -104,8 +132,8 @@ def plot_divisions(path, idx, saveplot=True):
             ax22.axhline(y=0, color="k", linestyle="dotted")
             ax21.set_xlabel("Time (ms)")
             ax21.set_ylabel("Torque (Nm)", color="tab:blue")
-            ax22.set_ylabel("Velocity (degree/s)", color="tab:orange")
-            plt.title("Code-defined division points")
+            ax22.set_ylabel("Velocity (°/s)", color="tab:orange")
+            plt.title(title + "\n" + "Code-defined division points")
             plt.savefig("test.pdf")
             print("Plot saved")
 
@@ -148,8 +176,35 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
     
     ax11.set_xlabel("Time (ms)")
     ax11.set_ylabel("Torque (Nm)", color="tab:blue")
-    ax21.set_ylabel("Velocity (degree/s)", color="tab:orange")
-    plt.title("Click on the plot to select the half-repetitions division poins")
+    ax21.set_ylabel("Velocity (°/s)", color="tab:orange")
+
+    # Set plot title
+    if ("1st" in path) is True:
+        evaluation = "1st eval"
+    elif ("2nd" in path) is True:
+        evaluation = "2nd eval"
+    elif ("3rd" in path) is True:
+        evaluation = "3rd eval"
+    elif ("4th" in path) is True:
+        evaluation = "4th eval"
+    
+    subject = " ID " + path[-7:-4]
+    
+    if ("knee" in path) is True:
+        location = " - knee "
+    elif ("trunk" in path) is True:
+        location = " - trunk"
+    
+    if ("60gs" in path) is True:
+        speed = "60°/s"
+    elif ("120gs" in path) is True:
+        speed = "120°/s"
+    elif ("180gs" in path) is True:
+        speed = "180°/s"
+
+    title = evaluation + subject + location + speed
+
+    plt.title(title + "\n" + "Click on the plot to select the half-repetitions division poins")
     
     # Use the cursor to manually select the division points
     cursor = Cursor(ax21, useblit=True, color="k", linewidth=1)
@@ -189,8 +244,8 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
     
     ax12.set_xlabel("Time (ms)")
     ax12.set_ylabel("Torque (Nm)", color="tab:blue")
-    ax22.set_ylabel("Velocity (degree/s)", color="tab:orange")
-    plt.title("User-defined division points")
+    ax22.set_ylabel("Velocity (°/s)", color="tab:orange")
+    plt.title(title + "\n" + "User-defined division points")
     
     if saveplot is True:
         plt.savefig("test.pdf")
