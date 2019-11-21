@@ -144,5 +144,8 @@ for i in range(0, len(files)):
     if (first_ID in files[i]) is True:
         first_ID_number = i    
 
+print("\nStarting data analysis...")
+print("\nReading file: ", files[first_ID_number])
+
 idx = find_divisions(files[first_ID_number])
-idx = plot_divisions(files[first_ID_number], idx)
+idx = plot_divisions(files[first_ID_number], idx, saveplot=False)
