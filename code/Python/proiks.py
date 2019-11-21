@@ -86,6 +86,21 @@ def plot_divisions(data, idx):
                 break
     elif answer == "n":
         print("The division points will not be altered")
+        
+        fig2 = plt.figure(figsize=(12, 6))
+        ax21 = fig2.add_subplot(1, 1, 1)
+        ax22 = ax21.twinx()
+        ax21.plot(time, torque, "tab:blue")
+        ax22.plot(time, velocity, "tab:orange")
+        for i in range(0, len(idx_time)):
+            ax21.axvline(x=idx_time[i], color="k", linestyle="dotted")
+        ax22.axhline(y=0, color="k", linestyle="dotted")
+        ax21.set_xlabel("Time (ms)")
+        ax21.set_ylabel("Torque (Nm)", color="tab:blue")
+        ax22.set_ylabel("Velocity (m/s)", color="tab:orange")
+        plt.title("Code-defined division points")
+        plt.savefig("test.pdf")
+        print("Plot saved")
 
     return(idx)
 
