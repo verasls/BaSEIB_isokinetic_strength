@@ -105,21 +105,24 @@ def plot_divisions(path, idx, saveplot=True):
               "Division points are marked as vertical black dotted lines")
     plt.show()
 
-    answer = input("Do you want to manually select division points? (y/n)")
+    answer = input("\nDo you want to manually select the "
+                   "division points? (y/n)\n")
     while answer not in ("y", "n"):
-        print("Not a valid input! Please try again")
-        answer = input("Do you want to manually select division points? (y/n)")
+        print("\nNot a valid input! Please try again\n")
+        answer = input("\nDo you want to manually select the "
+                       "division points? (y/n)\n")
     if answer == "y":
         while True:
             try:
-                ndivisions = int(input("How many division points do you want to add?"))
+                ndivisions = int(input("\nHow many division points "
+                                       "do you want to add?\n"))
             except ValueError:
-                print("Input must be a number! Please try again")
+                print("\nInput must be a number! Please try again\n")
             else:
                 idx = add_divisions(path, idx, ndivisions, saveplot)
                 break
     elif answer == "n":
-        print("The division points will not be altered")
+        print("\nThe division points will not be altered\n")
         
         if saveplot is True:
             # Set path to save plot
@@ -168,7 +171,7 @@ def plot_divisions(path, idx, saveplot=True):
             ax22.set_ylabel("Velocity (°/s)", color="tab:orange")
             plt.title(title + "\n" + "Code-defined division points")
             plt.savefig(path_to_save)
-            print("Plot saved")
+            print("\nPlot saved\n")
 
     return(idx)
 
@@ -237,7 +240,8 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
 
     title = evaluation + subject + location + speed
 
-    plt.title(title + "\n" + "Click on the plot to select the half-repetitions division poins")
+    plt.title(title + "\n" + "Click on the plot to select the "
+              "half-repetitions division poins")
     
     # Use the cursor to manually select the division points
     cursor = Cursor(ax21, useblit=True, color="k", linewidth=1)
@@ -316,7 +320,7 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
                     path_to_save = path_to_save + path[30:-4] + "_plot.pdf"
 
         plt.savefig(path_to_save)
-        print("Plot saved")
+        print("\nPlot saved\n")
     
     plt.show()
 
