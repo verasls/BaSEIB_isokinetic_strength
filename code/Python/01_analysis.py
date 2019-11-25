@@ -161,4 +161,5 @@ for i in range(first_ID_number, len(files)):
     if continues == "y":
         print("\nContinuing analysis...\n")
     elif continues == "n":
+        print("\nEnding analysis...\n")
         break
