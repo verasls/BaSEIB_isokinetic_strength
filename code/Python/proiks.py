@@ -8,18 +8,6 @@ import csv
 from datetime import date
 
 
-def read_strength_data(file):
-    """Reads isokinetic strength test data
-    Args:
-        file: Path to isokinetic strength test file
-    Returns:
-        The isokinetic strength data as a numpy array.
-    """
-
-    data = np.loadtxt(file, skiprows=6)
-    return(data)
-
-
 def find_divisions(path):
     # Read data
     data = np.loadtxt(path, skiprows=6)
@@ -175,7 +163,7 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
             ax22.set_ylabel("Velocity (°/s)", color="tab:orange")
             plt.title(title + "\n" + "Code-defined division points")
             
-            plt.savefig(path_to_save)
+            splt.savefig(path_to_save)
             print("\nPlot saved\n")
 
     if saveidx is True:
