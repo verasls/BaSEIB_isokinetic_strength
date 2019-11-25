@@ -150,7 +150,7 @@ for i in range(first_ID_number, len(files)):
     print("\nReading file ", i, " out of ", len(files), ": ", files[i])
 
     idx = find_divisions(files[i])
-    idx = plot_divisions(files[i], idx, saveplot=False)
+    idx = plot_divisions(files[i], idx, saveplot=True)
 
     continues = input("\nDo you want to continue analysing the other "
                       "files in this directory? (y/n)\n")
