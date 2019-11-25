@@ -162,12 +162,12 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
             ax21.set_ylabel("Torque (Nm)", color="tab:blue")
             ax22.set_ylabel("Velocity (°/s)", color="tab:orange")
             plt.title(title + "\n" + "Code-defined division points")
-            
-            splt.savefig(path_to_save)
-            print("\nPlot saved\n")
+            plt.savefig(path_to_save)
+            print("\nPlot saved")
 
     if saveidx is True:
         save_idx(path, idx, manual_selection)
+        print("\nDivision points indices saved")
     
     return(idx)
 
