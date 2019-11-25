@@ -3,6 +3,10 @@ import matplotlib
 matplotlib.use('MacOSX')
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Cursor
+import os
+import csv
+from datetime import date
+
 
 def read_strength_data(file):
     """Reads isokinetic strength test data
@@ -105,13 +109,13 @@ def plot_divisions(path, idx, saveplot=True):
               "Division points are marked as vertical black dotted lines")
     plt.show()
 
-    answer = input("\nDo you want to manually select the "
-                   "division points? (y/n)\n")
-    while answer not in ("y", "n"):
+    manual_selection = input("\nDo you want to manually select the "
+                             "division points? (y/n)\n")
+    while manual_selection not in ("y", "n"):
         print("\nNot a valid input! Please try again\n")
-        answer = input("\nDo you want to manually select the "
-                       "division points? (y/n)\n")
-    if answer == "y":
+        manual_selection = input("\nDo you want to manually select the "
+                                 "division points? (y/n)\n")
+    if manual_selection == "y":
         while True:
             try:
                 ndivisions = int(input("\nHow many division points "
@@ -121,7 +125,7 @@ def plot_divisions(path, idx, saveplot=True):
             else:
                 idx = add_divisions(path, idx, ndivisions, saveplot)
                 break
-    elif answer == "n":
+    elif manual_selection == "n":
         print("\nThe division points will not be altered\n")
         
         if saveplot is True:
@@ -173,6 +177,7 @@ def plot_divisions(path, idx, saveplot=True):
             plt.savefig(path_to_save)
             print("\nPlot saved\n")
 
+    save_idx(path, idx, manual_selection)
     return(idx)
 
 
@@ -333,3 +338,63 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
         new_idx[i] = time_list.index(new_idx[i])
 
     return(new_idx)
+
+
+def save_idx(path, idx, manual_selection):
+    # Set path to save the indices
+    if ("knee" in path) is True:
+        path_to_save = "data/python/knee/"
+    elif ("trunk" in path) is True:
+        path_to_save = "data/python/trunk/"
+    
+    if ("60gs" in path) is True:
+        path_to_save = path_to_save + "60gs/"
+    elif ("120gs" in path) is True:
+        path_to_save = path_to_save + "120gs/"
+    elif ("180gs" in path) is True:
+        path_to_save = path_to_save + "180gs/"
+    
+    if ("1st" in path) is True:
+        path_to_save = path_to_save + "1st_eval/"
+    elif ("2nd" in path) is True:
+        path_to_save = path_to_save + "2nd_eval/"
+    elif ("3rd" in path) is True:
+        path_to_save = path_to_save + "3rd_eval/"
+    elif ("4th" in path) is True:
+        path_to_save = path_to_save + "4th_eval/"
+    
+    path_to_save = path_to_save + "division_points_idx.csv"
+
+    # Get variables to write the file
+    ID_num = path[-7:-4]
+    today = date.today()
+    idx_type = []
+    if manual_selection == "y":
+        idx_type = "manual"
+    elif manual_selection == "n":
+        idx_type = "automatic"
+    idx = idx
+
+    # Write the csv file
+    file_exists = os.path.isfile(path_to_save)
+    if file_exists is False:
+        # Create file heading
+        heading = [["ID", "date", "selection_type", "idx"]]
+        idx_file = open(path_to_save, "w")
+        with idx_file:
+            writer = csv.writer(idx_file)
+            writer.writerows(heading)
+
+        # Write data
+        idx_data = [[ID_num, today, idx_type, idx]]
+        idx_file = open(path_to_save, "a")
+        with idx_file:
+            writer = csv.writer(idx_file)
+            writer.writerows(idx_data)
+    elif file_exists is True:   
+        # Write data
+        idx_data = [[ID_num, today, idx_type, idx]]
+        idx_file = open(path_to_save, "a")
+        with idx_file:
+            writer = csv.writer(idx_file)
+            writer.writerows(idx_data)
