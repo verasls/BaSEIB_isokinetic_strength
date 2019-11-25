@@ -145,7 +145,20 @@ for i in range(0, len(files)):
         first_ID_number = i    
 
 print("\nStarting data analysis...")
-print("\nReading file: ", files[first_ID_number])
 
-idx = find_divisions(files[first_ID_number])
-idx = plot_divisions(files[first_ID_number], idx, saveplot=False)
+for i in range(first_ID_number, len(files)):
+    print("\nReading file: ", files[i])
+
+    idx = find_divisions(files[i])
+    idx = plot_divisions(files[i], idx, saveplot=False)
+
+    continues = input("\nDo you want to continue analysing the other "
+                      "files in this directory? (y/n)\n")
+    while continues not in ("y", "n"):
+        print("\nNot a valid input! Please try again\n")
+        continues = input("\nDo you want to continue analysing the other "
+                      "files in this directory? (y/n)\n")
+    if continues == "y":
+        print("\nContinuing analysis...\n")
+    elif continues == "n":
+        break
