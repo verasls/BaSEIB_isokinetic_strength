@@ -147,7 +147,7 @@ for i in range(0, len(files)):
 print("\nStarting data analysis...")
 
 for i in range(first_ID_number, len(files)):
-    print("\nReading file: ", files[i])
+    print("\nReading file ", i, " out of ", len(files), ": ", files[i])
 
     idx = find_divisions(files[i])
     idx = plot_divisions(files[i], idx, saveplot=False)
