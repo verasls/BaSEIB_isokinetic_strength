@@ -31,6 +31,15 @@ def find_divisions(path):
                 idx.append(i - 1)
             elif velocity[i] == 0:
                 idx.append(i)
+
+    # Keep only first index value where indices are consecutive
+    c = [] # Vector indicating the indices to be removed
+    for i in range(1, len(idx)):
+        if idx[i] - idx[i - 1] == 1:
+            c.append(idx[i])
+    if len(c) != 0:
+        for i in range(0, len(c)):
+            idx.remove(c[i])
     
     return(idx)
 
