@@ -24,7 +24,14 @@ def find_divisions(path):
         # If product < 0, it means different signs
         if velocity[i - 1] * velocity[i] < 0:
             idx.append(i)
-
+        # If product is 0, at least one of the velocity values is 0
+        # Mark where velocity is 0 as index
+        elif velocity[i - 1] * velocity[i] == 0:
+            if velocity[i - 1] == 0:
+                idx.append(i - 1)
+            elif velocity[i] == 0:
+                idx.append(i)
+    
     return(idx)
 
 
