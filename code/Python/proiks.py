@@ -52,6 +52,8 @@ def find_divisions(path):
             if velocity[s[i]] * velocity[f] > 0:
                 idx.remove(s[i])
     
+    # Removes duplicates
+    idx = sorted(list(set(idx)))
     return(idx)
 
 
