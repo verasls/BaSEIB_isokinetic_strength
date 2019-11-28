@@ -420,14 +420,14 @@ def save_idx(path, idx, manual_selection):
     file_exists = os.path.isfile(path_to_save)
     if file_exists is False:
         # Create file heading
-        heading = [["ID", "date", "selection_type", "idx"]]
+        heading = [["ID", "date", "selection_type", "n_idx", "idx"]]
         idx_file = open(path_to_save, "w")
         with idx_file:
             writer = csv.writer(idx_file)
             writer.writerows(heading)
 
         # Write data
-        idx_data = [[ID_num, today, idx_type, idx]]
+        idx_data = [[ID_num, today, idx_type, len(idx), idx]]
         idx_file = open(path_to_save, "a")
         with idx_file:
             writer = csv.writer(idx_file)
