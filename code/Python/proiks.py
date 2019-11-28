@@ -51,9 +51,30 @@ def find_divisions(path):
             f = np.amin(np.where(velocity[s[i]:len(velocity)] != 0)) + s[i]
             if velocity[s[i]] * velocity[f] > 0:
                 idx.remove(s[i])
-    
+
     # Removes duplicates
     idx = sorted(list(set(idx)))
+    
+    # Keep only idx values where distance between divisions is at least
+    # a quarter repetition
+    if ("knee" in path and "60gs" in path) is True:
+        dist = round(len(velocity) / 16)  # 4 * 4 reps
+    if ("knee" in path and "180gs" in path) is True:
+        dist = round(len(velocity) / 32)  # 4 * 8 reps
+    if ("trunk" in path and "60gs" in path) is True:
+        dist = round(len(velocity) / 16)  # 4 * 4 reps
+    if ("trunk" in path and "120gs" in path) is True:
+        dist = round(len(velocity) / 24)  # 4 * 6 reps
+
+    r = []  # Vector indicating the indices to be removed by the
+            # distance criterion
+    for i in range(1, len(idx)):
+        if idx[i] - idx[i - 1] < dist:
+            r.append(idx[i])
+    if len(r) != 0:
+        for i in range(0, len(r)):
+            idx.remove(r[i])
+
     return(idx)
 
 
