@@ -145,7 +145,7 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
     plt.title(title + "\n" +
               "Close the plot when done inspecting \n"
               "Division points are marked as vertical black dotted lines")
-    plt.show()
+    fig1.show()
 
     manual_selection = input("\nDo you want to manually select the "
                              "division points? (y/n)\n")
