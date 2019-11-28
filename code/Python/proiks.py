@@ -33,13 +33,24 @@ def find_divisions(path):
                 idx.append(i)
 
     # Keep only first index value where indices are consecutive
-    c = [] # Vector indicating the indices to be removed
+    c = []  # Vector indicating the indices to be removed
     for i in range(1, len(idx)):
         if idx[i] - idx[i - 1] == 1:
             c.append(idx[i])
     if len(c) != 0:
         for i in range(0, len(c)):
             idx.remove(c[i])
+
+    # Ensure that idx where velocity is 0 are followed by a sign change
+    s = []  # Vector indicating the indices where velocity == 0
+    for i in range(0, len(idx)):
+        if velocity[idx[i]] == 0:
+            s.append(idx[i])
+    if len(s) != 0:
+        for i in range(0, len(s)):
+            f = np.amin(np.where(velocity[s[i]:len(velocity)] != 0)) + s[i]
+            if velocity[s[i]] * velocity[f] > 0:
+                idx.remove(s[i])
     
     return(idx)
 
