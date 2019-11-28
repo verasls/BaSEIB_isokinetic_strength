@@ -171,7 +171,7 @@ for i in range(first_ID_number, len(files)):
     print("\nReading file", i + 1, "out of", len(files), ":", files[i])
 
     idx = find_divisions(files[i])
-    print("\n", len(idx), "division points identified\n")
+    print("\n", len(idx), " division points identified\n", sep="")
     idx = plot_divisions(files[i], idx, saveplot=True, saveidx=True)
 
     if i + 1 == len(files):
