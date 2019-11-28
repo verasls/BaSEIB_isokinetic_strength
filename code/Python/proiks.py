@@ -9,6 +9,17 @@ from datetime import date
 
 
 def find_divisions(path):
+    """
+    Find division points between half repetitions by zero crossings on the 
+    velocity signal
+
+    Args:
+        path: a character string with the path to the file containing 
+            isokinetic strength test data
+
+    Returns:
+        A list of intergers with the division points indices
+    """
     # Read data
     data = np.loadtxt(path, skiprows=6)
     
