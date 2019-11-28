@@ -183,7 +183,7 @@ for i in range(first_ID_number, len(files)):
     while continues not in ("y", "n"):
         print("\nNot a valid input! Please try again\n")
         continues = input("\nDo you want to continue analysing the other "
-                      "files in this directory? (y/n)\n")
+                          "files in this directory? (y/n)\n")
     if continues == "y":
         print("\nContinuing analysis...\n")
     elif continues == "n":
