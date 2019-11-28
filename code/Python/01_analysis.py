@@ -174,6 +174,10 @@ for i in range(first_ID_number, len(files)):
     print("\n", len(idx), "division points identified\n")
     idx = plot_divisions(files[i], idx, saveplot=True, saveidx=True)
 
+    if i + 1 == len(files):
+        print("\nThis was the last file in this directory\n")
+        break
+
     continues = input("\nDo you want to continue analysing the other "
                       "files in this directory? (y/n)\n")
     while continues not in ("y", "n"):
