@@ -163,7 +163,27 @@ elif len(first_ID) == 2:
 first_ID_number = []
 for i in range(0, len(files)):
     if (first_ID in files[i]) is True:
-        first_ID_number = i    
+        first_ID_number = i
+
+# Preventing program to crash if the selected ID is not in the directory
+if isinstance(first_ID_number, list) is True:
+    print("\nThere is no ID", first_ID, "in this directory\n")
+    first_ID_directory = files[0]
+    first_ID_directory = first_ID_directory[-7:-4]
+    message1 = "\nThe first ID found is "
+    message2 = first_ID_directory 
+    message3 = "\nDo you want to start analysing it? (y/n)\n"
+    message = message1 + message2 + message3
+    analyse_first = input(message)
+    while analyse_first not in ("y", "n"):
+        print("\nNot a valid input! Please try again\n")
+        analyse_first = input("\nThe first ID found is", first_ID_directory, 
+                              "\nDo you want to start analysing it? (y/n)\n")
+    if analyse_first == "y":
+        first_ID_number = 0
+    elif analyse_first == "n":
+        raise SystemExit("\nPlease, go to the desired directory, check which "
+                         "IDs are in it and try again")
 
 print("\nStarting data analysis...")
 
