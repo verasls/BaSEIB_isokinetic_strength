@@ -121,7 +121,8 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
         ax11.axvline(x=idx_time[i], color="k", linestyle="dotted")
     
     # Add a horizontal line at velocity == 0
-    ax21.axhline(y=0, color="k", linestyle="dotted")
+    ax11.axhline(y=0, color="tab:blue", linestyle="dotted")
+    ax21.axhline(y=0, color="tab:orange", linestyle="dotted")
     
     ax11.set_xlabel("Time (ms)")
     ax11.set_ylabel("Torque (Nm)", color="tab:blue")
