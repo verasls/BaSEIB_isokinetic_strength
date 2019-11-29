@@ -120,7 +120,7 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
     for i in range(0, len(idx_time)):
         ax11.axvline(x=idx_time[i], color="k", linestyle="dotted")
     
-    # Add a horizontal line at velocity == 0
+    # Add a horizontal line at torque and velocity = 0
     ax11.axhline(y=0, color="tab:blue", linestyle="dotted")
     ax21.axhline(y=0, color="tab:orange", linestyle="dotted")
     
@@ -219,7 +219,8 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
             ax22.plot(time, velocity, "tab:orange")
             for i in range(0, len(idx_time)):
                 ax21.axvline(x=idx_time[i], color="k", linestyle="dotted")
-            ax22.axhline(y=0, color="k", linestyle="dotted")
+            ax21.axhline(y=0, color="tab:blue", linestyle="dotted")
+            ax22.axhline(y=0, color="tab:orange", linestyle="dotted")
             ax21.set_xlabel("Time (ms)")
             ax21.set_ylabel("Torque (Nm)", color="tab:blue")
             ax22.set_ylabel("Velocity (°/s)", color="tab:orange")
@@ -266,8 +267,9 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
     for i in range(0, len(idx_time)):
         ax11.axvline(x=idx_time[i], color="k", linestyle="dotted")
     
-    # Add a horizontal line at velocity == 0
-    ax21.axhline(y=0, color="k", linestyle="dotted")
+    # Add a horizontal line at torque and velocity = 0
+    ax11.axhline(y=0, color="tab:blue", linestyle="dotted")
+    ax21.axhline(y=0, color="tab:orange", linestyle="dotted")
     
     ax11.set_xlabel("Time (ms)")
     ax11.set_ylabel("Torque (Nm)", color="tab:blue")
@@ -335,8 +337,9 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
     for i in range(0, len(new_idx)):
         ax12.axvline(x=new_idx[i], color="k", linestyle="dotted")
 
-    # Add a horizontal line at velocity == 0
-    ax22.axhline(y=0, color="k", linestyle="dotted")
+    # Add a horizontal line at torque and velocity = 0
+    ax12.axhline(y=0, color="tab:blue", linestyle="dotted")
+    ax22.axhline(y=0, color="tab:orange", linestyle="dotted")
     
     ax12.set_xlabel("Time (ms)")
     ax12.set_ylabel("Torque (Nm)", color="tab:blue")
