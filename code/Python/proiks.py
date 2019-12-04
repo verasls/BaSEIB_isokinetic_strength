@@ -11,14 +11,14 @@ from datetime import date
 def find_divisions(path):
     """
     Find division points between half repetitions by zero crossings on the 
-    velocity signal
+    velocity signal.
 
     Args:
-        path: a character string with the path to the file containing 
-            isokinetic strength test data
+        path: A character string with the path to the file containing 
+            isokinetic strength test data.
 
     Returns:
-        A list of intergers with the division points indices
+        A list of intergers with the division points indices.
     """
     # Read data
     data = np.loadtxt(path, skiprows=6)
@@ -90,6 +90,27 @@ def find_divisions(path):
 
 
 def plot_divisions(path, idx, saveplot=True, saveidx=True):
+    """
+    Plot the torque and velocity signals against time and show the division
+    points found by the find_divisions() function.
+    Aks the user whether he wants to manually add division points through the
+    add_divisions() function.
+
+    Args:
+        path: A character string with the path to the file containing 
+            isokinetic strength test data.
+        idx: A list of intergers with the division points indices, preferably
+            from the find_divisions() function.
+        saveplot: A boolean indicating whether or not to save the plot.
+            Defaults to True.
+        saveidx: A boolean indicating whether or not to save the indices
+            values through the save_idx() function. Defaults to True.
+
+    Returns:
+        A list of intergers with the division points indices.
+        Save the plot if saveplot argument is True (default).
+        Save the indices values if saveidx argument is True (default).
+    """
     # Read data
     data = np.loadtxt(path, skiprows=6)
 
