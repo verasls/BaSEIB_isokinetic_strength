@@ -436,6 +436,23 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
 
 
 def save_idx(path, idx, manual_selection):
+    """
+    Save the division point indices in a csv file, along with other
+    informations, as the subject ID, date of analysis, type of analysis
+    (whether automatic or manual), and number of indices.
+
+    Args:
+        path: A character string with the path to the file containing 
+            isokinetic strength test data.
+        idx: A list of intergers with the division points indices, preferably
+            from the find_divisions() of add_divisions() functions.
+        manual_selection: A character string, either "y" or "n", from an input
+            to the plot_divisions() function.
+
+    Returns:
+        Save the division point indices along with other informations in a csv
+        file.
+    """
     # Set path to save the indices
     if ("knee" in path) is True:
         path_to_save = "data/python/knee/"
