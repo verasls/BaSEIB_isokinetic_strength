@@ -22,12 +22,13 @@ def find_divisions(path):
     """
     # Read data
     data = np.loadtxt(path, skiprows=6)
-    
-    # Ensure 1st velocity value to be positive
     velocity = data[:, 4]
-    if velocity[0] <= 0:
-        first_positive = np.min(np.where(velocity > 0))
-        velocity = velocity[first_positive:]
+
+    # Ensure 1st velocity value to be positive
+    if ("knee" in path) is True:    
+        if velocity[0] <= 0:
+            first_positive = np.min(np.where(velocity > 0))
+            velocity = velocity[first_positive:]
 
     # Find zero crossings in velocity signal
     idx = []  # Division points indices
@@ -113,12 +114,13 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
     """
     # Read data
     data = np.loadtxt(path, skiprows=6)
+    velocity = data[:, 4]
 
     # Ensure 1st velocity value to be positive
-    velocity = data[:, 4]
-    if velocity[0] <= 0:
-        first_positive = np.min(np.where(velocity > 0))
-        velocity = velocity[first_positive:]
+    if ("knee" in path) is True:    
+        if velocity[0] <= 0:
+            first_positive = np.min(np.where(velocity > 0))
+            velocity = velocity[first_positive:]
 
     # Find time points of velocity zero crossings
     idx_time = []
@@ -277,12 +279,13 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
     """
     # Read data
     data = np.loadtxt(path, skiprows=6)
+    velocity = data[:, 4]
 
     # Ensure 1st velocity value to be positive
-    velocity = data[:, 4]
-    if velocity[0] <= 0:
-        first_positive = np.min(np.where(velocity > 0))
-        velocity = velocity[first_positive:]
+    if ("knee" in path) is True:    
+        if velocity[0] <= 0:
+            first_positive = np.min(np.where(velocity > 0))
+            velocity = velocity[first_positive:]
 
     # Find time points of velocity zero crossings
     idx_time = []
