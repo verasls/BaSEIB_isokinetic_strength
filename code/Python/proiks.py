@@ -258,6 +258,23 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
 
 
 def add_divisions(path, idx, ndivisions, saveplot=True):
+    """
+    Show a plot of the torque and velocity signals against time and let the
+    user manually add division points through mouse clicks on the plot.
+
+    Args:
+        path: A character string with the path to the file containing 
+            isokinetic strength test data.
+        idx: A list of intergers with the division points indices, preferably
+            from the find_divisions() function.
+        ndivisions: The number of division points to be added.
+        saveplot: A boolean indicating whether or not to save the plot.
+            Defaults to True.
+
+    Returns:
+        A list of intergers with the division points indices.
+        Save the plot if saveplot argument is True (default).
+    """
     # Read data
     data = np.loadtxt(path, skiprows=6)
 
