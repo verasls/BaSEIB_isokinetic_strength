@@ -202,9 +202,9 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
         if saveplot is True:
             # Set path to save plot
             if ("knee" in path) is True:
-                path_to_save = "data/python/knee/"
+                path_to_save = "output/knee/"
             elif ("trunk" in path) is True:
-                path_to_save = "data/python/trunk/"
+                path_to_save = "output/trunk/"
 
             if ("60gs" in path) is True:
                 path_to_save = path_to_save + "60gs/"
@@ -389,9 +389,9 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
         if saveplot is True:
             # Set path to save plot
             if ("knee" in path) is True:
-                path_to_save = "data/python/knee/"
+                path_to_save = "output/knee/"
             elif ("trunk" in path) is True:
-                path_to_save = "data/python/trunk/"
+                path_to_save = "output/trunk/"
 
             if ("60gs" in path) is True:
                 path_to_save = path_to_save + "60gs/"
@@ -455,9 +455,9 @@ def save_idx(path, idx, manual_selection):
     """
     # Set path to save the indices
     if ("knee" in path) is True:
-        path_to_save = "data/python/knee/"
+        path_to_save = "output/knee/"
     elif ("trunk" in path) is True:
-        path_to_save = "data/python/trunk/"
+        path_to_save = "output/trunk/"
 
     if ("60gs" in path) is True:
         path_to_save = path_to_save + "60gs/"

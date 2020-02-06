@@ -91,52 +91,52 @@ while True:
 # Select the list of files to use for the data analysis
 if location == 1 and velocity == 1 and evaluation == 1:
     files = knee_raw_60gs_1st
-    plot_path = "data/python/knee/60gs/1st_eval/plots"
+    plot_path = "output/knee/60gs/1st_eval/plots"
 elif location == 1 and velocity == 1 and evaluation == 2:
     files = knee_raw_60gs_2nd
-    plot_path = "data/python/knee/60gs/2nd_eval/plots"
+    plot_path = "output/knee/60gs/2nd_eval/plots"
 elif location == 1 and velocity == 1 and evaluation == 3:
     files = knee_raw_60gs_3rd
-    plot_path = "data/python/knee/60gs/3rd_eval/plots"
+    plot_path = "output/knee/60gs/3rd_eval/plots"
 elif location == 1 and velocity == 1 and evaluation == 4:
     files = knee_raw_60gs_4th
-    plot_path = "data/python/knee/60gs/4th_eval/plots"
+    plot_path = "output/knee/60gs/4th_eval/plots"
 elif location == 1 and velocity == 2 and evaluation == 1:
     files = knee_raw_180gs_1st
-    plot_path = "data/python/knee/180gs/1st_eval/plots"
+    plot_path = "output/knee/180gs/1st_eval/plots"
 elif location == 1 and velocity == 2 and evaluation == 2:
     files = knee_raw_180gs_2nd
-    plot_path = "data/python/knee/180gs/2nd_eval/plots"
+    plot_path = "output/knee/180gs/2nd_eval/plots"
 elif location == 1 and velocity == 2 and evaluation == 3:
     files = knee_raw_180gs_3rd
-    plot_path = "data/python/knee/180gs/3rd_eval/plots"
+    plot_path = "output/knee/180gs/3rd_eval/plots"
 elif location == 1 and velocity == 2 and evaluation == 4:
     files = knee_raw_180gs_4th
-    plot_path = "data/python/knee/180gs/4th_eval/plots"
+    plot_path = "output/knee/180gs/4th_eval/plots"
 elif location == 2 and velocity == 1 and evaluation == 1:
     files = trunk_raw_60gs_1st
-    plot_path = "data/python/trunk/60gs/1st_eval/plots"
+    plot_path = "output/trunk/60gs/1st_eval/plots"
 elif location == 2 and velocity == 1 and evaluation == 2:
     files = trunk_raw_60gs_2nd
-    plot_path = "data/python/trunk/60gs/2nd_eval/plots"
+    plot_path = "output/trunk/60gs/2nd_eval/plots"
 elif location == 2 and velocity == 1 and evaluation == 3:
     files = trunk_raw_60gs_3rd
-    plot_path = "data/python/trunk/60gs/3rd_eval/plots"
+    plot_path = "output/trunk/60gs/3rd_eval/plots"
 elif location == 2 and velocity == 1 and evaluation == 4:
     files = trunk_raw_60gs_4th
-    plot_path = "data/python/trunk/60gs/4th_eval/plots"
+    plot_path = "output/trunk/60gs/4th_eval/plots"
 elif location == 2 and velocity == 2 and evaluation == 1:
     files = trunk_raw_120gs_1st
-    plot_path = "data/python/trunk/120gs/1st_eval/plots"
+    plot_path = "output/trunk/120gs/1st_eval/plots"
 elif location == 2 and velocity == 2 and evaluation == 2:
     files = trunk_raw_120gs_2nd
-    plot_path = "data/python/trunk/120gs/2nd_eval/plots"
+    plot_path = "output/trunk/120gs/2nd_eval/plots"
 elif location == 2 and velocity == 2 and evaluation == 3:
     files = trunk_raw_120gs_3rd
-    plot_path = "data/python/trunk/120gs/3rd_eval/plots"
+    plot_path = "output/trunk/120gs/3rd_eval/plots"
 elif location == 2 and velocity == 2 and evaluation == 4:
     files = trunk_raw_120gs_4th
-    plot_path = "data/python/trunk/120gs/4th_eval/plots"
+    plot_path = "output/trunk/120gs/4th_eval/plots"
 
 # Create directory structure to save the plots
 if not os.path.exists(plot_path):
