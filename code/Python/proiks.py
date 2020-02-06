@@ -1,6 +1,4 @@
 import numpy as np
-import matplotlib
-matplotlib.use('MacOSX')
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Cursor
 import os
@@ -10,11 +8,11 @@ from datetime import date
 
 def find_divisions(path):
     """
-    Find division points between half repetitions by zero crossings on the 
+    Find division points between half repetitions by zero crossings on the
     velocity signal.
 
     Args:
-        path: A character string with the path to the file containing 
+        path: A character string with the path to the file containing
             isokinetic strength test data.
 
     Returns:
@@ -25,7 +23,7 @@ def find_divisions(path):
     velocity = data[:, 4]
 
     # Ensure 1st velocity value to be positive
-    if ("knee" in path) is True:    
+    if ("knee" in path) is True:
         if velocity[0] <= 0:
             first_positive = np.min(np.where(velocity > 0))
             velocity = velocity[first_positive:]
@@ -66,7 +64,7 @@ def find_divisions(path):
 
     # Removes duplicates
     idx = sorted(list(set(idx)))
-    
+
     # Keep only idx values where distance between divisions is at least
     # a quarter repetition
     if ("knee" in path and "60gs" in path) is True:
@@ -78,8 +76,8 @@ def find_divisions(path):
     if ("trunk" in path and "120gs" in path) is True:
         dist = round(len(velocity) / 24)  # 4 * 6 reps
 
-    r = []  # Vector indicating the indices to be removed by the
-            # distance criterion
+    # Vector indicating the indices to be removed by the distance criterion
+    r = []
     for i in range(1, len(idx)):
         if idx[i] - idx[i - 1] < dist:
             r.append(idx[i])
@@ -98,7 +96,7 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
     add_divisions() function.
 
     Args:
-        path: A character string with the path to the file containing 
+        path: A character string with the path to the file containing
             isokinetic strength test data.
         idx: A list of intergers with the division points indices, preferably
             from the find_divisions() function.
@@ -117,7 +115,7 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
     velocity = data[:, 4]
 
     # Ensure 1st velocity value to be positive
-    if ("knee" in path) is True:    
+    if ("knee" in path) is True:
         if velocity[0] <= 0:
             first_positive = np.min(np.where(velocity > 0))
             velocity = velocity[first_positive:]
@@ -142,15 +140,15 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
     # Add vertical black lines in the division points
     for i in range(0, len(idx_time)):
         ax11.axvline(x=idx_time[i], color="k", linestyle="dotted")
-    
+
     # Add a horizontal line at torque and velocity = 0
     ax11.axhline(y=0, color="tab:blue", linestyle="dotted")
     ax21.axhline(y=0, color="tab:orange", linestyle="dotted")
-    
+
     ax11.set_xlabel("Time (ms)")
     ax11.set_ylabel("Torque (Nm)", color="tab:blue")
     ax21.set_ylabel("Velocity (°/s)", color="tab:orange")
-    
+
     # Set plot title
     if ("1st" in path) is True:
         evaluation = "1st eval"
@@ -160,14 +158,14 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
         evaluation = "3rd eval"
     elif ("4th" in path) is True:
         evaluation = "4th eval"
-    
+
     subject = " ID " + path[-7:-4]
-    
+
     if ("knee" in path) is True:
         location = " - knee "
     elif ("trunk" in path) is True:
         location = " - trunk"
-    
+
     if ("60gs" in path) is True:
         speed = "60°/s"
     elif ("120gs" in path) is True:
@@ -200,21 +198,21 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
                 break
     elif manual_selection == "n":
         print("\nThe division points will not be altered\n")
-        
+
         if saveplot is True:
             # Set path to save plot
             if ("knee" in path) is True:
                 path_to_save = "data/python/knee/"
             elif ("trunk" in path) is True:
                 path_to_save = "data/python/trunk/"
-            
+
             if ("60gs" in path) is True:
                 path_to_save = path_to_save + "60gs/"
             elif ("120gs" in path) is True:
                 path_to_save = path_to_save + "120gs/"
             elif ("180gs" in path) is True:
                 path_to_save = path_to_save + "180gs/"
-            
+
             if ("1st" in path) is True:
                 path_to_save = path_to_save + "1st_eval/plots/"
             elif ("2nd" in path) is True:
@@ -223,7 +221,7 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
                 path_to_save = path_to_save + "3rd_eval/plots/"
             elif ("4th" in path) is True:
                 path_to_save = path_to_save + "4th_eval/plots/"
-            
+
             if ("knee" in path) is True:
                 if ("60gs" in path) is True:
                     path_to_save = path_to_save + path[28:-4] + "_plot.pdf"
@@ -254,7 +252,7 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
     if saveidx is True:
         save_idx(path, idx, manual_selection)
         print("\nDivision points indices saved")
-    
+
     plt.close("all")
     return(idx)
 
@@ -265,7 +263,7 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
     user manually add division points through mouse clicks on the plot.
 
     Args:
-        path: A character string with the path to the file containing 
+        path: A character string with the path to the file containing
             isokinetic strength test data.
         idx: A list of intergers with the division points indices, preferably
             from the find_divisions() function.
@@ -282,7 +280,7 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
     velocity = data[:, 4]
 
     # Ensure 1st velocity value to be positive
-    if ("knee" in path) is True:    
+    if ("knee" in path) is True:
         if velocity[0] <= 0:
             first_positive = np.min(np.where(velocity > 0))
             velocity = velocity[first_positive:]
@@ -307,11 +305,11 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
     # Add vertical black lines in the division points
     for i in range(0, len(idx_time)):
         ax11.axvline(x=idx_time[i], color="k", linestyle="dotted")
-    
+
     # Add a horizontal line at torque and velocity = 0
     ax11.axhline(y=0, color="tab:blue", linestyle="dotted")
     ax21.axhline(y=0, color="tab:orange", linestyle="dotted")
-    
+
     ax11.set_xlabel("Time (ms)")
     ax11.set_ylabel("Torque (Nm)", color="tab:blue")
     ax21.set_ylabel("Velocity (°/s)", color="tab:orange")
@@ -325,14 +323,14 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
         evaluation = "3rd eval"
     elif ("4th" in path) is True:
         evaluation = "4th eval"
-    
+
     subject = " ID " + path[-7:-4]
-    
+
     if ("knee" in path) is True:
         location = " - knee "
     elif ("trunk" in path) is True:
         location = " - trunk"
-    
+
     if ("60gs" in path) is True:
         speed = "60°/s"
     elif ("120gs" in path) is True:
@@ -344,7 +342,7 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
 
     plt.title(title + "\n" + "Click on the plot to select the "
               "half-repetitions division poins")
-    
+
     # Use the cursor to manually select the division points
     cursor = Cursor(ax21, useblit=True, color="k", linewidth=1)
 
@@ -381,12 +379,12 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
     # Add a horizontal line at torque and velocity = 0
     ax12.axhline(y=0, color="tab:blue", linestyle="dotted")
     ax22.axhline(y=0, color="tab:orange", linestyle="dotted")
-    
+
     ax12.set_xlabel("Time (ms)")
     ax12.set_ylabel("Torque (Nm)", color="tab:blue")
     ax22.set_ylabel("Velocity (°/s)", color="tab:orange")
     plt.title(title + "\n" + "User-defined division points")
-    
+
     if saveplot is True:
         if saveplot is True:
             # Set path to save plot
@@ -394,14 +392,14 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
                 path_to_save = "data/python/knee/"
             elif ("trunk" in path) is True:
                 path_to_save = "data/python/trunk/"
-            
+
             if ("60gs" in path) is True:
                 path_to_save = path_to_save + "60gs/"
             elif ("120gs" in path) is True:
                 path_to_save = path_to_save + "120gs/"
             elif ("180gs" in path) is True:
                 path_to_save = path_to_save + "180gs/"
-            
+
             if ("1st" in path) is True:
                 path_to_save = path_to_save + "1st_eval/plots/"
             elif ("2nd" in path) is True:
@@ -410,7 +408,7 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
                 path_to_save = path_to_save + "3rd_eval/plots/"
             elif ("4th" in path) is True:
                 path_to_save = path_to_save + "4th_eval/plots/"
-            
+
             if ("knee" in path) is True:
                 if ("60gs" in path) is True:
                     path_to_save = path_to_save + path[28:-4] + "_plot.pdf"
@@ -424,9 +422,8 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
 
         plt.savefig(path_to_save)
         print("\nPlot saved\n")
-    
-    plt.show()
 
+    plt.show()
 
     # new_idx is an array with the time values of the division points, while
     # idx is contains the array indices. Thus, new_idx needs to be transformed
@@ -445,7 +442,7 @@ def save_idx(path, idx, manual_selection):
     (whether automatic or manual), and number of indices.
 
     Args:
-        path: A character string with the path to the file containing 
+        path: A character string with the path to the file containing
             isokinetic strength test data.
         idx: A list of intergers with the division points indices, preferably
             from the find_divisions() of add_divisions() functions.
@@ -461,14 +458,14 @@ def save_idx(path, idx, manual_selection):
         path_to_save = "data/python/knee/"
     elif ("trunk" in path) is True:
         path_to_save = "data/python/trunk/"
-    
+
     if ("60gs" in path) is True:
         path_to_save = path_to_save + "60gs/"
     elif ("120gs" in path) is True:
         path_to_save = path_to_save + "120gs/"
     elif ("180gs" in path) is True:
         path_to_save = path_to_save + "180gs/"
-    
+
     if ("1st" in path) is True:
         path_to_save = path_to_save + "1st_eval/"
     elif ("2nd" in path) is True:
@@ -477,7 +474,7 @@ def save_idx(path, idx, manual_selection):
         path_to_save = path_to_save + "3rd_eval/"
     elif ("4th" in path) is True:
         path_to_save = path_to_save + "4th_eval/"
-    
+
     path_to_save = path_to_save + "division_points_idx.csv"
 
     # Get variables to write the file
@@ -506,7 +503,7 @@ def save_idx(path, idx, manual_selection):
         with idx_file:
             writer = csv.writer(idx_file)
             writer.writerows(idx_data)
-    elif file_exists is True:   
+    elif file_exists is True:
         # Write data
         idx_data = [[ID_num, today, idx_type, len(idx), idx]]
         idx_file = open(path_to_save, "a")

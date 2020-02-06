@@ -87,7 +87,7 @@ while True:
             print("\nNot a valid input! Please try again\n")
         else:
             break
-            
+
 # Select the list of files to use for the data analysis
 if location == 1 and velocity == 1 and evaluation == 1:
     files = knee_raw_60gs_1st
@@ -171,13 +171,13 @@ if isinstance(first_ID_number, list) is True:
     first_ID_directory = files[0]
     first_ID_directory = first_ID_directory[-7:-4]
     message1 = "\nThe first ID found is "
-    message2 = first_ID_directory 
+    message2 = first_ID_directory
     message3 = "\nDo you want to start analysing it? (y/n)\n"
     message = message1 + message2 + message3
     analyse_first = input(message)
     while analyse_first not in ("y", "n"):
         print("\nNot a valid input! Please try again\n")
-        analyse_first = input("\nThe first ID found is", first_ID_directory, 
+        analyse_first = input("\nThe first ID found is", first_ID_directory,
                               "\nDo you want to start analysing it? (y/n)\n")
     if analyse_first == "y":
         first_ID_number = 0
