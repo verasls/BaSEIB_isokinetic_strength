@@ -81,7 +81,7 @@ while True:
                                "3 - 3rd\n"
                                "4 - 4th\n"))
     except ValueError:
-       print("\nInput must be a number! Please try again\n")
+        print("\nInput must be a number! Please try again\n")
     else:
         if evaluation not in (1, 2, 3, 4):
             print("\nNot a valid input! Please try again\n")
