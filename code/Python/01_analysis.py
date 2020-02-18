@@ -1,5 +1,4 @@
 import glob
-import sys
 import os
 from proiks import *
 
@@ -27,6 +26,19 @@ trunk_raw_120gs_4th = sorted(glob.glob("data/raw/trunk/120gs/4th_eval/*.txt"))
 
 # Start data analysis pipeline
 print("\nStarting analysis of isokinetic strength raw data\n")
+
+while True:
+    try:
+        analysis = int(input("Do you want to:\n"
+                             "1 - Plot isokinetic strength test data\n"
+                             "2 - Process isokinetic strength test data\n"))
+    except ValueError:
+        print("\nInput must be a number! Please try again\n")
+    else:
+        if analysis not in (1, 2):
+            print("\nNot a valid input! Please try again\n")
+        else:
+            break
 
 while True:
     try:
@@ -190,11 +202,13 @@ print("\nStarting data analysis...")
 for i in range(first_ID_number, len(files)):
     print("\nReading file", i + 1, "out of", len(files), ":", files[i])
 
-    idx = find_divisions(files[i])
-    message = "\n" + str(len(idx)) + " division points identified\n"
-    # print("\n", len(idx), " division points identified\n", sep="")
-    print(message)
-    idx = plot_divisions(files[i], idx, saveplot=True, saveidx=True)
+    if analysis == 1:
+        plot_strength_data(files[i])
+    elif analysis == 2:
+        idx = find_divisions(files[i])
+        message = "\n" + str(len(idx)) + " division points identified\n"
+        print(message)
+        idx = plot_divisions(files[i], idx, saveplot=True, saveidx=True)
 
     if i + 1 == len(files):
         print("\nThis was the last file in this directory\n")
