@@ -6,49 +6,7 @@ import csv
 from datetime import date
 
 
-def plot_strength_data(path):
-    """
-    Plots the torque and velocity signals versus time in one subplot and the
-    anatomic position signal versus time in the other subplot.
-
-    Args:
-        path: A character string with the path to the file containing
-            isokinetic strength test data.
-
-    Returns:
-        A figure with two subplots
-    """
-    # Read data
-    data = np.loadtxt(path, skiprows=6)
-    time = data[:, 0]
-    torque = data[:, 1]
-    velocity = data[:, 4]
-    angle = data[:, 3]
-
-    # Plot
-    fig1 = plt.figure(figsize=(18, 9))
-    ax1 = fig1.add_subplot(2, 1, 1)
-    ax2 = ax1.twinx()
-    ax3 = fig1.add_subplot(2, 1, 2)
-    # Add a multicursor to all subplots
-    multi = MultiCursor(fig1.canvas, (ax1, ax2, ax3), color="k", linewidth=1)
-    multi
-
-    ax1.plot(time, torque, "tab:blue")
-    ax2.plot(time, velocity, "tab:orange")
-    ax3.plot(time, angle, "tab:green")
-
-    # Add a horizontal line at torque and velocity = 0
-    ax1.axhline(y=0, color="tab:blue", linestyle="dotted")
-    ax2.axhline(y=0, color="tab:orange", linestyle="dotted")
-
-    # Set labels
-    ax1.set_xlabel("Time (ms)")
-    ax1.set_ylabel("Torque (Nm)", color="tab:blue")
-    ax2.set_ylabel("Velocity (°/s)", color="tab:orange")
-    ax3.set_xlabel("Time (ms)")
-    ax3.set_ylabel("Anatomical position (°)", color="tab:green")
-
+def set_plot_title(path):
     # Set plot title
     if ("1st" in path) is True:
         evaluation = "1st eval"
@@ -74,6 +32,88 @@ def plot_strength_data(path):
         speed = "180°/s"
 
     title = evaluation + subject + location + speed
+
+    return(title)
+
+
+def set_path_to_save(path):
+    # Set path to save plot
+    if ("knee" in path) is True:
+        path_to_save = "output/knee/"
+    elif ("trunk" in path) is True:
+        path_to_save = "output/trunk/"
+    if ("60gs" in path) is True:
+        path_to_save = path_to_save + "60gs/"
+    elif ("120gs" in path) is True:
+        path_to_save = path_to_save + "120gs/"
+    elif ("180gs" in path) is True:
+        path_to_save = path_to_save + "180gs/"
+    if ("1st" in path) is True:
+        path_to_save = path_to_save + "1st_eval/plots/"
+    elif ("2nd" in path) is True:
+        path_to_save = path_to_save + "2nd_eval/plots/"
+    elif ("3rd" in path) is True:
+        path_to_save = path_to_save + "3rd_eval/plots/"
+    elif ("4th" in path) is True:
+        path_to_save = path_to_save + "4th_eval/plots/"
+    if ("knee" in path) is True:
+        if ("60gs" in path) is True:
+            path_to_save = path_to_save + path[28:-4] + "_plot.pdf"
+        elif ("180gs" in path) is True:
+            path_to_save = path_to_save + path[29:-4] + "_plot.pdf"
+    elif ("trunk" in path) is True:
+        if ("60gs" in path) is True:
+            path_to_save = path_to_save + path[29:-4] + "_plot.pdf"
+        elif ("120gs" in path) is True:
+            path_to_save = path_to_save + path[30:-4] + "_plot.pdf"
+
+    return(path_to_save)
+
+
+def plot_strength_data(path):
+    """
+    Plots the torque and velocity signals versus time in one subplot and the
+    anatomic position signal versus time in the other subplot.
+
+    Args:
+        path: A character string with the path to the file containing
+            isokinetic strength test data.
+
+    Returns:
+        A figure with two subplots
+    """
+    # Read data
+    data = np.loadtxt(path, skiprows=6)
+    time = data[:, 0]
+    torque = data[:, 1]
+    velocity = data[:, 4]
+    angle = data[:, 3]
+
+    # Plot
+    fig1 = plt.figure(figsize=(18, 9))
+    ax1 = fig1.add_subplot(2, 1, 1)
+    ax2 = ax1.twinx()
+    ax3 = fig1.add_subplot(2, 1, 2)
+    # Add a multicursor to all subplotsg
+    multi = MultiCursor(fig1.canvas, (ax1, ax2, ax3), color="k", linewidth=1)
+    multi
+
+    ax1.plot(time, torque, "tab:blue")
+    ax2.plot(time, velocity, "tab:orange")
+    ax3.plot(time, angle, "tab:green")
+
+    # Add a horizontal line at torque and velocity = 0
+    ax1.axhline(y=0, color="tab:blue", linestyle="dotted")
+    ax2.axhline(y=0, color="tab:orange", linestyle="dotted")
+
+    # Set labels
+    ax1.set_xlabel("Time (ms)")
+    ax1.set_ylabel("Torque (Nm)", color="tab:blue")
+    ax2.set_ylabel("Velocity (°/s)", color="tab:orange")
+    ax3.set_xlabel("Time (ms)")
+    ax3.set_ylabel("Anatomical position (°)", color="tab:green")
+
+    title = set_plot_title(path)
 
     ax1.set_title(title)
     plt.tight_layout()
@@ -223,31 +263,7 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
     ax11.set_ylabel("Torque (Nm)", color="tab:blue")
     ax21.set_ylabel("Velocity (°/s)", color="tab:orange")
 
-    # Set plot title
-    if ("1st" in path) is True:
-        evaluation = "1st eval"
-    elif ("2nd" in path) is True:
-        evaluation = "2nd eval"
-    elif ("3rd" in path) is True:
-        evaluation = "3rd eval"
-    elif ("4th" in path) is True:
-        evaluation = "4th eval"
-
-    subject = " ID " + path[-7:-4]
-
-    if ("knee" in path) is True:
-        location = " - knee "
-    elif ("trunk" in path) is True:
-        location = " - trunk"
-
-    if ("60gs" in path) is True:
-        speed = "60°/s"
-    elif ("120gs" in path) is True:
-        speed = "120°/s"
-    elif ("180gs" in path) is True:
-        speed = "180°/s"
-
-    title = evaluation + subject + location + speed
+    title = set_plot_title(path)
 
     plt.title(title + "\n" +
               "Close the plot when done inspecting \n"
@@ -274,38 +290,7 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
         print("\nThe division points will not be altered\n")
 
         if saveplot is True:
-            # Set path to save plot
-            if ("knee" in path) is True:
-                path_to_save = "output/knee/"
-            elif ("trunk" in path) is True:
-                path_to_save = "output/trunk/"
-
-            if ("60gs" in path) is True:
-                path_to_save = path_to_save + "60gs/"
-            elif ("120gs" in path) is True:
-                path_to_save = path_to_save + "120gs/"
-            elif ("180gs" in path) is True:
-                path_to_save = path_to_save + "180gs/"
-
-            if ("1st" in path) is True:
-                path_to_save = path_to_save + "1st_eval/plots/"
-            elif ("2nd" in path) is True:
-                path_to_save = path_to_save + "2nd_eval/plots/"
-            elif ("3rd" in path) is True:
-                path_to_save = path_to_save + "3rd_eval/plots/"
-            elif ("4th" in path) is True:
-                path_to_save = path_to_save + "4th_eval/plots/"
-
-            if ("knee" in path) is True:
-                if ("60gs" in path) is True:
-                    path_to_save = path_to_save + path[28:-4] + "_plot.pdf"
-                elif ("180gs" in path) is True:
-                    path_to_save = path_to_save + path[29:-4] + "_plot.pdf"
-            elif ("trunk" in path) is True:
-                if ("60gs" in path) is True:
-                    path_to_save = path_to_save + path[29:-4] + "_plot.pdf"
-                elif ("120gs" in path) is True:
-                    path_to_save = path_to_save + path[30:-4] + "_plot.pdf"
+            path_to_save = set_path_to_save(path)
 
             fig2 = plt.figure(figsize=(12, 6))
             ax21 = fig2.add_subplot(1, 1, 1)
@@ -388,31 +373,7 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
     ax11.set_ylabel("Torque (Nm)", color="tab:blue")
     ax21.set_ylabel("Velocity (°/s)", color="tab:orange")
 
-    # Set plot title
-    if ("1st" in path) is True:
-        evaluation = "1st eval"
-    elif ("2nd" in path) is True:
-        evaluation = "2nd eval"
-    elif ("3rd" in path) is True:
-        evaluation = "3rd eval"
-    elif ("4th" in path) is True:
-        evaluation = "4th eval"
-
-    subject = " ID " + path[-7:-4]
-
-    if ("knee" in path) is True:
-        location = " - knee "
-    elif ("trunk" in path) is True:
-        location = " - trunk"
-
-    if ("60gs" in path) is True:
-        speed = "60°/s"
-    elif ("120gs" in path) is True:
-        speed = "120°/s"
-    elif ("180gs" in path) is True:
-        speed = "180°/s"
-
-    title = evaluation + subject + location + speed
+    title = set_plot_title(path)
 
     plt.title(title + "\n" + "Click on the plot to select the "
               "half-repetitions division poins")
@@ -460,39 +421,7 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
     plt.title(title + "\n" + "User-defined division points")
 
     if saveplot is True:
-        if saveplot is True:
-            # Set path to save plot
-            if ("knee" in path) is True:
-                path_to_save = "output/knee/"
-            elif ("trunk" in path) is True:
-                path_to_save = "output/trunk/"
-
-            if ("60gs" in path) is True:
-                path_to_save = path_to_save + "60gs/"
-            elif ("120gs" in path) is True:
-                path_to_save = path_to_save + "120gs/"
-            elif ("180gs" in path) is True:
-                path_to_save = path_to_save + "180gs/"
-
-            if ("1st" in path) is True:
-                path_to_save = path_to_save + "1st_eval/plots/"
-            elif ("2nd" in path) is True:
-                path_to_save = path_to_save + "2nd_eval/plots/"
-            elif ("3rd" in path) is True:
-                path_to_save = path_to_save + "3rd_eval/plots/"
-            elif ("4th" in path) is True:
-                path_to_save = path_to_save + "4th_eval/plots/"
-
-            if ("knee" in path) is True:
-                if ("60gs" in path) is True:
-                    path_to_save = path_to_save + path[28:-4] + "_plot.pdf"
-                elif ("180gs" in path) is True:
-                    path_to_save = path_to_save + path[29:-4] + "_plot.pdf"
-            elif ("trunk" in path) is True:
-                if ("60gs" in path) is True:
-                    path_to_save = path_to_save + path[29:-4] + "_plot.pdf"
-                elif ("120gs" in path) is True:
-                    path_to_save = path_to_save + path[30:-4] + "_plot.pdf"
+        path_to_save = set_path_to_save(path)
 
         plt.savefig(path_to_save)
         print("\nPlot saved\n")
