@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.widgets import Cursor
+from matplotlib.widgets import Cursor, MultiCursor
 import os
 import csv
 from datetime import date
@@ -26,10 +26,13 @@ def plot_strength_data(path):
     angle = data[:, 3]
 
     # Plot
-    fig1 = plt.figure(figsize=(12, 9))
+    fig1 = plt.figure(figsize=(18, 9))
     ax1 = fig1.add_subplot(2, 1, 1)
     ax2 = ax1.twinx()
     ax3 = fig1.add_subplot(2, 1, 2)
+    # Add a multicursor to all subplots
+    multi = MultiCursor(fig1.canvas, (ax1, ax2, ax3), color="k", linewidth=1)
+    multi
 
     ax1.plot(time, torque, "tab:blue")
     ax2.plot(time, velocity, "tab:orange")
