@@ -6,6 +6,77 @@ import csv
 from datetime import date
 
 
+def plot_strength_data(path):
+    """
+    Plots the torque and velocity signals versus time in one subplot and the
+    anatomic position signal versus time in the other subplot.
+
+    Args:
+        path: A character string with the path to the file containing
+            isokinetic strength test data.
+
+    Returns:
+        A figure with two subplots
+    """
+    # Read data
+    data = np.loadtxt(path, skiprows=6)
+    time = data[:, 0]
+    torque = data[:, 1]
+    velocity = data[:, 4]
+    angle = data[:, 3]
+
+    # Plot
+    fig1 = plt.figure(figsize=(12, 9))
+    ax1 = fig1.add_subplot(2, 1, 1)
+    ax2 = ax1.twinx()
+    ax3 = fig1.add_subplot(2, 1, 2)
+
+    ax1.plot(time, torque, "tab:blue")
+    ax2.plot(time, velocity, "tab:orange")
+    ax3.plot(time, angle, "tab:green")
+
+    # Add a horizontal line at torque and velocity = 0
+    ax1.axhline(y=0, color="tab:blue", linestyle="dotted")
+    ax2.axhline(y=0, color="tab:orange", linestyle="dotted")
+
+    # Set labels
+    ax1.set_xlabel("Time (ms)")
+    ax1.set_ylabel("Torque (Nm)", color="tab:blue")
+    ax2.set_ylabel("Velocity (°/s)", color="tab:orange")
+    ax3.set_xlabel("Time (ms)")
+    ax3.set_ylabel("Anatomical position (°)", color="tab:green")
+
+    # Set plot title
+    if ("1st" in path) is True:
+        evaluation = "1st eval"
+    elif ("2nd" in path) is True:
+        evaluation = "2nd eval"
+    elif ("3rd" in path) is True:
+        evaluation = "3rd eval"
+    elif ("4th" in path) is True:
+        evaluation = "4th eval"
+
+    subject = " ID " + path[-7:-4]
+
+    if ("knee" in path) is True:
+        location = " - knee "
+    elif ("trunk" in path) is True:
+        location = " - trunk "
+
+    if ("60gs" in path) is True:
+        speed = "60°/s"
+    elif ("120gs" in path) is True:
+        speed = "120°/s"
+    elif ("180gs" in path) is True:
+        speed = "180°/s"
+
+    title = evaluation + subject + location + speed
+
+    ax1.set_title(title)
+    plt.tight_layout()
+    plt.show()
+
+
 def find_divisions(path):
     """
     Find division points between half repetitions by zero crossings on the
@@ -345,7 +416,7 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
 
     # Use the cursor to manually select the division points
     cursor = Cursor(ax21, useblit=True, color="k", linewidth=1)
-
+    cursor
     new_idx = []
     for i in range(0, ndivisions):
         coords = plt.ginput(n=1, timeout=0, show_clicks=False)
