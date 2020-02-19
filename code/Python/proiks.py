@@ -87,7 +87,7 @@ def plot_strength_data(path):
     time = data[:, 0]
     torque = data[:, 1]
     velocity = data[:, 4]
-    angle = data[:, 3]
+    angle = abs(data[:, 3])
 
     # Plot
     fig1 = plt.figure(figsize=(18, 9))
