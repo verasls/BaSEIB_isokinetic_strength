@@ -151,8 +151,9 @@ elif location == 2 and velocity == 2 and evaluation == 4:
     plot_path = "output/trunk/120gs/4th_eval/plots"
 
 # Create directory structure to save the plots
-if not os.path.exists(plot_path):
-    os.makedirs(plot_path)
+if analysis == 2:
+    if not os.path.exists(plot_path):
+        os.makedirs(plot_path)
 
 # Get the first file to analyse
 while True:
