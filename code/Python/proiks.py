@@ -17,7 +17,10 @@ def set_plot_title(path):
     elif ("4th" in path) is True:
         evaluation = "4th eval"
 
-    subject = " ID " + path[-7:-4]
+    if "corrected" in path:
+        subject = " ID " + path[-17:-14]
+    else:
+        subject = " ID " + path[-7:-4]
 
     if ("knee" in path) is True:
         location = " - knee "
