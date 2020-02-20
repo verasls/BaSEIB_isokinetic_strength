@@ -136,7 +136,11 @@ def find_divisions(path):
         A list of intergers with the division points indices.
     """
     # Read data
-    data = np.loadtxt(path, skiprows=6)
+    # Read data
+    if "corrected" in path:
+        data = np.loadtxt(path)
+    else:
+        data = np.loadtxt(path, skiprows=6)
     velocity = data[:, 4]
 
     # Ensure 1st velocity value to be positive
@@ -228,7 +232,11 @@ def plot_divisions(path, idx, saveplot=True, saveidx=True):
         Save the indices values if saveidx argument is True (default).
     """
     # Read data
-    data = np.loadtxt(path, skiprows=6)
+    # Read data
+    if "corrected" in path:
+        data = np.loadtxt(path)
+    else:
+        data = np.loadtxt(path, skiprows=6)
     velocity = data[:, 4]
 
     # Ensure 1st velocity value to be positive
@@ -338,7 +346,11 @@ def add_divisions(path, idx, ndivisions, saveplot=True):
         Save the plot if saveplot argument is True (default).
     """
     # Read data
-    data = np.loadtxt(path, skiprows=6)
+    # Read data
+    if "corrected" in path:
+        data = np.loadtxt(path)
+    else:
+        data = np.loadtxt(path, skiprows=6)
     velocity = data[:, 4]
 
     # Ensure 1st velocity value to be positive
