@@ -513,3 +513,24 @@ def save_idx(path, idx, manual_selection):
         with idx_file:
             writer = csv.writer(idx_file)
             writer.writerows(idx_data)
+
+
+def remove_ID(filelist, ID_num):
+    """
+    Remove an ID from the files list
+
+    Args:
+        filelist: a list of paths to the files
+        ID_num: a character string indicating the subject ID to be removed
+        (3 digits format)
+
+    Returns:
+        The filelist wiithout the path to the file of the removed ID
+    """
+    remove = filelist[0]
+    remove = remove[:-7]
+    remove = remove + ID_num + ".txt"
+
+    filelist.remove(remove)
+
+    return(filelist)
