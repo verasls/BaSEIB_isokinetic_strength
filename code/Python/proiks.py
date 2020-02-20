@@ -83,7 +83,10 @@ def plot_strength_data(path):
         A figure with two subplots
     """
     # Read data
-    data = np.loadtxt(path, skiprows=6)
+    if "corrected" in path:
+        data = np.loadtxt(path)
+    else:
+        data = np.loadtxt(path, skiprows=6)
     time = data[:, 0]
     torque = data[:, 1]
     velocity = data[:, 4]
@@ -525,12 +528,51 @@ def remove_ID(filelist, ID_num):
         (3 digits format)
 
     Returns:
-        The filelist wiithout the path to the file of the removed ID
+        The filelist without the path to the file of the removed ID
     """
     remove = filelist[0]
     remove = remove[:-7]
     remove = remove + ID_num + ".txt"
 
     filelist.remove(remove)
+
+    return(filelist)
+
+
+def correct_angle(filelist, ID_num, operation):
+    """
+    Correct the anatomical position angle
+
+    Args:
+        filelist: a list of paths to the files
+        ID_num: a character string indicating the subject ID to be removed
+        (3 digits format)
+        operation: mathematical operation needed to correct the angle
+
+    Returns:
+        Saves the corrected data into a file ending with "_corrected.txt"
+        The filelist with the corrected file instead of the old file
+    """
+    # Get path to file
+    ID_idx = []
+    for i in range(0, len(filelist)):
+        if (ID_num in filelist[i]) is True:
+            ID_idx = i
+    path = filelist[ID_idx]
+
+    # Read data
+    data = np.loadtxt(path, skiprows=6)
+    angle = abs(data[:, 3])
+
+    # Correct POS (ANAT) values and substitute in the ndarray
+    angle = abs(angle + operation)
+    data[:, 3] = angle
+
+    # Save corrected file
+    path = path[:-4] + "_corrected.txt"
+    np.savetxt(path, data, delimiter=" ", fmt="%f")
+
+    # Substitute the old file for the corrected file in the filelist
+    filelist[ID_idx] = path
 
     return(filelist)
