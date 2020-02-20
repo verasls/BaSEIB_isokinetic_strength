@@ -24,6 +24,10 @@ trunk_raw_120gs_2nd = sorted(glob.glob("data/raw/trunk/120gs/2nd_eval/*.txt"))
 trunk_raw_120gs_3rd = sorted(glob.glob("data/raw/trunk/120gs/3rd_eval/*.txt"))
 trunk_raw_120gs_4th = sorted(glob.glob("data/raw/trunk/120gs/4th_eval/*.txt"))
 
+# Exlude files with error
+trunk_raw_60gs_1st = remove_ID(trunk_raw_60gs_1st, "060")
+trunk_raw_60gs_1st = remove_ID(trunk_raw_60gs_1st, "065")
+
 # Start data analysis pipeline
 print("\nStarting analysis of isokinetic strength raw data\n")
 
