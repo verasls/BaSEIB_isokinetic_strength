@@ -575,19 +575,20 @@ def correct_angle(filelist, ID_num, operation):
             ID_idx = i
     path = filelist[ID_idx]
 
-    # Read data
-    data = np.loadtxt(path, skiprows=6)
-    angle = abs(data[:, 3])
+    if ("_corrected" in path) is False:
+        # Read data
+        data = np.loadtxt(path, skiprows=6)
+        angle = abs(data[:, 3])
 
-    # Correct POS (ANAT) values and substitute in the ndarray
-    angle = abs(angle + operation)
-    data[:, 3] = angle
+        # Correct POS (ANAT) values and substitute in the ndarray
+        angle = abs(angle + operation)
+        data[:, 3] = angle
 
-    # Save corrected file
-    path = path[:-4] + "_corrected.txt"
-    np.savetxt(path, data, delimiter=" ", fmt="%f")
+        # Save corrected file
+        path = path[:-4] + "_corrected.txt"
+        np.savetxt(path, data, delimiter=" ", fmt="%f")
 
-    # Substitute the old file for the corrected file in the filelist
-    filelist[ID_idx] = path
+        # Substitute the old file for the corrected file in the filelist
+        filelist[ID_idx] = path
 
     return(filelist)
