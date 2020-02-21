@@ -9,3 +9,4 @@ __pycache__/
 *.icloud
 *.pyc
 data/
+.ipynb_checkpoints
