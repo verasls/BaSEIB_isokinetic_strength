@@ -25,11 +25,24 @@ trunk_raw_120gs_3rd = sorted(glob.glob("data/raw/trunk/120gs/3rd_eval/*.txt"))
 trunk_raw_120gs_4th = sorted(glob.glob("data/raw/trunk/120gs/4th_eval/*.txt"))
 
 # Exlude files with error
+# Trunk 60°/s - 1st
 trunk_raw_60gs_1st = remove_ID(trunk_raw_60gs_1st, "060")
 trunk_raw_60gs_1st = remove_ID(trunk_raw_60gs_1st, "065")
+# Trunk 60°/s - 2nd
+trunk_raw_60gs_2nd = remove_ID(trunk_raw_60gs_2nd, "045")
+trunk_raw_60gs_2nd = remove_ID(trunk_raw_60gs_2nd, "046")
+trunk_raw_60gs_2nd = remove_ID(trunk_raw_60gs_2nd, "072")
+# Trunk 60°/s - 3rd
+trunk_raw_60gs_3rd = remove_ID(trunk_raw_60gs_3rd, "017")
+# Trunk 60°/s - 4th
+trunk_raw_60gs_4th = remove_ID(trunk_raw_60gs_4th, "003")
+trunk_raw_60gs_4th = remove_ID(trunk_raw_60gs_4th, "017")
 
 # Correct wrong angles
+# Trunk 60°/s - 1st
 trunk_raw_60gs_1st = correct_angle(trunk_raw_60gs_1st, "046", - 60)
+# Trunk 60°/s - 2nd
+trunk_raw_60gs_2nd = correct_angle(trunk_raw_60gs_2nd, "001", - 120)
 
 # Start data analysis pipeline
 print("\nStarting analysis of isokinetic strength raw data\n")
