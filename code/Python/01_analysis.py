@@ -37,12 +37,63 @@ trunk_raw_60gs_3rd = remove_ID(trunk_raw_60gs_3rd, "017")
 # Trunk 60°/s - 4th
 trunk_raw_60gs_4th = remove_ID(trunk_raw_60gs_4th, "003")
 trunk_raw_60gs_4th = remove_ID(trunk_raw_60gs_4th, "017")
+# Trunk 120°/s - 1st
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "010")
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "011")
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "012")
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "014")
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "016")
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "019")
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "024")
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "027")
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "037")
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "039")
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "045")
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "046")
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "072")
+trunk_raw_120gs_1st = remove_ID(trunk_raw_120gs_1st, "084")
+# Trunk 120°/s - 2nd
+trunk_raw_120gs_2nd = remove_ID(trunk_raw_120gs_2nd, "004")
+trunk_raw_120gs_2nd = remove_ID(trunk_raw_120gs_2nd, "030")
+trunk_raw_120gs_2nd = remove_ID(trunk_raw_120gs_2nd, "037")
+trunk_raw_120gs_2nd = remove_ID(trunk_raw_120gs_2nd, "038")
+trunk_raw_120gs_2nd = remove_ID(trunk_raw_120gs_2nd, "039")
+trunk_raw_120gs_2nd = remove_ID(trunk_raw_120gs_2nd, "045")
+trunk_raw_120gs_2nd = remove_ID(trunk_raw_120gs_2nd, "046")
+trunk_raw_120gs_2nd = remove_ID(trunk_raw_120gs_2nd, "049")
+trunk_raw_120gs_2nd = remove_ID(trunk_raw_120gs_2nd, "050")
+trunk_raw_120gs_2nd = remove_ID(trunk_raw_120gs_2nd, "053")
+trunk_raw_120gs_2nd = remove_ID(trunk_raw_120gs_2nd, "055")
+trunk_raw_120gs_2nd = remove_ID(trunk_raw_120gs_2nd, "072")
+trunk_raw_120gs_2nd = remove_ID(trunk_raw_120gs_2nd, "085")
+# Trunk 120°/s - 3rd
+trunk_raw_120gs_3rd = remove_ID(trunk_raw_120gs_3rd, "005")
+trunk_raw_120gs_3rd = remove_ID(trunk_raw_120gs_3rd, "010")
+trunk_raw_120gs_3rd = remove_ID(trunk_raw_120gs_3rd, "011")
+trunk_raw_120gs_3rd = remove_ID(trunk_raw_120gs_3rd, "017")
+trunk_raw_120gs_3rd = remove_ID(trunk_raw_120gs_3rd, "021")
+trunk_raw_120gs_3rd = remove_ID(trunk_raw_120gs_3rd, "023")
+trunk_raw_120gs_3rd = remove_ID(trunk_raw_120gs_3rd, "024")
+trunk_raw_120gs_3rd = remove_ID(trunk_raw_120gs_3rd, "030")
+trunk_raw_120gs_3rd = remove_ID(trunk_raw_120gs_3rd, "039")
+trunk_raw_120gs_3rd = remove_ID(trunk_raw_120gs_3rd, "049")
+trunk_raw_120gs_3rd = remove_ID(trunk_raw_120gs_3rd, "072")
+trunk_raw_120gs_3rd = remove_ID(trunk_raw_120gs_3rd, "083")
+# Trunk 120°/s - 4th
+trunk_raw_120gs_4th = remove_ID(trunk_raw_120gs_4th, "021")
+trunk_raw_120gs_4th = remove_ID(trunk_raw_120gs_4th, "023")
+trunk_raw_120gs_4th = remove_ID(trunk_raw_120gs_4th, "024")
+trunk_raw_120gs_4th = remove_ID(trunk_raw_120gs_4th, "030")
+trunk_raw_120gs_4th = remove_ID(trunk_raw_120gs_4th, "045")
+trunk_raw_120gs_4th = remove_ID(trunk_raw_120gs_4th, "046")
 
 # Correct wrong angles
 # Trunk 60°/s - 1st
 trunk_raw_60gs_1st = correct_angle(trunk_raw_60gs_1st, "046", - 60)
 # Trunk 60°/s - 2nd
 trunk_raw_60gs_2nd = correct_angle(trunk_raw_60gs_2nd, "001", - 120)
+# Trunk 120°/s - 2nd
+trunk_raw_120gs_2nd = correct_angle(trunk_raw_120gs_2nd, "001", - 120)
 
 # Start data analysis pipeline
 print("\nStarting analysis of isokinetic strength raw data\n")
