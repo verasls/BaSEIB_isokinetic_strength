@@ -1,7 +1,7 @@
 import glob
 import os
 from aux import *
-from proiks import *
+from process import *
 
 # Get path to raw files
 # Knee 60°/s
