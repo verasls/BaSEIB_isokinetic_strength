@@ -1,5 +1,6 @@
 import glob
 import os
+from aux import *
 from proiks import *
 
 # Get path to raw files
