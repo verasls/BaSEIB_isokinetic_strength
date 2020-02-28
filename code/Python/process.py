@@ -26,29 +26,34 @@ def plot_strength_data(path):
     velocity = data[:, 4]
     angle = abs(data[:, 3])
 
+    # Detect selected isokinetic velocity
+    if ("60gs" in path) is True:
+        iso_vel = 60
+    elif ("120gs" in path) is True:
+        iso_vel = 120
+    elif ("180gs" in path) is True:
+        iso_vel = 180
+
     # Plot
     fig1 = plt.figure(figsize=(18, 9))
     ax1 = fig1.add_subplot(2, 1, 1)
-    ax2 = ax1.twinx()
-    ax3 = fig1.add_subplot(2, 1, 2)
+    ax2 = fig1.add_subplot(2, 1, 2)
     # Add a multicursor to all subplotsg
-    multi = MultiCursor(fig1.canvas, (ax1, ax2, ax3), color="k", linewidth=1)
+    multi = MultiCursor(fig1.canvas, (ax1, ax2), color="k", linewidth=1)
     multi
 
-    ax1.plot(time, torque, "tab:blue")
-    ax2.plot(time, velocity, "tab:orange")
-    ax3.plot(time, angle, "tab:green")
+    ax1.plot(time, torque, color="tab:blue", label="Torque (Nm)")
+    ax1.plot(time, velocity, color="tab:orange", label="Velocity (°/s)")
+    ax2.plot(time, angle, color="tab:green", label="Anatomical position (°)")
+
+    ax1.legend(loc="upper right")
+    ax2.legend(loc="upper right")
 
     # Add a horizontal line at torque and velocity = 0
     ax1.axhline(y=0, color="tab:blue", linestyle="dotted")
-    ax2.axhline(y=0, color="tab:orange", linestyle="dotted")
-
-    # Set labels
-    ax1.set_xlabel("Time (ms)")
-    ax1.set_ylabel("Torque (Nm)", color="tab:blue")
-    ax2.set_ylabel("Velocity (°/s)", color="tab:orange")
-    ax3.set_xlabel("Time (ms)")
-    ax3.set_ylabel("Anatomical position (°)", color="tab:green")
+    # Add horizontal lines at the selected isokinetic velocity
+    ax1.axhline(y=iso_vel, color="tab:orange", linestyle="dotted")
+    ax1.axhline(y=-iso_vel, color="tab:orange", linestyle="dotted")
 
     title = set_plot_title(path)
 
