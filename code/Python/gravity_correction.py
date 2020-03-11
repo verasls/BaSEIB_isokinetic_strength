@@ -3,21 +3,24 @@ import numpy as np
 import math
 from process import *
 
-files = sorted(glob.glob("../../data/raw/trunk/60gs/4th_eval/*.txt"))
-path = files[1]
+files = sorted(glob.glob("../../data/raw/trunk/60gs/3rd_eval/*.txt"))
+path = files[3]
 
 data = np.loadtxt(path, skiprows=6)
 time = data[:, 0]
-torque = abs(data[:, 1])
+torque = data[:, 1]
 velocity = data[:, 4]
 angle = abs(data[:, 3])
+angle = abs(angle - 60)
 
 # Gravity torque vars
-mass = 38.8226699999999
+mass = 48.90154
 g = 9.81
-distance = 0.36
-angle_c = abs(data[:, 3]) + 10
-angle_c = 90 - angle_c
+upper_body_length = 0.73
+percent = 0.5
+distance = upper_body_length * percent
+angle_c = angle + 10
+angle_c = 90 + angle_c
 angle_c = angle_c * (math.pi / 180)
 
 a = np.zeros(torque.shape)
@@ -26,15 +29,14 @@ Tg = mass * g * distance * np.sin(angle_c)
 
 
 Tc = np.empty(shape=torque.shape, dtype='object')
-Tc = torque + Tg
-for i in range(0, len(torque)):
-    if velocity[i] > 0:
-        Tc[i] = torque[i] + Tg[i]
-    elif velocity[i] < 0:
-        Tc[i] = torque[i] - Tg[i]
-    elif velocity[i] == 0:
-        Tc[i] = torque[i]
-Tc = abs(Tc)
+# for i in range(0, len(torque)):
+#     if velocity[i] > 0:
+#         Tc[i] = torque[i]  Tg[i]
+#     elif velocity[i] < 0:
+#         Tc[i] = torque[i] - Tg[i]
+#     elif velocity[i] == 0:
+#         Tc[i] = torque[i]
+Tc = torque - Tg
 
 # Plot
 fig1 = plt.figure(figsize=(18, 9))
